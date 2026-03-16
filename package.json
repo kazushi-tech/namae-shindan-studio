@@ -1,0 +1,12 @@
+{
+  "name": "namae-shindan-studio",
+  "version": "1.0.0",
+  "description": "Baby name diagnosis service",
+  "type": "module",
+  "scripts": {
+    "generate-images": "node scripts/generate-images.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.0"
+  }
+}

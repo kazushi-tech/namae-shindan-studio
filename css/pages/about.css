@@ -25,6 +25,28 @@
   margin-bottom: var(--space-2);
 }
 
+/* Narrow text sections for readability */
+.about-section--narrow {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Page header illustration */
+.page-header__illustration {
+  display: block;
+  max-width: 300px;
+  height: auto;
+  margin: 0 auto var(--space-6);
+  border-radius: var(--radius-lg);
+}
+
+@media (max-width: 479px) {
+  .page-header__illustration {
+    max-width: 200px;
+  }
+}
+
 .about-section h2 {
   font-family: var(--font-heading);
   font-size: var(--text-xl);
@@ -84,6 +106,12 @@
 @media (min-width: 768px) {
   .gokaku-explain-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .gokaku-explain-grid {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
@@ -172,6 +200,19 @@
   align-items: center;
 }
 
+@media (min-width: 768px) {
+  .example-breakdown {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .example-table {
+    max-width: none;
+    flex: 1;
+  }
+}
+
 .example-name {
   display: flex;
   align-items: center;
@@ -235,10 +276,24 @@
    ======================================================================= */
 
 .rating-guide {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: var(--space-3);
   margin-top: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .rating-guide {
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-4);
+  }
+
+  .rating-row {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
 }
 
 .rating-row {

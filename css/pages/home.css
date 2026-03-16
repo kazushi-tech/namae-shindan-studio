@@ -58,6 +58,37 @@
   margin: 0 auto;
 }
 
+/* Hero illustration background */
+.hero__illustration {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 40%;
+  max-width: 500px;
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero__illustration-img {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .hero__illustration {
+    width: 60%;
+    opacity: 0.15;
+  }
+}
+
+/* Feature card icons with images */
+.feature-icon img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
 /* =======================================================================
    Hero Title
    ======================================================================= */
@@ -476,8 +507,28 @@
 }
 
 .section-cta {
+  position: relative;
   text-align: center;
   margin-top: var(--space-8);
+}
+
+.cta-illustration {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  width: 200px;
+  max-width: 30%;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 767px) {
+  .cta-illustration {
+    width: 120px;
+    top: -30px;
+    opacity: 0.15;
+  }
 }
 
 /* =======================================================================

@@ -553,6 +553,20 @@
   margin: 0 auto;
 }
 
+.page-header__illustration {
+  display: block;
+  max-width: 300px;
+  height: auto;
+  margin: 0 auto var(--space-6);
+  border-radius: var(--radius-lg);
+}
+
+@media (max-width: 479px) {
+  .page-header__illustration {
+    max-width: 200px;
+  }
+}
+
 /* =======================================================================
    Input Label
    ======================================================================= */
