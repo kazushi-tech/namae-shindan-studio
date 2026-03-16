@@ -51,21 +51,24 @@
   pointer-events: none;
 }
 
-/* Primary — Terracotta */
+/* Primary — Terracotta with gradient */
 .btn--primary {
-  background-color: var(--color-terracotta);
+  background: linear-gradient(135deg, var(--color-terracotta) 0%, var(--color-terracotta-dark) 100%);
   color: var(--color-white);
   border-color: var(--color-terracotta);
+  box-shadow: 0 2px 8px rgba(196, 112, 75, 0.25);
 }
 
 .btn--primary:hover {
-  background-color: var(--color-terracotta-dark);
+  background: linear-gradient(135deg, var(--color-terracotta-light) 0%, var(--color-terracotta) 100%);
   border-color: var(--color-terracotta-dark);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 16px rgba(196, 112, 75, 0.35);
 }
 
 .btn--primary:active {
-  background-color: var(--color-terracotta-dark);
+  background: linear-gradient(135deg, var(--color-terracotta-dark) 0%, var(--color-terracotta-dark) 100%);
+  transform: translateY(1px);
+  box-shadow: 0 1px 4px rgba(196, 112, 75, 0.2);
 }
 
 /* Secondary — Sage Green */
@@ -141,6 +144,19 @@
   transition:
     box-shadow var(--transition-default),
     transform var(--transition-default);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-gold), var(--color-sage));
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .card:hover {
@@ -247,7 +263,7 @@
 .input-field:focus {
   outline: none;
   border-color: var(--color-terracotta);
-  box-shadow: 0 0 0 3px rgba(196, 112, 75, 0.15);
+  box-shadow: var(--shadow-input-focus);
   background-color: var(--color-white);
 }
 
@@ -256,7 +272,7 @@
 }
 
 .input-field--error:focus {
-  box-shadow: 0 0 0 3px rgba(229, 115, 115, 0.15);
+  box-shadow: var(--shadow-input-error);
 }
 
 .input-field--success {
