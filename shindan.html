@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>姓名判断 — 赤ちゃん名前診断</title>
+  <meta name="description" content="姓と名を入力するだけで五格（天格・人格・地格・外格・総格）を瞬時に診断。赤ちゃんの名付けに役立つ無料の姓名判断ツールです。">
+
+  <!-- OG Tags -->
+  <meta property="og:title" content="姓名判断 — 赤ちゃん名前診断">
+  <meta property="og:description" content="姓と名を入力するだけで五格を瞬時に診断。無料の姓名判断ツール。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/pages/shindan.css">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "姓名判断 — 赤ちゃん名前診断",
+    "description": "姓と名を入力するだけで五格を瞬時に診断する無料ツール",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    }
+  }
+  </script>
+</head>
+<body data-page="shindan">
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="メインナビゲーション">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-icon">🌸</span>
+        <span class="nav-logo-text">名前診断</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">ホーム</a></li>
+        <li><a href="shindan.html" class="nav-link active">姓名判断</a></li>
+        <li><a href="about.html" class="nav-link">五格について</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="section shindan-main">
+    <div class="container">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1 class="page-title">姓名判断</h1>
+        <p class="page-subtitle">姓と名を入力して、五格の運勢を診断しましょう</p>
+      </div>
+
+      <!-- Shindan Form -->
+      <form id="shindan-form" class="shindan-form card" novalidate>
+        <div class="name-input-group">
+          <div class="input-group">
+            <label for="sei-input" class="input-label">姓（みょうじ）</label>
+            <input
+              type="text"
+              id="sei-input"
+              class="input-field"
+              placeholder="山田"
+              autocomplete="off"
+              inputmode="text"
+              maxlength="10"
+              required
+            >
+            <div id="sei-stroke-preview" class="stroke-preview" aria-live="polite"></div>
+          </div>
+          <div class="input-group">
+            <label for="mei-input" class="input-label">名（なまえ）</label>
+            <input
+              type="text"
+              id="mei-input"
+              class="input-field"
+              placeholder="太郎"
+              autocomplete="off"
+              inputmode="text"
+              maxlength="10"
+              required
+            >
+            <div id="mei-stroke-preview" class="stroke-preview" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error-message" class="error-message" aria-live="assertive"></div>
+
+        <!-- Submit -->
+        <button type="submit" id="submit-btn" class="btn btn-primary btn-lg btn-full">
+          診断する
+        </button>
+      </form>
+
+      <!-- Results Section (hidden by default) -->
+      <section id="result-section" class="result-section" aria-label="診断結果">
+        <div class="result-header">
+          <h2 class="result-title">診断結果</h2>
+          <p class="result-name-display">
+            <span id="result-name" class="result-name-text"></span>
+            さんの五格
+          </p>
+        </div>
+
+        <!-- Gokaku Grid -->
+        <div id="gokaku-grid" class="gokaku-grid"></div>
+
+        <!-- Retry -->
+        <div class="result-actions">
+          <button id="retry-btn" class="btn btn-secondary">
+            もう一度診断する
+          </button>
+          <a href="about.html" class="btn btn-outline">
+            五格について詳しく
+          </a>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="result-disclaimer">
+          <p>※ 姓名判断は古くから伝わる占いの一種です。科学的根拠に基づくものではなく、あくまで参考情報としてお楽しみください。</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <span class="footer-logo">🌸 赤ちゃん名前診断</span>
+        <p class="footer-tagline">大切なお子さまに最高の名前を</p>
+      </div>
+      <nav class="footer-nav" aria-label="フッターナビゲーション">
+        <ul class="footer-links">
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="shindan.html">姓名判断</a></li>
+          <li><a href="about.html">五格について</a></li>
+        </ul>
+      </nav>
+      <p class="footer-copy">&copy; 2026 赤ちゃん名前診断</p>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="js/kanji-strokes.js"></script>
+  <script src="js/seimei-handan.js"></script>
+  <script src="js/fortune-data.js"></script>
+  <script src="js/ui-controller.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

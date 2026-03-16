@@ -1,0 +1,437 @@
+/* ==========================================================================
+   Layout Utilities
+   名前診断スタジオ — 和モダン × ぬくもり
+   ========================================================================== */
+
+/* =======================================================================
+   Container
+   ======================================================================= */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.container--form {
+  max-width: var(--container-form);
+}
+
+.container--narrow {
+  max-width: var(--container-narrow);
+}
+
+/* =======================================================================
+   Section
+   ======================================================================= */
+
+.section {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
+}
+
+.section--sm {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
+}
+
+.section--lg {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-16);
+}
+
+.section--xl {
+  padding-top: var(--space-24);
+  padding-bottom: var(--space-24);
+}
+
+/* Section background variants */
+.section--cream {
+  background-color: var(--color-cream);
+}
+
+.section--white {
+  background-color: var(--color-white);
+}
+
+/* =======================================================================
+   CSS Grid Utilities
+   ======================================================================= */
+
+.grid {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.grid--2 {
+  grid-template-columns: 1fr;
+}
+
+.grid--3 {
+  grid-template-columns: 1fr;
+}
+
+.grid--4 {
+  grid-template-columns: 1fr;
+}
+
+/* Auto-fit grid — cards will wrap naturally */
+.grid--auto {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.grid--auto-sm {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Gap variants */
+.grid--gap-sm {
+  gap: var(--space-3);
+}
+
+.grid--gap-md {
+  gap: var(--space-6);
+}
+
+.grid--gap-lg {
+  gap: var(--space-8);
+}
+
+.grid--gap-xl {
+  gap: var(--space-12);
+}
+
+/* Alignment */
+.grid--center {
+  align-items: center;
+}
+
+.grid--start {
+  align-items: start;
+}
+
+/* Responsive grid columns */
+@media (min-width: 480px) {
+  .grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* =======================================================================
+   Flexbox Utilities
+   ======================================================================= */
+
+.flex {
+  display: flex;
+}
+
+.flex--inline {
+  display: inline-flex;
+}
+
+/* Direction */
+.flex--col {
+  flex-direction: column;
+}
+
+.flex--row {
+  flex-direction: row;
+}
+
+.flex--row-reverse {
+  flex-direction: row-reverse;
+}
+
+.flex--col-reverse {
+  flex-direction: column-reverse;
+}
+
+/* Wrap */
+.flex--wrap {
+  flex-wrap: wrap;
+}
+
+.flex--nowrap {
+  flex-wrap: nowrap;
+}
+
+/* Justify Content */
+.flex--justify-start {
+  justify-content: flex-start;
+}
+
+.flex--justify-center {
+  justify-content: center;
+}
+
+.flex--justify-end {
+  justify-content: flex-end;
+}
+
+.flex--justify-between {
+  justify-content: space-between;
+}
+
+.flex--justify-around {
+  justify-content: space-around;
+}
+
+/* Align Items */
+.flex--align-start {
+  align-items: flex-start;
+}
+
+.flex--align-center {
+  align-items: center;
+}
+
+.flex--align-end {
+  align-items: flex-end;
+}
+
+.flex--align-stretch {
+  align-items: stretch;
+}
+
+.flex--align-baseline {
+  align-items: baseline;
+}
+
+/* Center both axes */
+.flex--center {
+  justify-content: center;
+  align-items: center;
+}
+
+/* Common gap values */
+.flex--gap-xs {
+  gap: var(--space-1);
+}
+
+.flex--gap-sm {
+  gap: var(--space-2);
+}
+
+.flex--gap-md {
+  gap: var(--space-4);
+}
+
+.flex--gap-lg {
+  gap: var(--space-6);
+}
+
+.flex--gap-xl {
+  gap: var(--space-8);
+}
+
+/* Flex children */
+.flex-1 {
+  flex: 1;
+}
+
+.flex-auto {
+  flex: auto;
+}
+
+.flex-none {
+  flex: none;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+/* =======================================================================
+   Spacing Utilities
+   ======================================================================= */
+
+/* Margin top */
+.mt-0  { margin-top: 0; }
+.mt-1  { margin-top: var(--space-1); }
+.mt-2  { margin-top: var(--space-2); }
+.mt-3  { margin-top: var(--space-3); }
+.mt-4  { margin-top: var(--space-4); }
+.mt-6  { margin-top: var(--space-6); }
+.mt-8  { margin-top: var(--space-8); }
+.mt-12 { margin-top: var(--space-12); }
+.mt-16 { margin-top: var(--space-16); }
+
+/* Margin bottom */
+.mb-0  { margin-bottom: 0; }
+.mb-1  { margin-bottom: var(--space-1); }
+.mb-2  { margin-bottom: var(--space-2); }
+.mb-3  { margin-bottom: var(--space-3); }
+.mb-4  { margin-bottom: var(--space-4); }
+.mb-6  { margin-bottom: var(--space-6); }
+.mb-8  { margin-bottom: var(--space-8); }
+.mb-12 { margin-bottom: var(--space-12); }
+.mb-16 { margin-bottom: var(--space-16); }
+
+/* Margin horizontal auto (centering) */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Padding */
+.p-0  { padding: 0; }
+.p-2  { padding: var(--space-2); }
+.p-4  { padding: var(--space-4); }
+.p-6  { padding: var(--space-6); }
+.p-8  { padding: var(--space-8); }
+
+/* =======================================================================
+   Text Alignment
+   ======================================================================= */
+
+.text-left   { text-align: left; }
+.text-center { text-align: center; }
+.text-right  { text-align: right; }
+
+/* =======================================================================
+   Visibility Utilities — Responsive
+   ======================================================================= */
+
+/* Hide on mobile (below 768px) */
+.hide-mobile {
+  display: none;
+}
+
+/* Show on desktop (768px+) */
+@media (min-width: 768px) {
+  .hide-mobile {
+    display: initial;
+  }
+
+  .hide-desktop {
+    display: none;
+  }
+}
+
+/* =======================================================================
+   Width Utilities
+   ======================================================================= */
+
+.w-full {
+  width: 100%;
+}
+
+.w-auto {
+  width: auto;
+}
+
+.max-w-form {
+  max-width: var(--container-form);
+}
+
+.max-w-narrow {
+  max-width: var(--container-narrow);
+}
+
+/* =======================================================================
+   Media Queries — Responsive Overrides
+   ======================================================================= */
+
+/* --- sm: 480px+ — Large phones / small tablets --- */
+@media (min-width: 480px) {
+  .section {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+
+  .sm\:flex--row {
+    flex-direction: row;
+  }
+
+  .sm\:text-left {
+    text-align: left;
+  }
+
+  .sm\:text-center {
+    text-align: center;
+  }
+}
+
+/* --- md: 768px+ — Tablets --- */
+@media (min-width: 768px) {
+  .section--lg {
+    padding-top: var(--space-24);
+    padding-bottom: var(--space-24);
+  }
+
+  .md\:flex--row {
+    flex-direction: row;
+  }
+
+  .md\:text-left {
+    text-align: left;
+  }
+
+  .md\:text-center {
+    text-align: center;
+  }
+
+  .md\:grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .md\:grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* --- lg: 1024px+ — Desktop --- */
+@media (min-width: 1024px) {
+  .lg\:flex--row {
+    flex-direction: row;
+  }
+
+  .lg\:grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .lg\:grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* =======================================================================
+   Position Utilities
+   ======================================================================= */
+
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed    { position: fixed; }
+.sticky   { position: sticky; }
+
+/* =======================================================================
+   Overflow
+   ======================================================================= */
+
+.overflow-hidden  { overflow: hidden; }
+.overflow-auto    { overflow: auto; }
+.overflow-x-auto  { overflow-x: auto; }
+.overflow-y-auto  { overflow-y: auto; }

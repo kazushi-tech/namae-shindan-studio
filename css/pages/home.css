@@ -1,0 +1,412 @@
+/* ==========================================================================
+   Homepage — home.css
+   名前診断スタジオ — 和モダン × ぬくもり
+   ========================================================================== */
+
+/* =======================================================================
+   Hero Section
+   ======================================================================= */
+
+.hero {
+  position: relative;
+  background: linear-gradient(
+    160deg,
+    var(--color-cream) 0%,
+    #FFF2E0 40%,
+    var(--color-light-bg) 100%
+  );
+  padding: var(--space-16) var(--gutter) var(--space-24);
+  text-align: center;
+  overflow: hidden;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Organic curve at bottom via pseudo-element */
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: var(--color-light-bg);
+  clip-path: ellipse(60% 100% at 50% 100%);
+}
+
+/* Subtle background pattern — Japanese-inspired dots */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at center,
+    var(--color-card-border) 1px,
+    transparent 1px
+  );
+  background-size: 32px 32px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Inner container for z-index stacking above pseudo-elements */
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-form);
+  margin: 0 auto;
+}
+
+/* =======================================================================
+   Hero Title
+   ======================================================================= */
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-black);
+  color: var(--color-dark);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-4);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Accent color on part of the title */
+.hero-title__accent {
+  color: var(--color-terracotta);
+  display: inline;
+}
+
+/* Decorative underline on title keyword */
+.hero-title__keyword {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-title__keyword::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: -4px;
+  right: -4px;
+  height: 8px;
+  background-color: var(--color-gold-light);
+  opacity: 0.4;
+  border-radius: var(--radius-full);
+  z-index: -1;
+}
+
+/* =======================================================================
+   Hero Subtitle
+   ======================================================================= */
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-regular);
+  color: var(--color-medium);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-8);
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =======================================================================
+   Hero CTA
+   ======================================================================= */
+
+.hero__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+@media (min-width: 480px) {
+  .hero__cta {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+/* =======================================================================
+   Hero Decorative Elements
+   ======================================================================= */
+
+/* Floating decorative circles */
+.hero__deco {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.hero__deco--1 {
+  width: 300px;
+  height: 300px;
+  background-color: var(--color-terracotta);
+  top: -60px;
+  right: -80px;
+}
+
+.hero__deco--2 {
+  width: 200px;
+  height: 200px;
+  background-color: var(--color-sage);
+  bottom: 60px;
+  left: -60px;
+}
+
+.hero__deco--3 {
+  width: 120px;
+  height: 120px;
+  background-color: var(--color-gold);
+  top: 30%;
+  left: 10%;
+}
+
+/* =======================================================================
+   Feature Grid Section
+   ======================================================================= */
+
+.feature-section {
+  padding: var(--space-16) var(--gutter);
+  text-align: center;
+}
+
+.feature-section__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--space-2);
+}
+
+.feature-section__subtitle {
+  font-size: var(--text-base);
+  color: var(--color-muted);
+  margin-bottom: var(--space-12);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+@media (min-width: 480px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =======================================================================
+   Feature Card
+   ======================================================================= */
+
+.feature-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  transition:
+    box-shadow var(--transition-default),
+    transform var(--transition-default);
+}
+
+.feature-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+.feature-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-4);
+  background: linear-gradient(135deg, var(--color-cream), var(--color-white));
+  border-radius: var(--radius-lg);
+  font-size: 28px;
+  color: var(--color-terracotta);
+  border: 1px solid var(--color-card-border);
+}
+
+.feature-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--space-2);
+}
+
+.feature-card__desc {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: var(--leading-relaxed);
+}
+
+/* =======================================================================
+   How It Works Section
+   ======================================================================= */
+
+.steps-section {
+  padding: var(--space-16) var(--gutter);
+  background-color: var(--color-cream);
+}
+
+.steps-section__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: var(--container-form);
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .steps {
+    flex-direction: row;
+    gap: var(--space-6);
+    max-width: var(--container-max);
+  }
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.step__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-terracotta);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  border-radius: 50%;
+  margin-bottom: var(--space-4);
+}
+
+.step__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--space-2);
+}
+
+.step__desc {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: var(--leading-relaxed);
+}
+
+/* Arrow between steps (desktop only) */
+@media (min-width: 768px) {
+  .step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 24px;
+    right: calc(-1 * var(--space-3) - 8px);
+    width: 16px;
+    height: 16px;
+    border-right: 2px solid var(--color-card-border);
+    border-bottom: 2px solid var(--color-card-border);
+    transform: rotate(-45deg);
+  }
+}
+
+/* =======================================================================
+   CTA Section (bottom of homepage)
+   ======================================================================= */
+
+.cta-section {
+  padding: var(--space-16) var(--gutter);
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    var(--color-light-bg) 0%,
+    var(--color-cream) 100%
+  );
+}
+
+.cta-section__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--space-4);
+}
+
+.cta-section__desc {
+  font-size: var(--text-base);
+  color: var(--color-muted);
+  margin-bottom: var(--space-8);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =======================================================================
+   Responsive — Mobile adjustments
+   ======================================================================= */
+
+@media (max-width: 479px) {
+  .hero {
+    min-height: 60vh;
+    padding: var(--space-12) var(--gutter) var(--space-16);
+  }
+
+  .hero::after {
+    height: 40px;
+  }
+
+  .hero__deco--1 {
+    width: 160px;
+    height: 160px;
+    top: -40px;
+    right: -40px;
+  }
+
+  .hero__deco--2 {
+    width: 100px;
+    height: 100px;
+    bottom: 40px;
+    left: -30px;
+  }
+
+  .hero__deco--3 {
+    display: none;
+  }
+}

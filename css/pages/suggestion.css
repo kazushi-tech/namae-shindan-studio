@@ -1,0 +1,159 @@
+/* ==========================================================================
+   Suggestion Page — suggestion.css (Phase 2 Placeholder)
+   名前診断スタジオ — 和モダン × ぬくもり
+   ========================================================================== */
+
+/* =======================================================================
+   Suggestion Page Header
+   ======================================================================= */
+
+.suggestion-page-header {
+  text-align: center;
+  padding: var(--space-12) var(--gutter) var(--space-8);
+  background-color: var(--color-cream);
+  position: relative;
+}
+
+.suggestion-page-header::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background-color: var(--color-light-bg);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+.suggestion-page-header__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-black);
+  color: var(--color-dark);
+  margin-bottom: var(--space-2);
+}
+
+.suggestion-page-header__desc {
+  font-size: var(--text-base);
+  color: var(--color-muted);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* =======================================================================
+   Suggestion Form (Phase 2)
+   ======================================================================= */
+
+.suggestion-form {
+  max-width: var(--container-form);
+  margin: var(--space-8) auto;
+  padding: var(--space-8);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+/* =======================================================================
+   Suggestion Results Grid (Phase 2)
+   ======================================================================= */
+
+.suggestion-results {
+  max-width: var(--container-max);
+  margin: var(--space-8) auto;
+  padding: 0 var(--gutter);
+}
+
+.suggestion-results__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 480px) {
+  .suggestion-results__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .suggestion-results__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =======================================================================
+   Suggestion Name Card (Phase 2)
+   ======================================================================= */
+
+.suggestion-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  transition:
+    box-shadow var(--transition-default),
+    transform var(--transition-default);
+  cursor: pointer;
+}
+
+.suggestion-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.suggestion-card__name {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--space-2);
+  letter-spacing: var(--tracking-wide);
+}
+
+.suggestion-card__reading {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin-bottom: var(--space-3);
+}
+
+.suggestion-card__score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+/* =======================================================================
+   Coming Soon Placeholder
+   ======================================================================= */
+
+.coming-soon {
+  text-align: center;
+  padding: var(--space-16) var(--gutter);
+  max-width: var(--container-form);
+  margin: 0 auto;
+}
+
+.coming-soon__icon {
+  font-size: 48px;
+  margin-bottom: var(--space-4);
+  opacity: 0.6;
+}
+
+.coming-soon__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--space-3);
+}
+
+.coming-soon__desc {
+  font-size: var(--text-base);
+  color: var(--color-muted);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-8);
+}

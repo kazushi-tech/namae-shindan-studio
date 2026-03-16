@@ -1,0 +1,207 @@
+/* ==========================================================================
+   Design Tokens — 和モダン × ぬくもり
+   名前診断スタジオ Design System
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
+
+:root {
+  /* -----------------------------------------------------------------------
+     Colors — Warm Palette
+     ----------------------------------------------------------------------- */
+
+  /* Primary */
+  --color-cream:             #FFF8F0;
+  --color-terracotta:        #C4704B;
+  --color-terracotta-light:  #D4896A;
+  --color-terracotta-dark:   #A45C3A;
+
+  /* Secondary */
+  --color-sage:              #8BA888;
+  --color-sage-light:        #A3BDA0;
+  --color-sage-dark:         #6F8E6C;
+  --color-gold:              #D4A853;
+  --color-gold-light:        #E0BE78;
+  --color-gold-dark:         #B8903E;
+
+  /* Neutrals */
+  --color-dark:              #3D3029;
+  --color-medium:            #5C4F44;
+  --color-muted:             #8A7D73;
+  --color-light-bg:          #FEFAF5;
+  --color-white:             #FFFFFF;
+  --color-card-border:       #E8DDD0;
+  --color-divider:           #EDE5DA;
+
+  /* Semantic */
+  --color-success:           #4CAF50;
+  --color-success-light:     #E8F5E9;
+  --color-error:             #E57373;
+  --color-error-light:       #FFEBEE;
+  --color-info:              #64B5F6;
+  --color-info-light:        #E3F2FD;
+  --color-warning:           #FFB74D;
+  --color-warning-light:     #FFF3E0;
+
+  /* Fortune Rating Colors */
+  --color-daikichi:          #D4A853;  /* 大吉 — gold */
+  --color-daikichi-bg:       #FDF6E3;
+  --color-kichi:             #8BA888;  /* 吉 — sage */
+  --color-kichi-bg:          #EFF5EE;
+  --color-hankichi:          #64B5F6;  /* 半吉 — blue */
+  --color-hankichi-bg:       #E3F2FD;
+  --color-kyo:               #E8974F;  /* 凶 — orange */
+  --color-kyo-bg:            #FFF3E0;
+  --color-daikyo:            #E57373;  /* 大凶 — red */
+  --color-daikyo-bg:         #FFEBEE;
+
+  /* -----------------------------------------------------------------------
+     Typography
+     ----------------------------------------------------------------------- */
+
+  --font-heading:  'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Rounded Mplus 1c', sans-serif;
+  --font-body:     'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+
+  /* Fluid type scale — min: mobile (375px), max: desktop (1200px) */
+  --text-xs:   clamp(0.6875rem, 0.65rem + 0.19vw, 0.75rem);       /* 11–12px */
+  --text-sm:   clamp(0.8125rem, 0.775rem + 0.19vw, 0.875rem);     /* 13–14px */
+  --text-base: clamp(0.9375rem, 0.89rem + 0.24vw, 1rem);          /* 15–16px */
+  --text-lg:   clamp(1.0625rem, 0.99rem + 0.36vw, 1.1875rem);     /* 17–19px */
+  --text-xl:   clamp(1.25rem, 1.13rem + 0.6vw, 1.5rem);           /* 20–24px */
+  --text-2xl:  clamp(1.5rem, 1.3rem + 1vw, 1.875rem);             /* 24–30px */
+  --text-3xl:  clamp(1.875rem, 1.56rem + 1.57vw, 2.5rem);         /* 30–40px */
+  --text-4xl:  clamp(2.25rem, 1.75rem + 2.5vw, 3.25rem);          /* 36–52px */
+
+  /* Font weights */
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-bold:     700;
+  --weight-black:    900;
+
+  /* Line heights */
+  --leading-tight:   1.3;
+  --leading-snug:    1.5;
+  --leading-normal:  1.7;
+  --leading-relaxed: 1.9;
+
+  /* Letter spacing */
+  --tracking-tight:  -0.02em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.04em;
+  --tracking-wider:   0.08em;
+
+  /* -----------------------------------------------------------------------
+     Spacing — 4px base scale
+     ----------------------------------------------------------------------- */
+
+  --space-1:   0.25rem;   /*  4px */
+  --space-2:   0.5rem;    /*  8px */
+  --space-3:   0.75rem;   /* 12px */
+  --space-4:   1rem;      /* 16px */
+  --space-6:   1.5rem;    /* 24px */
+  --space-8:   2rem;      /* 32px */
+  --space-12:  3rem;      /* 48px */
+  --space-16:  4rem;      /* 64px */
+  --space-24:  6rem;      /* 96px */
+
+  /* -----------------------------------------------------------------------
+     Border Radius — Organic shapes
+     ----------------------------------------------------------------------- */
+
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-xl:   32px;
+  --radius-full: 9999px;
+
+  /* -----------------------------------------------------------------------
+     Shadows — Warm-toned
+     ----------------------------------------------------------------------- */
+
+  --shadow-xs:   0 1px 2px rgba(61, 48, 41, 0.04);
+  --shadow-sm:   0 2px 4px rgba(61, 48, 41, 0.06);
+  --shadow-md:   0 4px 12px rgba(61, 48, 41, 0.08);
+  --shadow-lg:   0 8px 24px rgba(61, 48, 41, 0.10);
+  --shadow-xl:   0 16px 48px rgba(61, 48, 41, 0.12);
+  --shadow-inner: inset 0 2px 4px rgba(61, 48, 41, 0.06);
+
+  /* Card-specific */
+  --shadow-card:       0 2px 8px rgba(61, 48, 41, 0.06), 0 1px 2px rgba(61, 48, 41, 0.04);
+  --shadow-card-hover: 0 8px 24px rgba(61, 48, 41, 0.10), 0 2px 6px rgba(61, 48, 41, 0.06);
+
+  /* -----------------------------------------------------------------------
+     Transitions
+     ----------------------------------------------------------------------- */
+
+  --transition-fast:    150ms ease;
+  --transition-default: 300ms ease;
+  --transition-slow:    500ms ease;
+  --transition-spring:  500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* -----------------------------------------------------------------------
+     Layout
+     ----------------------------------------------------------------------- */
+
+  --container-max:  1200px;
+  --container-form: 720px;
+  --container-narrow: 560px;
+  --gutter:         clamp(1rem, 0.5rem + 2.5vw, 2rem);
+
+  /* -----------------------------------------------------------------------
+     Z-index Scale
+     ----------------------------------------------------------------------- */
+
+  --z-base:    0;
+  --z-above:   10;
+  --z-nav:     100;
+  --z-overlay: 500;
+  --z-modal:   1000;
+  --z-toast:   1500;
+
+  /* -----------------------------------------------------------------------
+     Breakpoints (for reference — use in @media)
+     sm:  480px
+     md:  768px
+     lg: 1024px
+     ----------------------------------------------------------------------- */
+}
+
+/* -----------------------------------------------------------------------
+   Dark mode overrides (prefers-color-scheme: dark)
+   ----------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-cream:         #1E1A16;
+    --color-light-bg:      #252019;
+    --color-white:         #2A2420;
+    --color-dark:          #F0E8E0;
+    --color-medium:        #C8BDB2;
+    --color-muted:         #9A8E84;
+    --color-card-border:   #3D3529;
+    --color-divider:       #342E25;
+
+    --color-terracotta:       #D4896A;
+    --color-terracotta-light: #E0A08A;
+    --color-terracotta-dark:  #C4704B;
+
+    --color-sage:          #A3BDA0;
+    --color-gold:          #E0BE78;
+
+    --color-daikichi-bg:   #2E2810;
+    --color-kichi-bg:      #1E2A1C;
+    --color-hankichi-bg:   #162030;
+    --color-kyo-bg:        #2E2010;
+    --color-daikyo-bg:     #2E1818;
+
+    --shadow-xs:   0 1px 2px rgba(0, 0, 0, 0.20);
+    --shadow-sm:   0 2px 4px rgba(0, 0, 0, 0.24);
+    --shadow-md:   0 4px 12px rgba(0, 0, 0, 0.28);
+    --shadow-lg:   0 8px 24px rgba(0, 0, 0, 0.32);
+    --shadow-xl:   0 16px 48px rgba(0, 0, 0, 0.36);
+    --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.24);
+    --shadow-card:       0 2px 8px rgba(0, 0, 0, 0.24), 0 1px 2px rgba(0, 0, 0, 0.20);
+    --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.32), 0 2px 6px rgba(0, 0, 0, 0.24);
+  }
+}

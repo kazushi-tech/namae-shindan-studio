@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://akachan-namae-shindan.vercel.app/sitemap.xml
