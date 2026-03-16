@@ -62,7 +62,8 @@
 .btn--primary:hover {
   background: linear-gradient(135deg, var(--color-terracotta-light) 0%, var(--color-terracotta) 100%);
   border-color: var(--color-terracotta-dark);
-  box-shadow: 0 4px 16px rgba(196, 112, 75, 0.35);
+  box-shadow: 0 4px 16px rgba(232, 114, 92, 0.35);
+  transform: translateY(-2px) scale(1.02);
 }
 
 .btn--primary:active {
@@ -561,11 +562,6 @@
   background-color: rgba(255, 255, 255, 0.92);
 }
 
-@media (prefers-color-scheme: dark) {
-  .nav {
-    background-color: rgba(30, 26, 22, 0.92);
-  }
-}
 
 .nav__brand {
   display: flex;

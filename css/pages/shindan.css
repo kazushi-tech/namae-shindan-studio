@@ -197,7 +197,7 @@
   background: linear-gradient(
     135deg,
     var(--color-cream) 0%,
-    #FFF2E0 50%,
+    var(--color-cream-warm) 50%,
     var(--color-cream) 100%
   );
   border: 2px solid var(--color-gold-light);

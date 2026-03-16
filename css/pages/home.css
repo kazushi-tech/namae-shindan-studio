@@ -9,12 +9,10 @@
 
 .hero {
   position: relative;
-  background: linear-gradient(
-    160deg,
-    var(--color-cream) 0%,
-    #FFF2E0 40%,
-    var(--color-light-bg) 100%
-  );
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 30%, rgba(255, 143, 163, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 70%, rgba(110, 196, 168, 0.10) 0%, transparent 70%),
+    linear-gradient(160deg, var(--color-cream) 0%, var(--color-cream-warm) 40%, var(--color-light-bg) 100%);
   padding: var(--space-16) var(--gutter) var(--space-24);
   text-align: center;
   overflow: hidden;
@@ -94,7 +92,7 @@
   right: -4px;
   height: 8px;
   background-color: var(--color-gold-light);
-  opacity: 0.4;
+  opacity: 0.6;
   border-radius: var(--radius-full);
   z-index: -1;
 }
@@ -141,16 +139,18 @@
 .hero__deco {
   position: absolute;
   border-radius: 50%;
-  opacity: 0.08;
+  opacity: 0.12;
   pointer-events: none;
+  animation: float 6s ease-in-out infinite;
 }
 
 .hero__deco--1 {
   width: 300px;
   height: 300px;
-  background-color: var(--color-terracotta);
+  background-color: var(--color-accent-pink);
   top: -60px;
   right: -80px;
+  animation-duration: 7s;
 }
 
 .hero__deco--2 {
@@ -159,14 +159,18 @@
   background-color: var(--color-sage);
   bottom: 60px;
   left: -60px;
+  animation-duration: 5s;
+  animation-delay: -2s;
 }
 
 .hero__deco--3 {
   width: 120px;
   height: 120px;
-  background-color: var(--color-gold);
+  background-color: var(--color-accent-lavender);
   top: 30%;
   left: 10%;
+  animation-duration: 8s;
+  animation-delay: -4s;
 }
 
 /* =======================================================================
@@ -232,7 +236,7 @@
 
 .feature-card:hover {
   box-shadow: var(--shadow-card-hover);
-  transform: translateY(-4px);
+  transform: translateY(-6px) rotate(-1deg);
 }
 
 .feature-card__icon {
@@ -247,6 +251,37 @@
   font-size: 28px;
   color: var(--color-terracotta);
   border: 1px solid var(--color-card-border);
+}
+
+/* Pastel gradient backgrounds per card */
+.feature-card:nth-child(1) .feature-card__icon,
+.feature-card:nth-child(1) .feature-icon {
+  background: linear-gradient(135deg, rgba(255, 143, 163, 0.15), rgba(255, 143, 163, 0.05));
+}
+
+.feature-card:nth-child(2) .feature-card__icon,
+.feature-card:nth-child(2) .feature-icon {
+  background: linear-gradient(135deg, rgba(110, 196, 168, 0.15), rgba(110, 196, 168, 0.05));
+}
+
+.feature-card:nth-child(3) .feature-card__icon,
+.feature-card:nth-child(3) .feature-icon {
+  background: linear-gradient(135deg, rgba(184, 169, 232, 0.15), rgba(184, 169, 232, 0.05));
+}
+
+.feature-card:nth-child(4) .feature-card__icon,
+.feature-card:nth-child(4) .feature-icon {
+  background: linear-gradient(135deg, rgba(240, 184, 77, 0.15), rgba(240, 184, 77, 0.05));
+}
+
+.feature-card:nth-child(5) .feature-card__icon,
+.feature-card:nth-child(5) .feature-icon {
+  background: linear-gradient(135deg, rgba(232, 114, 92, 0.15), rgba(232, 114, 92, 0.05));
+}
+
+.feature-card:nth-child(6) .feature-card__icon,
+.feature-card:nth-child(6) .feature-icon {
+  background: linear-gradient(135deg, rgba(110, 196, 168, 0.15), rgba(184, 169, 232, 0.05));
 }
 
 .feature-card__title {
@@ -316,6 +351,22 @@
   font-weight: var(--weight-bold);
   border-radius: 50%;
   margin-bottom: var(--space-4);
+}
+
+/* Step number color variants */
+.step:nth-child(1) .step__number,
+.step-card:nth-child(1) .step-number {
+  background-color: var(--color-terracotta);
+}
+
+.step:nth-child(2) .step__number,
+.step-card:nth-child(2) .step-number {
+  background-color: var(--color-sage);
+}
+
+.step:nth-child(3) .step__number,
+.step-card:nth-child(3) .step-number {
+  background-color: var(--color-gold);
 }
 
 .step__title {

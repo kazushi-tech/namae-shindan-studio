@@ -12,17 +12,22 @@
 
   /* Primary */
   --color-cream:             #FFF8F0;
-  --color-terracotta:        #C4704B;
-  --color-terracotta-light:  #D4896A;
-  --color-terracotta-dark:   #A45C3A;
+  --color-cream-warm:        #FFF2E0;
+  --color-terracotta:        #E8725C;
+  --color-terracotta-light:  #F09080;
+  --color-terracotta-dark:   #D05A46;
 
   /* Secondary */
-  --color-sage:              #8BA888;
-  --color-sage-light:        #A3BDA0;
-  --color-sage-dark:         #6F8E6C;
-  --color-gold:              #D4A853;
-  --color-gold-light:        #E0BE78;
-  --color-gold-dark:         #B8903E;
+  --color-sage:              #6EC4A8;
+  --color-sage-light:        #90D8C0;
+  --color-sage-dark:         #52B090;
+  --color-gold:              #F0B84D;
+  --color-gold-light:        #F5CC70;
+  --color-gold-dark:         #D4A040;
+
+  /* Accent */
+  --color-accent-pink:       #FF8FA3;
+  --color-accent-lavender:   #B8A9E8;
 
   /* Neutrals */
   --color-dark:              #3D3029;
@@ -171,45 +176,3 @@
      ----------------------------------------------------------------------- */
 }
 
-/* -----------------------------------------------------------------------
-   Dark mode overrides (prefers-color-scheme: dark)
-   ----------------------------------------------------------------------- */
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-cream:         #1E1A16;
-    --color-light-bg:      #252019;
-    --color-white:         #2A2420;
-    --color-dark:          #F0E8E0;
-    --color-medium:        #C8BDB2;
-    --color-muted:         #9A8E84;
-    --color-card-border:   #3D3529;
-    --color-divider:       #342E25;
-
-    --color-terracotta:       #D4896A;
-    --color-terracotta-light: #E0A08A;
-    --color-terracotta-dark:  #C4704B;
-
-    --color-sage:          #A3BDA0;
-    --color-gold:          #E0BE78;
-
-    --color-daikichi-bg:   #2E2810;
-    --color-kichi-bg:      #1E2A1C;
-    --color-hankichi-bg:   #162030;
-    --color-kyo-bg:        #2E2010;
-    --color-daikyo-bg:     #2E1818;
-
-    --shadow-xs:   0 1px 2px rgba(0, 0, 0, 0.20);
-    --shadow-sm:   0 2px 4px rgba(0, 0, 0, 0.24);
-    --shadow-md:   0 4px 12px rgba(0, 0, 0, 0.28);
-    --shadow-lg:   0 8px 24px rgba(0, 0, 0, 0.32);
-    --shadow-xl:   0 16px 48px rgba(0, 0, 0, 0.36);
-    --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.24);
-    --shadow-card:       0 2px 8px rgba(0, 0, 0, 0.24), 0 1px 2px rgba(0, 0, 0, 0.20);
-    --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.32), 0 2px 6px rgba(0, 0, 0, 0.24);
-
-    /* Input focus — dark mode */
-    --shadow-input-focus: 0 0 0 3px rgba(212, 137, 106, 0.25);
-    --shadow-input-error: 0 0 0 3px rgba(229, 115, 115, 0.25);
-  }
-}

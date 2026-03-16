@@ -145,6 +145,13 @@
   }
 }
 
+/* Pop in — for step numbers, badges */
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
 /* Reveal — clip-path based reveal */
 @keyframes reveal {
   from {
@@ -193,6 +200,10 @@
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+.animate-pop-in {
+  animation: popIn 0.5s var(--transition-spring) both;
 }
 
 .animate-shimmer {
@@ -325,29 +336,6 @@
   border-radius: var(--radius-lg);
 }
 
-/* =======================================================================
-   Skeleton & Shimmer — Dark Mode
-   ======================================================================= */
-
-@media (prefers-color-scheme: dark) {
-  .skeleton::after {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.06) 50%,
-      transparent 100%
-    );
-  }
-
-  .animate-shimmer::after {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.06) 50%,
-      transparent 100%
-    );
-  }
-}
 
 /* =======================================================================
    Reduced Motion — Accessibility
