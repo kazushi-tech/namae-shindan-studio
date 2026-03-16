@@ -150,10 +150,10 @@ const App = (() => {
    */
   function updateActiveNav() {
     const currentPath = window.location.pathname;
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.nav__link').forEach(link => {
       const href = link.getAttribute('href');
       if (currentPath.endsWith(href) || (currentPath === '/' && href === 'index.html')) {
-        link.classList.add('active');
+        link.classList.add('nav__link--active');
       }
     });
   }

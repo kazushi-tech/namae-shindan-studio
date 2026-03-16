@@ -48,14 +48,14 @@
   <!-- Navigation -->
   <nav class="nav" role="navigation" aria-label="メインナビゲーション">
     <div class="container nav-container">
-      <a href="index.html" class="nav-logo">
-        <span class="nav-logo-icon">🌸</span>
-        <span class="nav-logo-text">名前診断</span>
+      <a href="index.html" class="nav__brand">
+        <span class="nav__logo">🌸</span>
+        <span class="nav__title">名前診断</span>
       </a>
-      <ul class="nav-links">
-        <li><a href="index.html" class="nav-link">ホーム</a></li>
-        <li><a href="shindan.html" class="nav-link active">姓名判断</a></li>
-        <li><a href="about.html" class="nav-link">五格について</a></li>
+      <ul class="nav__links">
+        <li><a href="index.html" class="nav__link">ホーム</a></li>
+        <li><a href="shindan.html" class="nav__link nav__link--active">姓名判断</a></li>
+        <li><a href="about.html" class="nav__link">五格について</a></li>
       </ul>
     </div>
   </nav>
@@ -107,7 +107,7 @@
         <div id="error-message" class="error-message" aria-live="assertive"></div>
 
         <!-- Submit -->
-        <button type="submit" id="submit-btn" class="btn btn-primary btn-lg btn-full">
+        <button type="submit" id="submit-btn" class="btn btn--primary btn--lg btn--block">
           診断する
         </button>
       </form>
@@ -127,10 +127,10 @@
 
         <!-- Retry -->
         <div class="result-actions">
-          <button id="retry-btn" class="btn btn-secondary">
+          <button id="retry-btn" class="btn btn--secondary">
             もう一度診断する
           </button>
-          <a href="about.html" class="btn btn-outline">
+          <a href="about.html" class="btn btn--outline">
             五格について詳しく
           </a>
         </div>
@@ -146,19 +146,19 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <div class="container footer-content">
-      <div class="footer-brand">
-        <span class="footer-logo">🌸 赤ちゃん名前診断</span>
-        <p class="footer-tagline">大切なお子さまに最高の名前を</p>
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="footer__brand-name">🌸 赤ちゃん名前診断</span>
+        <p class="footer__brand-desc">大切なお子さまに最高の名前を</p>
       </div>
-      <nav class="footer-nav" aria-label="フッターナビゲーション">
-        <ul class="footer-links">
-          <li><a href="index.html">ホーム</a></li>
-          <li><a href="shindan.html">姓名判断</a></li>
-          <li><a href="about.html">五格について</a></li>
+      <nav class="footer__nav" aria-label="フッターナビゲーション">
+        <ul class="footer__links">
+          <li><a href="index.html" class="footer__link">ホーム</a></li>
+          <li><a href="shindan.html" class="footer__link">姓名判断</a></li>
+          <li><a href="about.html" class="footer__link">五格について</a></li>
         </ul>
       </nav>
-      <p class="footer-copy">&copy; 2026 赤ちゃん名前診断</p>
+      <p class="footer__copyright">&copy; 2026 赤ちゃん名前診断</p>
     </div>
   </footer>
 
