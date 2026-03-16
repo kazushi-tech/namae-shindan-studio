@@ -326,6 +326,30 @@
 }
 
 /* =======================================================================
+   Skeleton & Shimmer — Dark Mode
+   ======================================================================= */
+
+@media (prefers-color-scheme: dark) {
+  .skeleton::after {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      transparent 100%
+    );
+  }
+
+  .animate-shimmer::after {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      transparent 100%
+    );
+  }
+}
+
+/* =======================================================================
    Reduced Motion — Accessibility
    ======================================================================= */
 
