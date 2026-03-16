@@ -379,6 +379,158 @@
 }
 
 /* =======================================================================
+   Sections — Background & Spacing
+   ======================================================================= */
+
+.features-section {
+  background-color: var(--color-light-bg);
+}
+
+.how-section {
+  background-color: var(--color-cream);
+}
+
+.disclaimer-section {
+  background-color: var(--color-light-bg);
+}
+
+.disclaimer-card {
+  max-width: var(--container-form);
+  margin: 0 auto;
+  padding: var(--space-6);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.disclaimer-text {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: var(--leading-relaxed);
+  text-align: center;
+}
+
+/* =======================================================================
+   Section Title & CTA
+   ======================================================================= */
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.section-cta {
+  text-align: center;
+  margin-top: var(--space-8);
+}
+
+/* =======================================================================
+   Feature Card Inner Elements (non-BEM classes used in HTML)
+   ======================================================================= */
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-4);
+  background: linear-gradient(135deg, var(--color-cream), var(--color-white));
+  border-radius: var(--radius-lg);
+  font-size: 28px;
+  border: 1px solid var(--color-card-border);
+}
+
+.feature-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--space-2);
+}
+
+.feature-text {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: var(--leading-relaxed);
+}
+
+/* =======================================================================
+   Steps Grid & Cards
+   ======================================================================= */
+
+.steps-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: var(--container-form);
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .steps-grid {
+    flex-direction: row;
+    gap: var(--space-6);
+    max-width: var(--container-max);
+  }
+}
+
+.step-card {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-terracotta);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  border-radius: 50%;
+  margin-bottom: var(--space-4);
+}
+
+.step-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--space-2);
+}
+
+.step-text {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: var(--leading-relaxed);
+}
+
+/* Arrow between steps (desktop only) */
+@media (min-width: 768px) {
+  .step-card:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 24px;
+    right: calc(-1 * var(--space-3) - 8px);
+    width: 16px;
+    height: 16px;
+    border-right: 2px solid var(--color-card-border);
+    border-bottom: 2px solid var(--color-card-border);
+    transform: rotate(-45deg);
+  }
+}
+
+/* =======================================================================
    Responsive — Mobile adjustments
    ======================================================================= */
 
