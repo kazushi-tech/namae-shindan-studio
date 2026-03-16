@@ -364,8 +364,8 @@
   font-weight: var(--weight-bold);
   color: var(--color-muted);
   letter-spacing: var(--tracking-wide);
-  margin-bottom: var(--space-3);
-  margin-top: var(--space-2);
+  margin-bottom: var(--space-2);
+  margin-top: var(--space-1);
 }
 
 .gokaku-card__number {
@@ -380,11 +380,11 @@
 .gokaku-card__strokes {
   font-size: var(--text-xs);
   color: var(--color-muted);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
 }
 
 .gokaku-card__badge {
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-2);
 }
 
 .gokaku-card__bar {
@@ -392,10 +392,53 @@
 }
 
 .gokaku-card__description {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   color: var(--color-medium);
-  line-height: var(--leading-relaxed);
+  line-height: 1.6;
   text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.gokaku-card__description--expanded {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+/* トグルボタン（もっと読む / 閉じる） */
+.gokaku-card__toggle {
+  display: none;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-terracotta);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.gokaku-card__toggle:hover {
+  text-decoration: underline;
+}
+
+/* デスクトップでカード圧縮 */
+@media (min-width: 1024px) {
+  .gokaku-card {
+    padding: var(--space-5) var(--space-3);
+  }
+
+  .gokaku-card__number {
+    font-size: var(--text-2xl);
+  }
+}
+
+/* プログレスバーをタブレット以上で非表示 */
+@media (min-width: 768px) {
+  .gokaku-card__bar {
+    display: none;
+  }
 }
 
 /* Compact variant for mobile */
@@ -406,10 +449,6 @@
 
   .gokaku-card__number {
     font-size: var(--text-2xl);
-  }
-
-  .gokaku-card__description {
-    font-size: var(--text-xs);
   }
 }
 

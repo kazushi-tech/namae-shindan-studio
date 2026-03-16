@@ -506,30 +506,6 @@
   margin-bottom: var(--space-12);
 }
 
-.section-cta {
-  position: relative;
-  text-align: center;
-  margin-top: var(--space-8);
-}
-
-.cta-illustration {
-  position: absolute;
-  top: -50px;
-  right: 0;
-  width: 200px;
-  max-width: 30%;
-  opacity: 0.2;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@media (max-width: 767px) {
-  .cta-illustration {
-    width: 120px;
-    top: -30px;
-    opacity: 0.15;
-  }
-}
 
 /* =======================================================================
    Feature Card Inner Elements (non-BEM classes used in HTML)

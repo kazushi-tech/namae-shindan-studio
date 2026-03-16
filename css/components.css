@@ -860,3 +860,29 @@
   color: var(--color-error);
   border: 1px solid var(--color-error);
 }
+
+/* =======================================================================
+   CTA Section — 共通
+   ======================================================================= */
+
+.section-cta {
+  position: relative;
+  text-align: center;
+  margin-top: var(--space-8);
+}
+
+.cta-illustration {
+  display: block;
+  width: 160px;
+  max-width: 40%;
+  margin: 0 auto var(--space-4);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .cta-illustration {
+    width: 120px;
+    opacity: 0.25;
+  }
+}

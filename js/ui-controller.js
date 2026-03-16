@@ -131,6 +131,28 @@ const UIController = (() => {
       });
     }
 
+    // clamp判定: 説明文が3行を超える場合のみトグルボタンを表示
+    requestAnimationFrame(() => {
+      elements.gokakuGrid.querySelectorAll('.gokaku-card__description').forEach(desc => {
+        const toggle = desc.parentElement.querySelector('.gokaku-card__toggle');
+        if (toggle && desc.scrollHeight > desc.clientHeight) {
+          toggle.style.display = 'inline-block';
+        }
+      });
+    });
+
+    // トグルボタンのイベント委譲
+    if (!elements.gokakuGrid._toggleBound) {
+      elements.gokakuGrid.addEventListener('click', (e) => {
+        const toggle = e.target.closest('.gokaku-card__toggle');
+        if (!toggle) return;
+        const desc = toggle.previousElementSibling;
+        const expanded = desc.classList.toggle('gokaku-card__description--expanded');
+        toggle.textContent = expanded ? '閉じる' : 'もっと読む';
+      });
+      elements.gokakuGrid._toggleBound = true;
+    }
+
     // 結果表示
     elements.resultSection.classList.add('visible');
     elements.resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -167,6 +189,7 @@ const UIController = (() => {
           </div>
         </div>
         <div class="gokaku-card__description">${fortune.description}</div>
+        <button class="gokaku-card__toggle" type="button">もっと読む</button>
       ` : `
         <div class="gokaku-card__description">運勢データが見つかりませんでした。</div>
       `}
