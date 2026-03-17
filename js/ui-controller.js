@@ -8,6 +8,9 @@ const UIController = (() => {
   // DOM要素キャッシュ
   let elements = {};
 
+  // テキスト切り詰め文字数（CSS max-heightはiOS Safariで不安定なためJS制御）
+  const TRUNCATE_LENGTH = 80;
+
   /**
    * 診断ページの DOM 要素を取得してキャッシュ
    */
@@ -152,21 +155,25 @@ const UIController = (() => {
       });
     }
 
-    // トグルボタンのイベント委譲（初回のみ）
+    // トグルボタンのイベント委譲（初回のみ）— textContent差し替え方式（CSS非依存）
     if (!elements.gokakuGrid._toggleBound) {
       elements.gokakuGrid.addEventListener('click', (e) => {
         const toggle = e.target.closest('.gokaku-card__toggle');
         if (!toggle) return;
         const desc = toggle.previousElementSibling;
-        const collapsed = desc.classList.toggle('gokaku-card__description--collapsed');
-        if (!collapsed) {
-          desc.style.maxHeight = 'none';
-          desc.style.overflow = 'visible';
+        const fullText = desc.dataset.fullText;
+        if (!fullText) return;
+
+        const isExpanded = desc.dataset.expanded === 'true';
+        if (isExpanded) {
+          desc.textContent = fullText.slice(0, TRUNCATE_LENGTH) + '…';
+          desc.dataset.expanded = 'false';
+          toggle.textContent = 'もっと読む';
         } else {
-          desc.style.maxHeight = '';
-          desc.style.overflow = '';
+          desc.textContent = fullText;
+          desc.dataset.expanded = 'true';
+          toggle.textContent = '閉じる';
         }
-        toggle.textContent = collapsed ? 'もっと読む' : '閉じる';
       });
       elements.gokakuGrid._toggleBound = true;
     }
@@ -217,14 +224,26 @@ const UIController = (() => {
         ` : ''}
       </div>
       <div class="gokaku-card__right">
-        ${fortune ? `
-          <div class="gokaku-card__description gokaku-card__description--collapsed">${fortune.description}</div>
-          <button class="gokaku-card__toggle" type="button" style="display:inline-block">もっと読む</button>
-        ` : `
-          <div class="gokaku-card__description">運勢データが見つかりませんでした。</div>
-        `}
+        <div class="gokaku-card__description"></div>
+        <button class="gokaku-card__toggle" type="button" style="display:none">もっと読む</button>
       </div>
     `;
+
+    // textContent方式でテキスト設定（CSS max-height/overflowに依存しない）
+    const descEl = card.querySelector('.gokaku-card__description');
+    const toggleEl = card.querySelector('.gokaku-card__toggle');
+    if (fortune) {
+      descEl.dataset.fullText = fortune.description;
+      if (fortune.description.length > TRUNCATE_LENGTH) {
+        descEl.textContent = fortune.description.slice(0, TRUNCATE_LENGTH) + '…';
+        descEl.dataset.expanded = 'false';
+        toggleEl.style.display = 'inline-block';
+      } else {
+        descEl.textContent = fortune.description;
+      }
+    } else {
+      descEl.textContent = '運勢データが見つかりませんでした。';
+    }
 
     return card;
   }

@@ -407,23 +407,7 @@
   overflow-wrap: break-word;
 }
 
-/* 折りたたみ状態: max-height ベース（-webkit-line-clamp は iOS Safari で不安定なため不使用） */
-.gokaku-card__description--collapsed {
-  max-height: calc(1.8em * 3);
-  overflow: hidden;
-  position: relative;
-}
-
-.gokaku-card__description--collapsed::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1.8em;
-  background: linear-gradient(transparent, var(--color-white));
-  pointer-events: none;
-}
+/* 折りたたみはJS textContent切り詰め方式（CSS max-height/overflowはiOS Safariで不安定なため廃止） */
 
 /* トグルボタン（もっと読む / 閉じる） */
 .gokaku-card__toggle {
@@ -478,10 +462,7 @@
     margin-top: 0;
   }
 
-  /* 横長レイアウトでは説明エリアが広いため、4行に拡張 */
-  .gokaku-card__description--collapsed {
-    max-height: calc(1.8em * 4);
-  }
+  /* 折りたたみはJS textContent方式のためCSS制約不要 */
 }
 
 /* Compact variant for mobile */
