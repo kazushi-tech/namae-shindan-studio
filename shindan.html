@@ -30,6 +30,8 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
   <link rel="apple-touch-icon" href="assets/images/logo-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#E8725C">
 
   <script type="application/ld+json">
   {
@@ -173,5 +175,16 @@
   <script src="js/fortune-data.js?v=20260317"></script>
   <script src="js/ui-controller.js?v=20260317"></script>
   <script src="js/app.js?v=20260317"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(reg) {
+        console.log('[App] SW registered, scope:', reg.scope);
+      }).catch(function(err) {
+        console.warn('[App] SW registration failed:', err);
+      });
+    });
+  }
+</script>
 </body>
 </html>

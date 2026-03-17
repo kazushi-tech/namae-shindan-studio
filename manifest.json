@@ -1,0 +1,26 @@
+{
+  "name": "赤ちゃん名前診断スタジオ",
+  "short_name": "名前診断",
+  "description": "姓名判断で赤ちゃんに最高の名前を",
+  "start_url": "/shindan",
+  "scope": "/",
+  "display": "minimal-ui",
+  "orientation": "portrait",
+  "background_color": "#FFF8F0",
+  "theme_color": "#E8725C",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "/assets/images/logo-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/images/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
