@@ -683,24 +683,13 @@
    ======================================================================= */
 
 .result-section {
-  visibility: hidden;
-  height: 0;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-.result-section.visible {
-  visibility: visible;
-  height: auto;
-  overflow: visible;
   max-width: var(--container-form);
   margin: var(--space-12) auto 0;
   padding: 0;
 }
 
 @media (max-width: 479px) {
-  .result-section.visible {
+  .result-section {
     margin-top: var(--space-6);
   }
 }

@@ -25,6 +25,13 @@ const UIController = (() => {
       submitBtn: document.getElementById('submit-btn'),
       retryBtn: document.getElementById('retry-btn')
     };
+
+    // DOM挿入/削除方式: 初期状態でresultSectionをDOMから除去
+    if (elements.resultSection) {
+      elements._resultParent = elements.resultSection.parentNode;
+      elements._resultNextSibling = elements.resultSection.nextSibling;
+      elements.resultSection.remove();
+    }
   }
 
   /**
@@ -145,17 +152,7 @@ const UIController = (() => {
       });
     }
 
-    // clamp判定: 説明文が3行を超える場合のみトグルボタンを表示
-    requestAnimationFrame(() => {
-      elements.gokakuGrid.querySelectorAll('.gokaku-card__description').forEach(desc => {
-        const toggle = desc.parentElement.querySelector('.gokaku-card__toggle');
-        if (toggle && desc.scrollHeight > desc.clientHeight) {
-          toggle.style.display = 'inline-block';
-        }
-      });
-    });
-
-    // トグルボタンのイベント委譲
+    // トグルボタンのイベント委譲（初回のみ）
     if (!elements.gokakuGrid._toggleBound) {
       elements.gokakuGrid.addEventListener('click', (e) => {
         const toggle = e.target.closest('.gokaku-card__toggle');
@@ -167,18 +164,30 @@ const UIController = (() => {
       elements.gokakuGrid._toggleBound = true;
     }
 
-    // 結果表示 — visibility:hidden→visible に切替え
-    // iOS Safari: DOMが構築済みの状態でvisibleにし、rAFで確実にペイントさせる
-    elements.resultSection.classList.add('visible');
+    // DOM挿入（二重挿入防止ガード付き）
+    if (elements._resultParent && !elements.resultSection.parentNode) {
+      elements._resultParent.insertBefore(elements.resultSection, elements._resultNextSibling);
+    }
 
-    requestAnimationFrame(() => {
-      elements.resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-
-    // フォームを控えめに
+    // フォーム非活性化
     if (elements.form) {
       elements.form.classList.add('submitted');
     }
+
+    // double rAF でiOS Safariのレイアウト完了を保証
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // clamp判定（scrollHeight/clientHeightは2フレーム目で確定）
+        elements.gokakuGrid.querySelectorAll('.gokaku-card__description').forEach(desc => {
+          const toggle = desc.parentElement.querySelector('.gokaku-card__toggle');
+          if (toggle && desc.scrollHeight > desc.clientHeight) {
+            toggle.style.display = 'inline-block';
+          }
+        });
+        // スクロール
+        elements.resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
   }
 
   /**
@@ -225,8 +234,13 @@ const UIController = (() => {
    * 結果をリセット
    */
   function resetResults() {
-    if (elements.resultSection) {
-      elements.resultSection.classList.remove('visible');
+    // DOM除去（二重除去防止ガード付き）
+    if (elements.resultSection && elements.resultSection.parentNode) {
+      elements.resultSection.remove();
+    }
+    // grid内容クリア（detached — コストゼロ）
+    if (elements.gokakuGrid) {
+      elements.gokakuGrid.innerHTML = '';
     }
     if (elements.form) {
       elements.form.classList.remove('submitted');
