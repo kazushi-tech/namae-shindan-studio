@@ -300,6 +300,8 @@
   grid-template-columns: 1fr;
   gap: var(--space-4);
   margin-bottom: var(--space-8);
+  max-width: 100%;
+  overflow: hidden;
 }
 
 @media (max-width: 479px) {
@@ -325,7 +327,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow: visible;
+  overflow: hidden;
+  width: 100%;
 }
 
 /* hover効果はポインターデバイスのみ — iOS Safari compositing bug回避 */
@@ -405,6 +408,9 @@
   line-height: 1.8;
   text-align: left;
   overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* 折りたたみはJS textContent切り詰め方式（CSS max-height/overflowはiOS Safariで不安定なため廃止） */
@@ -433,6 +439,9 @@
 
 .gokaku-card__right {
   margin-top: var(--space-2);
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
 }
 
 @media (max-width: 479px) {
@@ -676,6 +685,7 @@
   max-width: var(--container-form);
   margin: var(--space-12) auto 0;
   padding: 0;
+  overflow: hidden;
 }
 
 @media (max-width: 479px) {
