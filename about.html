@@ -18,13 +18,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/reset.css?v=20260317e">
-  <link rel="stylesheet" href="css/variables.css?v=20260317e">
-  <link rel="stylesheet" href="css/base.css?v=20260317e">
-  <link rel="stylesheet" href="css/components.css?v=20260317e">
-  <link rel="stylesheet" href="css/layout.css?v=20260317e">
-  <link rel="stylesheet" href="css/animations.css?v=20260317e">
-  <link rel="stylesheet" href="css/pages/about.css?v=20260317e">
+  <link rel="stylesheet" href="css/reset.css?v=20260317f">
+  <link rel="stylesheet" href="css/variables.css?v=20260317f">
+  <link rel="stylesheet" href="css/base.css?v=20260317f">
+  <link rel="stylesheet" href="css/components.css?v=20260317f">
+  <link rel="stylesheet" href="css/layout.css?v=20260317f">
+  <link rel="stylesheet" href="css/animations.css?v=20260317f">
+  <link rel="stylesheet" href="css/pages/about.css?v=20260317f">
 
   <!-- JSON-LD -->
   <!-- Favicon -->
@@ -315,20 +315,21 @@
     </div>
   </footer>
 
-  <script src="js/kanji-strokes.js?v=20260317e"></script>
-  <script src="js/seimei-handan.js?v=20260317e"></script>
-  <script src="js/fortune-data.js?v=20260317e"></script>
-  <script src="js/ui-controller.js?v=20260317e"></script>
-  <script src="js/app.js?v=20260317e"></script>
+  <script src="js/kanji-strokes.js?v=20260317f"></script>
+  <script src="js/seimei-handan.js?v=20260317f"></script>
+  <script src="js/fortune-data.js?v=20260317f"></script>
+  <script src="js/ui-controller.js?v=20260317f"></script>
+  <script src="js/app.js?v=20260317f"></script>
 <script>
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/sw.js').then(function(reg) {
-        console.log('[App] SW registered, scope:', reg.scope);
-      }).catch(function(err) {
-        console.warn('[App] SW registration failed:', err);
-      });
+    navigator.serviceWorker.getRegistrations().then(function(regs) {
+      regs.forEach(function(r) { r.unregister(); });
     });
+    if (caches) {
+      caches.keys().then(function(names) {
+        names.forEach(function(n) { caches.delete(n); });
+      });
+    }
   }
 </script>
 </body>
