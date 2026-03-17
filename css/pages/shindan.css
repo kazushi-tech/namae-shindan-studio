@@ -65,6 +65,11 @@
     margin-right: var(--space-3);
     border-radius: var(--radius-lg);
   }
+
+  .shindan-form::before {
+    left: var(--space-4);
+    right: var(--space-4);
+  }
 }
 
 /* =======================================================================
@@ -78,7 +83,7 @@
   margin-bottom: var(--space-6);
 }
 
-@media (min-width: 480px) {
+@media (min-width: 560px) {
   .name-input-group {
     flex-direction: row;
     gap: var(--space-4);
@@ -371,6 +376,7 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  overflow-wrap: break-word;
 }
 
 .gokaku-card__description--expanded {
@@ -387,7 +393,8 @@
   cursor: pointer;
   border: none;
   background: none;
-  padding: 0;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
 }
 
 .gokaku-card__toggle:hover {
@@ -438,6 +445,12 @@
 
   .gokaku-card__number {
     font-size: var(--text-2xl);
+  }
+
+  .total-score::before,
+  .total-score::after {
+    width: 36px;
+    height: 36px;
   }
 }
 
@@ -801,6 +814,12 @@
 @media (min-width: 768px) {
   .gokaku-divider__img {
     max-width: 320px;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .gokaku-divider__img {
+    max-width: 280px;
   }
 }
 

@@ -133,10 +133,14 @@ const UIController = (() => {
         if (index < keys.length - 1) {
           const divider = document.createElement('div');
           divider.className = 'gokaku-divider animate-fade-in';
-          divider.style.animationDelay = `${(index + 1) * 0.1 + 0.05}s`;
+          divider.style.animationDelay = `${(index + 1) * 0.06 + 0.03}s`;
           const images = ['divider-sakura.png', 'divider-leaves.png', 'divider-clouds.png'];
           divider.innerHTML = `<img src="assets/images/${images[index % images.length]}"
             alt="" class="gokaku-divider__img" loading="lazy">`;
+          const img = divider.querySelector('img');
+          img.onerror = () => {
+            divider.innerHTML = '<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,var(--color-card-border),transparent);max-width:240px;margin:0 auto;">';
+          };
           elements.gokakuGrid.appendChild(divider);
         }
       });
@@ -180,7 +184,7 @@ const UIController = (() => {
   function createGokakuCard(key, data, label, fortune, index) {
     const card = document.createElement('div');
     card.className = `gokaku-card animate-slide-up`;
-    card.style.animationDelay = `${index * 0.1}s`;
+    card.style.animationDelay = `${index * 0.06}s`;
 
     const ratingKey = fortune ? FortuneData.ratingToClass(fortune.rating) : '';
     const score = fortune ? FortuneData.ratingToScore(fortune.rating) : 50;
