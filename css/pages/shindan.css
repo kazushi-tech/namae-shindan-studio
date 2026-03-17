@@ -326,7 +326,9 @@
     box-shadow var(--transition-default),
     transform var(--transition-default);
   position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
 }
 
 .gokaku-card:hover {
@@ -341,6 +343,7 @@
   left: 0;
   right: 0;
   height: 4px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .gokaku-card__accent--daikichi { background-color: var(--color-daikichi); }
@@ -441,7 +444,7 @@
 
 @media (min-width: 768px) {
   .gokaku-card {
-    display: flex;
+    flex-direction: row;
     align-items: center;
     gap: var(--space-6);
     text-align: left;
