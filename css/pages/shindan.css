@@ -323,7 +323,7 @@
 
 .gokaku-card__title {
   font-family: var(--font-heading);
-  font-size: var(--text-base);
+  font-size: var(--text-lg);
   font-weight: var(--weight-bold);
   color: var(--color-muted);
   letter-spacing: var(--tracking-wide);
@@ -363,9 +363,9 @@
 }
 
 .gokaku-card__description {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   color: var(--color-medium);
-  line-height: 1.75;
+  line-height: 1.8;
   text-align: left;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -406,7 +406,7 @@
 @media (min-width: 768px) {
   .gokaku-card {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--space-6);
     text-align: left;
     padding: var(--space-5) var(--space-6);
@@ -788,31 +788,24 @@
   justify-content: center;
   align-items: center;
   margin: calc(-1 * var(--space-1)) 0;
-  opacity: 0.65;
+  opacity: 0.7;
 }
 
-.gokaku-divider__line {
-  width: 120px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--color-terracotta-light),
-    var(--color-sage),
-    var(--color-terracotta-light),
-    transparent
-  );
-  border-radius: 1px;
+.gokaku-divider__img {
+  max-width: 240px;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
 }
 
 @media (min-width: 768px) {
-  .gokaku-divider__line {
-    width: 180px;
+  .gokaku-divider__img {
+    max-width: 320px;
   }
 }
 
 @media (max-width: 479px) {
-  .gokaku-divider__line {
-    width: 90px;
+  .gokaku-divider__img {
+    max-width: 180px;
   }
 }

@@ -129,12 +129,14 @@ const UIController = (() => {
         const card = createGokakuCard(key, data, label, fortune, index);
         elements.gokakuGrid.appendChild(card);
 
-        // カード間にCSS装飾ディバイダーを挿入（最後のカード以外）
+        // カード間に水彩ディバイダーを挿入（最後のカード以外）
         if (index < keys.length - 1) {
           const divider = document.createElement('div');
           divider.className = 'gokaku-divider animate-fade-in';
           divider.style.animationDelay = `${(index + 1) * 0.1 + 0.05}s`;
-          divider.innerHTML = '<div class="gokaku-divider__line"></div>';
+          const images = ['divider-sakura.png', 'divider-leaves.png', 'divider-clouds.png'];
+          divider.innerHTML = `<img src="assets/images/${images[index % images.length]}"
+            alt="" class="gokaku-divider__img" loading="lazy">`;
           elements.gokakuGrid.appendChild(divider);
         }
       });
