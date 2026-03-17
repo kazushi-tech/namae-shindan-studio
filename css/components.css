@@ -578,8 +578,8 @@
 
 .nav__title {
   font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  font-weight: var(--weight-bold);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-black);
   color: var(--color-dark);
 }
 

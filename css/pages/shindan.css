@@ -323,11 +323,19 @@
 
 .gokaku-card__title {
   font-family: var(--font-heading);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   font-weight: var(--weight-bold);
   color: var(--color-muted);
   letter-spacing: var(--tracking-wide);
   margin-bottom: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.gokaku-card__subtitle {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-muted);
   margin-top: var(--space-1);
 }
 
@@ -341,7 +349,7 @@
 }
 
 .gokaku-card__strokes {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   color: var(--color-muted);
   margin-bottom: var(--space-2);
 }
@@ -355,9 +363,9 @@
 }
 
 .gokaku-card__description {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   color: var(--color-medium);
-  line-height: 1.6;
+  line-height: 1.75;
   text-align: left;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -374,7 +382,7 @@
 .gokaku-card__toggle {
   display: none;
   margin-top: var(--space-1);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   color: var(--color-terracotta);
   cursor: pointer;
   border: none;
@@ -769,4 +777,42 @@
   color: var(--color-muted);
   max-width: 480px;
   margin: 0 auto;
+}
+
+/* =======================================================================
+   Gokaku Divider — CSS装飾ディバイダー（カード間の視覚的区切り）
+   ======================================================================= */
+
+.gokaku-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: calc(-1 * var(--space-1)) 0;
+  opacity: 0.65;
+}
+
+.gokaku-divider__line {
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-terracotta-light),
+    var(--color-sage),
+    var(--color-terracotta-light),
+    transparent
+  );
+  border-radius: 1px;
+}
+
+@media (min-width: 768px) {
+  .gokaku-divider__line {
+    width: 180px;
+  }
+}
+
+@media (max-width: 479px) {
+  .gokaku-divider__line {
+    width: 90px;
+  }
 }
