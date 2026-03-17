@@ -402,7 +402,9 @@
   margin-bottom: var(--space-4);
 }
 
-.gokaku-card__description {
+/* 双要素display切り替え方式（iOS Safari textContent reflow回避） */
+.gokaku-card__desc-short,
+.gokaku-card__desc-full {
   font-size: var(--text-base);
   color: var(--color-medium);
   line-height: 1.8;
@@ -410,7 +412,6 @@
   overflow-wrap: break-word;
   word-break: break-word;
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 /* 折りたたみはJS textContent切り詰め方式（CSS max-height/overflowはiOS Safariで不安定なため廃止） */

@@ -155,23 +155,24 @@ const UIController = (() => {
       });
     }
 
-    // トグルボタンのイベント委譲（初回のみ）— textContent差し替え方式（CSS非依存）
+    // トグルボタンのイベント委譲（初回のみ）— 双要素display切り替え方式（iOS Safari textContent reflow回避）
     if (!elements.gokakuGrid._toggleBound) {
       elements.gokakuGrid.addEventListener('click', (e) => {
         const toggle = e.target.closest('.gokaku-card__toggle');
         if (!toggle) return;
-        const desc = toggle.previousElementSibling;
-        const fullText = desc.dataset.fullText;
-        if (!fullText) return;
+        const right = toggle.closest('.gokaku-card__right');
+        if (!right) return;
+        const shortEl = right.querySelector('.gokaku-card__desc-short');
+        const fullEl = right.querySelector('.gokaku-card__desc-full');
 
-        const isExpanded = desc.dataset.expanded === 'true';
+        const isExpanded = shortEl.style.display === 'none';
         if (isExpanded) {
-          desc.textContent = fullText.slice(0, TRUNCATE_LENGTH) + '…';
-          desc.dataset.expanded = 'false';
+          shortEl.style.display = '';
+          fullEl.style.display = 'none';
           toggle.textContent = 'もっと読む';
         } else {
-          desc.textContent = fullText;
-          desc.dataset.expanded = 'true';
+          shortEl.style.display = 'none';
+          fullEl.style.display = '';
           toggle.textContent = '閉じる';
         }
       });
@@ -224,25 +225,26 @@ const UIController = (() => {
         ` : ''}
       </div>
       <div class="gokaku-card__right">
-        <div class="gokaku-card__description"></div>
+        <div class="gokaku-card__desc-short"></div>
+        <div class="gokaku-card__desc-full" style="display:none"></div>
         <button class="gokaku-card__toggle" type="button" style="display:none">もっと読む</button>
       </div>
     `;
 
-    // textContent方式でテキスト設定（CSS max-height/overflowに依存しない）
-    const descEl = card.querySelector('.gokaku-card__description');
+    // 双要素方式でテキスト設定（textContent動的変更を排除しiOS Safari reflow崩壊を回避）
+    const shortEl = card.querySelector('.gokaku-card__desc-short');
+    const fullEl = card.querySelector('.gokaku-card__desc-full');
     const toggleEl = card.querySelector('.gokaku-card__toggle');
     if (fortune) {
-      descEl.dataset.fullText = fortune.description;
       if (fortune.description.length > TRUNCATE_LENGTH) {
-        descEl.textContent = fortune.description.slice(0, TRUNCATE_LENGTH) + '…';
-        descEl.dataset.expanded = 'false';
+        shortEl.textContent = fortune.description.slice(0, TRUNCATE_LENGTH) + '…';
+        fullEl.textContent = fortune.description;
         toggleEl.style.display = 'inline-block';
       } else {
-        descEl.textContent = fortune.description;
+        shortEl.textContent = fortune.description;
       }
     } else {
-      descEl.textContent = '運勢データが見つかりませんでした。';
+      shortEl.textContent = '運勢データが見つかりませんでした。';
     }
 
     return card;
