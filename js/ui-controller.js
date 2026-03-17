@@ -176,23 +176,29 @@ const UIController = (() => {
 
     card.innerHTML = `
       <div class="gokaku-card__accent gokaku-card__accent--${ratingKey}"></div>
-      <div class="gokaku-card__title">${label.name}<span class="gokaku-card__subtitle">${label.meaning}</span></div>
-      <div class="gokaku-card__number">${data.value}</div>
-      <div class="gokaku-card__strokes">${data.value}画</div>
-      ${fortune ? `
-        <div class="gokaku-card__badge">
-          <span class="badge badge--${ratingKey}">${fortune.rating}</span>
-        </div>
-        <div class="gokaku-card__bar">
-          <div class="progress-bar progress-bar--sm">
-            <div class="progress-bar__fill" style="width: ${score}%"></div>
+      <div class="gokaku-card__left">
+        <div class="gokaku-card__title">${label.name}<span class="gokaku-card__subtitle">${label.meaning}</span></div>
+        <div class="gokaku-card__number">${data.value}</div>
+        <div class="gokaku-card__strokes">${data.value}画</div>
+        ${fortune ? `
+          <div class="gokaku-card__badge">
+            <span class="badge badge--${ratingKey}">${fortune.rating}</span>
           </div>
-        </div>
-        <div class="gokaku-card__description">${fortune.description}</div>
-        <button class="gokaku-card__toggle" type="button">もっと読む</button>
-      ` : `
-        <div class="gokaku-card__description">運勢データが見つかりませんでした。</div>
-      `}
+          <div class="gokaku-card__bar">
+            <div class="progress-bar progress-bar--sm">
+              <div class="progress-bar__fill" style="width: ${score}%"></div>
+            </div>
+          </div>
+        ` : ''}
+      </div>
+      <div class="gokaku-card__right">
+        ${fortune ? `
+          <div class="gokaku-card__description">${fortune.description}</div>
+          <button class="gokaku-card__toggle" type="button">もっと読む</button>
+        ` : `
+          <div class="gokaku-card__description">運勢データが見つかりませんでした。</div>
+        `}
+      </div>
     `;
 
     return card;

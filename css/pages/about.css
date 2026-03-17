@@ -35,7 +35,7 @@
 /* Page header illustration */
 .page-header__illustration {
   display: block;
-  max-width: 300px;
+  max-width: 400px;
   height: auto;
   margin: 0 auto var(--space-6);
   border-radius: var(--radius-lg);
@@ -43,7 +43,7 @@
 
 @media (max-width: 479px) {
   .page-header__illustration {
-    max-width: 200px;
+    max-width: 280px;
   }
 }
 

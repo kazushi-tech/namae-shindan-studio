@@ -281,44 +281,7 @@
   margin-bottom: var(--space-8);
 }
 
-@media (min-width: 480px) {
-  .gokaku-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 768px) {
-  .gokaku-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Make the 5th card span full width on 2-col, or center on 3-col */
-@media (min-width: 480px) and (max-width: 767px) {
-  .gokaku-grid .gokaku-card:nth-child(5) {
-    grid-column: 1 / -1;
-    max-width: 50%;
-    justify-self: center;
-  }
-}
-
-@media (min-width: 768px) {
-  .gokaku-grid .gokaku-card:nth-child(4),
-  .gokaku-grid .gokaku-card:nth-child(5) {
-    /* Center the last two items in a 3-col layout */
-  }
-
-  /* Alternative: use a 5-column subgrid approach */
-  .gokaku-grid--five {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .gokaku-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
+/* 1列固定レイアウト — メディアクエリ不要 */
 
 /* =======================================================================
    Gokaku Card — Individual fortune card
@@ -423,21 +386,39 @@
   text-decoration: underline;
 }
 
-/* デスクトップでカード圧縮 */
-@media (min-width: 1024px) {
-  .gokaku-card {
-    padding: var(--space-5) var(--space-3);
-  }
-
-  .gokaku-card__number {
-    font-size: var(--text-2xl);
-  }
+/* 横長カードの左右ゾーン */
+.gokaku-card__left {
+  text-align: center;
 }
 
-/* プログレスバーをタブレット以上で非表示 */
+.gokaku-card__right {
+  margin-top: var(--space-3);
+}
+
 @media (min-width: 768px) {
-  .gokaku-card__bar {
-    display: none;
+  .gokaku-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-6);
+    text-align: left;
+    padding: var(--space-5) var(--space-6);
+  }
+
+  .gokaku-card__left {
+    flex-shrink: 0;
+    width: 160px;
+    text-align: center;
+  }
+
+  .gokaku-card__right {
+    flex: 1;
+    min-width: 0;
+    margin-top: 0;
+  }
+
+  /* 横長レイアウトでは説明エリアが広いため、line-clampを4行に拡張 */
+  .gokaku-card__description {
+    -webkit-line-clamp: 4;
   }
 }
 
@@ -594,7 +575,7 @@
 
 .page-header__illustration {
   display: block;
-  max-width: 300px;
+  max-width: 400px;
   height: auto;
   margin: 0 auto var(--space-6);
   border-radius: var(--radius-lg);
@@ -602,7 +583,7 @@
 
 @media (max-width: 479px) {
   .page-header__illustration {
-    max-width: 200px;
+    max-width: 280px;
   }
 }
 
