@@ -15,6 +15,14 @@ const App = (() => {
       FortuneData.load()
     ]);
 
+    // データ読み込み失敗チェック
+    const errors = [];
+    if (KanjiStrokes.getLoadError()) errors.push('画数データ');
+    if (FortuneData.getLoadError()) errors.push('運勢データ');
+    if (errors.length > 0) {
+      showDataLoadError(errors);
+    }
+
     // ページ判定して初期化
     const page = document.body.dataset.page;
     switch (page) {
@@ -156,6 +164,19 @@ const App = (() => {
         link.classList.add('nav__link--active');
       }
     });
+  }
+
+  /**
+   * データ読み込みエラーバナーを表示
+   */
+  function showDataLoadError(failedData) {
+    const banner = document.createElement('div');
+    banner.className = 'data-load-error';
+    banner.innerHTML = `
+      <p>${failedData.join('・')}の読み込みに失敗しました。</p>
+      <button onclick="location.reload()">再読み込み</button>
+    `;
+    document.body.prepend(banner);
   }
 
   return { init };

@@ -9,6 +9,7 @@ const FortuneData = (() => {
 
   let fortuneData = null;
   let loaded = false;
+  let loadError = null;
 
   /**
    * 運勢データを読み込む
@@ -18,15 +19,28 @@ const FortuneData = (() => {
     if (loaded) return;
 
     try {
-      const response = await fetch('./data/fortune-meanings.json');
+      const response = await fetch('./data/fortune-meanings.json?v=2');
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      fortuneData = await response.json();
+      const data = await response.json();
+      if (typeof data !== 'object' || data === null || Object.keys(data).length === 0) {
+        throw new Error('運勢データが空です');
+      }
+      fortuneData = data;
       loaded = true;
     } catch (err) {
       console.error('運勢データの読み込みに失敗しました:', err);
       fortuneData = {};
       loaded = true;
+      loadError = err.message;
     }
+  }
+
+  /**
+   * データ読み込みエラーを返す
+   * @returns {string|null}
+   */
+  function getLoadError() {
+    return loadError;
   }
 
   /**
@@ -85,6 +99,7 @@ const FortuneData = (() => {
     getFortune,
     ratingToClass,
     ratingToScore,
-    isLoaded
+    isLoaded,
+    getLoadError
   };
 })();

@@ -9,6 +9,7 @@ const KanjiStrokes = (() => {
 
   let strokeData = null;
   let loaded = false;
+  let loadError = null;
 
   /**
    * 画数データを読み込む
@@ -18,15 +19,28 @@ const KanjiStrokes = (() => {
     if (loaded) return;
 
     try {
-      const response = await fetch('./data/kanji-strokes.json');
+      const response = await fetch('./data/kanji-strokes.json?v=2');
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      strokeData = await response.json();
+      const data = await response.json();
+      if (typeof data !== 'object' || data === null || Object.keys(data).length === 0) {
+        throw new Error('画数データが空です');
+      }
+      strokeData = data;
       loaded = true;
     } catch (err) {
       console.error('画数データの読み込みに失敗しました:', err);
       strokeData = {};
       loaded = true;
+      loadError = err.message;
     }
+  }
+
+  /**
+   * データ読み込みエラーを返す
+   * @returns {string|null}
+   */
+  function getLoadError() {
+    return loadError;
   }
 
   /**
@@ -95,6 +109,7 @@ const KanjiStrokes = (() => {
     getStrokesArray,
     getStrokesOrDefault,
     isLoaded,
-    hasChar
+    hasChar,
+    getLoadError
   };
 })();
