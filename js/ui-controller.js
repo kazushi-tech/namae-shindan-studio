@@ -159,7 +159,13 @@ const UIController = (() => {
         if (!toggle) return;
         const desc = toggle.previousElementSibling;
         const collapsed = desc.classList.toggle('gokaku-card__description--collapsed');
-        void desc.offsetHeight;  // iOS Safari reflow強制
+        if (!collapsed) {
+          desc.style.maxHeight = 'none';
+          desc.style.overflow = 'visible';
+        } else {
+          desc.style.maxHeight = '';
+          desc.style.overflow = '';
+        }
         toggle.textContent = collapsed ? 'もっと読む' : '閉じる';
       });
       elements.gokakuGrid._toggleBound = true;
