@@ -322,18 +322,24 @@
   padding: var(--space-6) var(--space-4);
   text-align: center;
   box-shadow: var(--shadow-card);
-  transition:
-    box-shadow var(--transition-default),
-    transform var(--transition-default);
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: visible;
 }
 
-.gokaku-card:hover {
-  box-shadow: var(--shadow-card-hover);
-  transform: translateY(-2px);
+/* hover効果はポインターデバイスのみ — iOS Safari compositing bug回避 */
+@media (hover: hover) {
+  .gokaku-card {
+    transition:
+      box-shadow var(--transition-default),
+      transform var(--transition-default);
+  }
+
+  .gokaku-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+  }
 }
 
 /* Top accent color bar — changes per fortune */

@@ -167,27 +167,27 @@
    ======================================================================= */
 
 .animate-fade-in {
-  animation: fadeIn 0.6s ease both;
+  animation: fadeIn 0.6s ease forwards;
 }
 
 .animate-slide-up {
-  animation: slideUp 0.6s ease both;
+  animation: slideUp 0.6s ease forwards;
 }
 
 .animate-slide-in-left {
-  animation: slideInLeft 0.5s ease both;
+  animation: slideInLeft 0.5s ease forwards;
 }
 
 .animate-slide-in-right {
-  animation: slideInRight 0.5s ease both;
+  animation: slideInRight 0.5s ease forwards;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.4s ease both;
+  animation: scaleIn 0.4s ease forwards;
 }
 
 .animate-count-up {
-  animation: countUp 0.5s var(--transition-spring) both;
+  animation: countUp 0.5s var(--transition-spring) forwards;
 }
 
 .animate-pulse {
@@ -203,7 +203,7 @@
 }
 
 .animate-pop-in {
-  animation: popIn 0.5s var(--transition-spring) both;
+  animation: popIn 0.5s var(--transition-spring) forwards;
 }
 
 .animate-shimmer {
