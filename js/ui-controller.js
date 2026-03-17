@@ -167,10 +167,13 @@ const UIController = (() => {
       elements.gokakuGrid._toggleBound = true;
     }
 
-    // 結果表示
+    // 結果表示 — visibility:hidden→visible に切替え
+    // iOS Safari: DOMが構築済みの状態でvisibleにし、rAFで確実にペイントさせる
     elements.resultSection.classList.add('visible');
 
-    elements.resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    requestAnimationFrame(() => {
+      elements.resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
 
     // フォームを控えめに
     if (elements.form) {
