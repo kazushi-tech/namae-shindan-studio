@@ -146,6 +146,17 @@ const UIController = (() => {
       });
     }
 
+    // Safari repaint対策: DOMペイント後にアニメーションクラスを適用
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        elements.gokakuGrid.querySelectorAll('.gokaku-card').forEach((card) => {
+          card.style.opacity = '';
+          card.classList.add('animate-slide-up');
+          card.style.animationDelay = card.dataset.animDelay;
+        });
+      });
+    });
+
     // clamp判定: 説明文が3行を超える場合のみトグルボタンを表示
     requestAnimationFrame(() => {
       elements.gokakuGrid.querySelectorAll('.gokaku-card__description').forEach(desc => {
@@ -183,8 +194,9 @@ const UIController = (() => {
    */
   function createGokakuCard(key, data, label, fortune, index) {
     const card = document.createElement('div');
-    card.className = `gokaku-card animate-slide-up`;
-    card.style.animationDelay = `${index * 0.06}s`;
+    card.className = 'gokaku-card';
+    card.style.opacity = '0';
+    card.dataset.animDelay = `${index * 0.06}s`;
 
     const ratingKey = fortune ? FortuneData.ratingToClass(fortune.rating) : '';
     const score = fortune ? FortuneData.ratingToScore(fortune.rating) : 50;
