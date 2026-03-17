@@ -170,10 +170,6 @@ const UIController = (() => {
     // 結果表示
     elements.resultSection.classList.add('visible');
 
-    // iOS Safari: display:none→block直後のテキスト合成バグ回避
-    // offsetHeightアクセスで同期的にreflow/repaintを強制
-    void elements.resultSection.offsetHeight;
-
     elements.resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     // フォームを控えめに

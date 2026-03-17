@@ -436,7 +436,12 @@
     rgba(255, 255, 255, 0.3) 50%,
     transparent 100%
   );
-  animation: shimmer 2s ease-in-out infinite;
+}
+
+@media (hover: hover) {
+  .progress-bar__fill::after {
+    animation: shimmer 2s ease-in-out infinite;
+  }
 }
 
 /* Color variants */
