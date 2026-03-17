@@ -404,16 +404,25 @@
   color: var(--color-medium);
   line-height: 1.8;
   text-align: left;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
   overflow-wrap: break-word;
 }
 
-.gokaku-card__description--expanded {
-  -webkit-line-clamp: unset;
-  overflow: visible;
+/* 折りたたみ状態: max-height ベース（-webkit-line-clamp は iOS Safari で不安定なため不使用） */
+.gokaku-card__description--collapsed {
+  max-height: calc(1.8em * 3);
+  overflow: hidden;
+  position: relative;
+}
+
+.gokaku-card__description--collapsed::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.8em;
+  background: linear-gradient(transparent, var(--color-white));
+  pointer-events: none;
 }
 
 /* トグルボタン（もっと読む / 閉じる） */
@@ -469,9 +478,9 @@
     margin-top: 0;
   }
 
-  /* 横長レイアウトでは説明エリアが広いため、line-clampを4行に拡張 */
-  .gokaku-card__description {
-    -webkit-line-clamp: 4;
+  /* 横長レイアウトでは説明エリアが広いため、4行に拡張 */
+  .gokaku-card__description--collapsed {
+    max-height: calc(1.8em * 4);
   }
 }
 

@@ -158,8 +158,8 @@ const UIController = (() => {
         const toggle = e.target.closest('.gokaku-card__toggle');
         if (!toggle) return;
         const desc = toggle.previousElementSibling;
-        const expanded = desc.classList.toggle('gokaku-card__description--expanded');
-        toggle.textContent = expanded ? '閉じる' : 'もっと読む';
+        const collapsed = desc.classList.toggle('gokaku-card__description--collapsed');
+        toggle.textContent = collapsed ? 'もっと読む' : '閉じる';
       });
       elements.gokakuGrid._toggleBound = true;
     }
@@ -177,14 +177,6 @@ const UIController = (() => {
     // double rAF でiOS Safariのレイアウト完了を保証
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        // clamp判定（scrollHeight/clientHeightは2フレーム目で確定）
-        elements.gokakuGrid.querySelectorAll('.gokaku-card__description').forEach(desc => {
-          const toggle = desc.parentElement.querySelector('.gokaku-card__toggle');
-          if (toggle && desc.scrollHeight > desc.clientHeight) {
-            toggle.style.display = 'inline-block';
-          }
-        });
-        // スクロール
         elements.resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
@@ -219,8 +211,8 @@ const UIController = (() => {
       </div>
       <div class="gokaku-card__right">
         ${fortune ? `
-          <div class="gokaku-card__description">${fortune.description}</div>
-          <button class="gokaku-card__toggle" type="button">もっと読む</button>
+          <div class="gokaku-card__description gokaku-card__description--collapsed">${fortune.description}</div>
+          <button class="gokaku-card__toggle" type="button" style="display:inline-block">もっと読む</button>
         ` : `
           <div class="gokaku-card__description">運勢データが見つかりませんでした。</div>
         `}
