@@ -132,8 +132,7 @@ const UIController = (() => {
         // カード間に水彩ディバイダーを挿入（最後のカード以外）
         if (index < keys.length - 1) {
           const divider = document.createElement('div');
-          divider.className = 'gokaku-divider animate-fade-in';
-          divider.style.animationDelay = `${(index + 1) * 0.06 + 0.03}s`;
+          divider.className = 'gokaku-divider';
           const images = ['divider-sakura.png', 'divider-leaves.png', 'divider-clouds.png'];
           divider.innerHTML = `<img src="assets/images/${images[index % images.length]}"
             alt="" class="gokaku-divider__img" loading="lazy">`;
@@ -170,6 +169,11 @@ const UIController = (() => {
 
     // 結果表示
     elements.resultSection.classList.add('visible');
+
+    // iOS Safari: display:none→block直後のテキスト合成バグ回避
+    // offsetHeightアクセスで同期的にreflow/repaintを強制
+    void elements.resultSection.offsetHeight;
+
     elements.resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     // フォームを控えめに

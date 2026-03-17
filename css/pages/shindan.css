@@ -436,6 +436,8 @@
 /* 横長カードの左右ゾーン */
 .gokaku-card__left {
   text-align: center;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .gokaku-card__right {
