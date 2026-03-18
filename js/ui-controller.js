@@ -11,6 +11,18 @@ const UIController = (() => {
   // テキスト切り詰め文字数（CSS max-heightはiOS Safariで不安定なためJS制御）
   const TRUNCATE_LENGTH = 80;
 
+  function setCardExpanded(card, expanded) {
+    if (!card) return;
+
+    const toggle = card.querySelector('.gokaku-card__toggle');
+    const details = card.querySelector('.gokaku-card__details');
+    if (!toggle || !details) return;
+
+    details.hidden = !expanded;
+    toggle.textContent = expanded ? '閉じる' : 'もっと読む';
+    toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  }
+
   /**
    * 診断ページの DOM 要素を取得してキャッシュ
    */
@@ -155,26 +167,15 @@ const UIController = (() => {
       });
     }
 
-    // トグルボタンのイベント委譲（初回のみ）— 双要素display切り替え方式（iOS Safari textContent reflow回避）
+    // トグルボタンのイベント委譲（初回のみ）
     if (!elements.gokakuGrid._toggleBound) {
       elements.gokakuGrid.addEventListener('click', (e) => {
         const toggle = e.target.closest('.gokaku-card__toggle');
         if (!toggle) return;
-        const right = toggle.closest('.gokaku-card__right');
-        if (!right) return;
-        const shortEl = right.querySelector('.gokaku-card__desc-short');
-        const fullEl = right.querySelector('.gokaku-card__desc-full');
 
-        const isExpanded = shortEl.style.display === 'none';
-        if (isExpanded) {
-          shortEl.style.display = '';
-          fullEl.style.display = 'none';
-          toggle.textContent = 'もっと読む';
-        } else {
-          shortEl.style.display = 'none';
-          fullEl.style.display = '';
-          toggle.textContent = '閉じる';
-        }
+        const card = toggle.closest('.gokaku-card');
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+        setCardExpanded(card, !isExpanded);
       });
       elements.gokakuGrid._toggleBound = true;
     }
@@ -206,32 +207,42 @@ const UIController = (() => {
 
     const ratingKey = fortune ? FortuneData.ratingToClass(fortune.rating) : '';
     const score = fortune ? FortuneData.ratingToScore(fortune.rating) : 50;
+    const detailsId = `gokaku-card-details-${key}-${index}`;
 
     card.innerHTML = `
       <div class="gokaku-card__accent gokaku-card__accent--${ratingKey}"></div>
-      <div class="gokaku-card__left">
-        <div class="gokaku-card__title">${label.name}<span class="gokaku-card__subtitle">${label.meaning}</span></div>
-        <div class="gokaku-card__number">${data.value}</div>
-        <div class="gokaku-card__strokes">${data.value}画</div>
-        ${fortune ? `
-          <div class="gokaku-card__badge">
-            <span class="badge badge--${ratingKey}">${fortune.rating}</span>
-          </div>
-          <div class="gokaku-card__bar">
-            <div class="progress-bar progress-bar--sm">
-              <div class="progress-bar__fill" style="width: ${score}%"></div>
+      <div class="gokaku-card__summary">
+        <div class="gokaku-card__left">
+          <div class="gokaku-card__title">${label.name}<span class="gokaku-card__subtitle">${label.meaning}</span></div>
+          <div class="gokaku-card__number">${data.value}</div>
+          <div class="gokaku-card__strokes">${data.value}画</div>
+          ${fortune ? `
+            <div class="gokaku-card__badge">
+              <span class="badge badge--${ratingKey}">${fortune.rating}</span>
             </div>
-          </div>
-        ` : ''}
+            <div class="gokaku-card__bar">
+              <div class="progress-bar progress-bar--sm">
+                <div class="progress-bar__fill" style="width: ${score}%"></div>
+              </div>
+            </div>
+          ` : ''}
+        </div>
+        <div class="gokaku-card__right">
+          <div class="gokaku-card__desc-short"></div>
+          <button
+            class="gokaku-card__toggle"
+            type="button"
+            hidden
+            aria-expanded="false"
+            aria-controls="${detailsId}"
+          >もっと読む</button>
+        </div>
       </div>
-      <div class="gokaku-card__right">
-        <div class="gokaku-card__desc-short"></div>
-        <div class="gokaku-card__desc-full" style="display:none"></div>
-        <button class="gokaku-card__toggle" type="button" style="display:none">もっと読む</button>
+      <div class="gokaku-card__details" id="${detailsId}" hidden>
+        <div class="gokaku-card__desc-full"></div>
       </div>
     `;
 
-    // 双要素方式でテキスト設定（textContent動的変更を排除しiOS Safari reflow崩壊を回避）
     const shortEl = card.querySelector('.gokaku-card__desc-short');
     const fullEl = card.querySelector('.gokaku-card__desc-full');
     const toggleEl = card.querySelector('.gokaku-card__toggle');
@@ -239,12 +250,14 @@ const UIController = (() => {
       if (fortune.description.length > TRUNCATE_LENGTH) {
         shortEl.textContent = fortune.description.slice(0, TRUNCATE_LENGTH) + '…';
         fullEl.textContent = fortune.description;
-        toggleEl.style.display = 'inline-block';
+        toggleEl.hidden = false;
       } else {
         shortEl.textContent = fortune.description;
+        fullEl.textContent = fortune.description;
       }
     } else {
       shortEl.textContent = '運勢データが見つかりませんでした。';
+      fullEl.textContent = '運勢データが見つかりませんでした。';
     }
 
     return card;
