@@ -8,21 +8,6 @@ const UIController = (() => {
   // DOM要素キャッシュ
   let elements = {};
 
-  // テキスト切り詰め文字数（CSS max-heightはiOS Safariで不安定なためJS制御）
-  const TRUNCATE_LENGTH = 80;
-
-  function setCardExpanded(card, expanded) {
-    if (!card) return;
-
-    const toggle = card.querySelector('.gokaku-card__toggle');
-    const details = card.querySelector('.gokaku-card__details');
-    if (!toggle || !details) return;
-
-    details.hidden = !expanded;
-    toggle.textContent = expanded ? '閉じる' : 'もっと読む';
-    toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-  }
-
   /**
    * 診断ページの DOM 要素を取得してキャッシュ
    */
@@ -167,19 +152,6 @@ const UIController = (() => {
       });
     }
 
-    // トグルボタンのイベント委譲（初回のみ）
-    if (!elements.gokakuGrid._toggleBound) {
-      elements.gokakuGrid.addEventListener('click', (e) => {
-        const toggle = e.target.closest('.gokaku-card__toggle');
-        if (!toggle) return;
-
-        const card = toggle.closest('.gokaku-card');
-        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-        setCardExpanded(card, !isExpanded);
-      });
-      elements.gokakuGrid._toggleBound = true;
-    }
-
     // DOM挿入（二重挿入防止ガード付き）
     if (elements._resultParent && !elements.resultSection.parentNode) {
       elements._resultParent.insertBefore(elements.resultSection, elements._resultNextSibling);
@@ -207,7 +179,6 @@ const UIController = (() => {
 
     const ratingKey = fortune ? FortuneData.ratingToClass(fortune.rating) : '';
     const score = fortune ? FortuneData.ratingToScore(fortune.rating) : 50;
-    const detailsId = `gokaku-card-details-${key}-${index}`;
 
     card.innerHTML = `
       <div class="gokaku-card__accent gokaku-card__accent--${ratingKey}"></div>
@@ -228,36 +199,16 @@ const UIController = (() => {
           ` : ''}
         </div>
         <div class="gokaku-card__right">
-          <div class="gokaku-card__desc-short"></div>
-          <button
-            class="gokaku-card__toggle"
-            type="button"
-            hidden
-            aria-expanded="false"
-            aria-controls="${detailsId}"
-          >もっと読む</button>
+          <p class="gokaku-card__description"></p>
         </div>
-      </div>
-      <div class="gokaku-card__details" id="${detailsId}" hidden>
-        <div class="gokaku-card__desc-full"></div>
       </div>
     `;
 
-    const shortEl = card.querySelector('.gokaku-card__desc-short');
-    const fullEl = card.querySelector('.gokaku-card__desc-full');
-    const toggleEl = card.querySelector('.gokaku-card__toggle');
+    const descEl = card.querySelector('.gokaku-card__description');
     if (fortune) {
-      if (fortune.description.length > TRUNCATE_LENGTH) {
-        shortEl.textContent = fortune.description.slice(0, TRUNCATE_LENGTH) + '…';
-        fullEl.textContent = fortune.description;
-        toggleEl.hidden = false;
-      } else {
-        shortEl.textContent = fortune.description;
-        fullEl.textContent = fortune.description;
-      }
+      descEl.textContent = fortune.description;
     } else {
-      shortEl.textContent = '運勢データが見つかりませんでした。';
-      fullEl.textContent = '運勢データが見つかりませんでした。';
+      descEl.textContent = '運勢データが見つかりませんでした。';
     }
 
     return card;
