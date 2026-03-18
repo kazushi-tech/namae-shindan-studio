@@ -332,8 +332,8 @@
   min-width: 0;
 }
 
-/* hover効果はポインターデバイスのみ — iOS Safari compositing bug回避 */
-@media (hover: hover) {
+/* hover効果はマウスデバイスのみ — iOS Safari compositing bug回避 */
+@media (hover: hover) and (pointer: fine) {
   .gokaku-card {
     transition:
       box-shadow var(--transition-default),

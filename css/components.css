@@ -438,7 +438,7 @@
   );
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .progress-bar__fill::after {
     animation: shimmer 2s ease-in-out infinite;
   }
@@ -566,8 +566,7 @@
   position: sticky;
   top: 0;
   z-index: var(--z-nav);
-  backdrop-filter: blur(8px);
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: var(--color-white);
 }
 
 
