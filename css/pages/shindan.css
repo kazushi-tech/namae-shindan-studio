@@ -297,7 +297,7 @@
 
 .gokaku-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
   margin-bottom: var(--space-8);
   max-width: 100%;
@@ -843,6 +843,8 @@
   align-items: center;
   margin: calc(-1 * var(--space-1)) 0;
   opacity: 0.7;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .gokaku-divider__img {
