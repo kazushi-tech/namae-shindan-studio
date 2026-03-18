@@ -18,13 +18,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/reset.css?v=20260318e">
-  <link rel="stylesheet" href="css/variables.css?v=20260318e">
-  <link rel="stylesheet" href="css/base.css?v=20260318e">
-  <link rel="stylesheet" href="css/components.css?v=20260318e">
-  <link rel="stylesheet" href="css/layout.css?v=20260318e">
-  <link rel="stylesheet" href="css/animations.css?v=20260318e">
-  <link rel="stylesheet" href="css/pages/shindan.css?v=20260318e">
+  <link rel="stylesheet" href="css/reset.css?v=20260318f">
+  <link rel="stylesheet" href="css/variables.css?v=20260318f">
+  <link rel="stylesheet" href="css/base.css?v=20260318f">
+  <link rel="stylesheet" href="css/components.css?v=20260318f">
+  <link rel="stylesheet" href="css/layout.css?v=20260318f">
+  <link rel="stylesheet" href="css/animations.css?v=20260318f">
+  <link rel="stylesheet" href="css/pages/shindan.css?v=20260318f">
 
   <!-- JSON-LD -->
   <!-- Favicon -->
@@ -170,11 +170,11 @@
   </footer>
 
   <!-- JS -->
-  <script src="js/kanji-strokes.js?v=20260318e"></script>
-  <script src="js/seimei-handan.js?v=20260318e"></script>
-  <script src="js/fortune-data.js?v=20260318e"></script>
-  <script src="js/ui-controller.js?v=20260318e"></script>
-  <script src="js/app.js?v=20260318e"></script>
+  <script src="js/kanji-strokes.js?v=20260318f"></script>
+  <script src="js/seimei-handan.js?v=20260318f"></script>
+  <script src="js/fortune-data.js?v=20260318f"></script>
+  <script src="js/ui-controller.js?v=20260318f"></script>
+  <script src="js/app.js?v=20260318f"></script>
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(function(regs) {
@@ -186,6 +186,89 @@
       });
     }
   }
+</script>
+<script>
+// === DEBUG PANEL === (問題特定後に削除)
+(function() {
+  var panel = document.createElement('div');
+  panel.id = 'dbg';
+  panel.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.85);color:#0f0;font:11px/1.4 monospace;padding:6px 8px;z-index:99999;max-height:40vh;overflow-y:auto;pointer-events:none;';
+  document.body.appendChild(panel);
+
+  var maxDoc = 0;
+  var maxBody = 0;
+  var log = [];
+
+  function measure() {
+    var dw = document.documentElement.scrollWidth;
+    var bw = document.body.scrollWidth;
+    var vw = window.innerWidth;
+
+    if (dw > maxDoc) maxDoc = dw;
+    if (bw > maxBody) maxBody = bw;
+
+    var overflow = (dw > vw || bw > vw) ? ' ⚠️OVERFLOW!' : ' ✅OK';
+
+    var html = '<b>viewport:</b> ' + vw + 'px' + overflow + '<br>';
+    html += '<b>doc.scrollW:</b> ' + dw + ' (max:' + maxDoc + ')<br>';
+    html += '<b>body.scrollW:</b> ' + bw + ' (max:' + maxBody + ')<br>';
+
+    var grid = document.getElementById('gokaku-grid');
+    if (grid) {
+      html += '<b>grid:</b> offset=' + grid.offsetWidth + ' scroll=' + grid.scrollWidth + '<br>';
+      var cards = grid.querySelectorAll('.gokaku-card');
+      cards.forEach(function(c, i) {
+        var over = c.scrollWidth > c.offsetWidth ? ' ⚠️' : '';
+        html += 'card' + i + ': off=' + c.offsetWidth + ' scr=' + c.scrollWidth + over + '<br>';
+      });
+      // Check dividers too
+      var dividers = grid.querySelectorAll('.gokaku-divider');
+      dividers.forEach(function(d, i) {
+        var over = d.scrollWidth > d.offsetWidth ? ' ⚠️' : '';
+        html += 'div' + i + ': off=' + d.offsetWidth + ' scr=' + d.scrollWidth + over + '<br>';
+      });
+    }
+
+    var rs = document.getElementById('result-section');
+    if (rs) {
+      html += '<b>result-section:</b> off=' + rs.offsetWidth + ' scr=' + rs.scrollWidth + '<br>';
+    }
+
+    // Show last 3 log entries
+    if (log.length > 0) {
+      html += '<b>--- events ---</b><br>';
+      log.slice(-3).forEach(function(l) { html += l + '<br>'; });
+    }
+
+    panel.innerHTML = html;
+  }
+
+  // Track scroll
+  var scrollCount = 0;
+  window.addEventListener('scroll', function() {
+    scrollCount++;
+    if (scrollCount % 5 === 0) {
+      var dw = document.documentElement.scrollWidth;
+      var vw = window.innerWidth;
+      if (dw > vw) {
+        log.push('scroll#' + scrollCount + ': OVERFLOW doc=' + dw + ' vw=' + vw);
+      }
+    }
+    measure();
+  }, { passive: true });
+
+  // Track resize (iOS address bar)
+  window.addEventListener('resize', function() {
+    log.push('resize: ' + window.innerWidth + 'x' + window.innerHeight);
+    measure();
+  });
+
+  // Periodic check
+  setInterval(measure, 500);
+
+  // Initial
+  setTimeout(measure, 1000);
+})();
 </script>
 </body>
 </html>
