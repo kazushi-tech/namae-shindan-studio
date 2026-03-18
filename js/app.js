@@ -76,6 +76,16 @@ const App = (() => {
         UIController.resetResults();
       });
     }
+
+    // URLパラメータからの自動診断（シェアURL対応）
+    const urlParams = new URLSearchParams(location.search);
+    const seiParam = urlParams.get('sei');
+    const meiParam = urlParams.get('mei');
+    if (seiParam && meiParam && els.seiInput && els.meiInput) {
+      els.seiInput.value = seiParam;
+      els.meiInput.value = meiParam;
+      handleShindan();
+    }
   }
 
   /**
@@ -127,6 +137,11 @@ const App = (() => {
 
       UIController.showResults(seiResult.cleaned, meiResult.cleaned, gokaku);
       UIController.setLoading(false);
+
+      // URLに姓名パラメータを付与（シェアURL対応）
+      const params = new URLSearchParams({ sei: seiResult.cleaned, mei: meiResult.cleaned });
+      history.replaceState(null, '', `${location.pathname}?${params}`);
+
     }, 400);
   }
 

@@ -162,6 +162,24 @@ const UIController = (() => {
       elements.form.classList.add('submitted');
     }
 
+    // シェアURL動的生成
+    const shareParams = new URLSearchParams({ sei, mei });
+    const sharePageUrl = `${location.origin}${location.pathname}?${shareParams}`;
+    const soukakuFortune = gokaku.soukaku
+      ? FortuneData.getFortune(gokaku.soukaku.normalized)?.rating || ''
+      : '';
+    const shareText = encodeURIComponent(
+      `「${sei}${mei}」さんの姓名判断結果は「総格: ${soukakuFortune}」でした！`
+    );
+    const shareUrl = encodeURIComponent(sharePageUrl);
+
+    const shareX = document.getElementById('share-x');
+    const shareLine = document.getElementById('share-line');
+    const shareFb = document.getElementById('share-facebook');
+    if (shareX) shareX.href = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+    if (shareLine) shareLine.href = `https://social-plugins.line.me/lineit/share?url=${shareUrl}`;
+    if (shareFb) shareFb.href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+
     // double rAF でiOS Safariのレイアウト完了を保証
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -245,6 +263,9 @@ const UIController = (() => {
       elements.meiPreview.classList.remove('visible');
     }
     hideError();
+
+    // URLパラメータを除去
+    history.replaceState(null, '', location.pathname);
   }
 
   /**
