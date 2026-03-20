@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ページが見つかりません — 赤ちゃん名前診断</title>
+  <meta name="robots" content="noindex">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/reset.css?v=20260320a">
+  <link rel="stylesheet" href="css/variables.css?v=20260320a">
+  <link rel="stylesheet" href="css/base.css?v=20260320a">
+  <link rel="stylesheet" href="css/components.css?v=20260320a">
+  <link rel="stylesheet" href="css/layout.css?v=20260320a">
+  <link rel="stylesheet" href="css/animations.css?v=20260320a">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="assets/images/logo-icon.png">
+  <meta name="theme-color" content="#E8725C">
+</head>
+<body data-page="404">
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="メインナビゲーション">
+    <div class="container nav-container">
+      <a href="/" class="nav__brand">
+        <img src="assets/images/logo-icon.png" alt="名前診断ロゴ" class="nav__logo">
+        <span class="nav__title">名前診断</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="/" class="nav__link">ホーム</a></li>
+        <li><a href="/shindan" class="nav__link">姓名判断</a></li>
+        <li><a href="/about" class="nav__link">五格について</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="section">
+    <div class="container" style="text-align: center; padding: var(--space-16) var(--space-4);">
+      <h1 class="page-title" style="font-size: var(--text-4xl); margin-bottom: var(--space-4);">ページが見つかりません</h1>
+      <p style="font-size: var(--text-lg); color: var(--color-medium); margin-bottom: var(--space-8);">
+        お探しのページは移動または削除された可能性があります。
+      </p>
+      <div style="display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap;">
+        <a href="/" class="btn btn--primary btn--lg">ホームに戻る</a>
+        <a href="/shindan" class="btn btn--secondary btn--lg">姓名判断を試す</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="footer__brand-name">🌸 赤ちゃん名前診断</span>
+        <p class="footer__brand-desc">大切なお子さまに最高の名前を</p>
+      </div>
+      <nav class="footer__nav" aria-label="フッターナビゲーション">
+        <ul class="footer__links">
+          <li><a href="/" class="footer__link">ホーム</a></li>
+          <li><a href="/shindan" class="footer__link">姓名判断</a></li>
+          <li><a href="/about" class="footer__link">五格について</a></li>
+          <li><a href="/privacy-policy" class="footer__link">プライバシーポリシー</a></li>
+        </ul>
+      </nav>
+      <p class="footer__copyright">&copy; 2026 赤ちゃん名前診断</p>
+    </div>
+  </footer>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(regs) {
+      regs.forEach(function(r) { r.unregister(); });
+    });
+    if (caches) {
+      caches.keys().then(function(names) {
+        names.forEach(function(n) { caches.delete(n); });
+      });
+    }
+  }
+</script>
+</body>
+</html>

@@ -119,3 +119,16 @@ Phase 2 Tier B で Gemini API を使う際の方針:
 | `universal-review` | 日常レビュー |
 | `ui-design-review` | UI品質・デザイン・アクセシビリティ総合レビュー |
 | `deep-research` | 体系的Webリサーチ（SEO・競合分析・技術調査） |
+
+---
+
+## GA4 導入メモ
+
+GA4 測定IDが確定したら以下を対応:
+
+1. 公開ページ4ファイル（`index.html`, `shindan.html`, `about.html`, `privacy-policy.html`）の `</head>` 直前にGA4スニペットを追加
+2. `vercel.json` の CSP を更新:
+   - `script-src` に `https://www.googletagmanager.com` を追加
+   - `connect-src` に `https://www.google-analytics.com https://analytics.google.com` を追加
+   - `img-src` に `https://www.googletagmanager.com https://www.google-analytics.com` を追加
+3. `privacy-policy.html` のアクセス解析セクションにGA4利用を追記

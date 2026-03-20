@@ -172,11 +172,18 @@ const App = (() => {
    * ナビゲーションのアクティブ状態を更新
    */
   function updateActiveNav() {
-    const currentPath = window.location.pathname;
+    const currentPath = window.location.pathname.replace(/\.html$/, '').replace(/\/index$/, '/');
     document.querySelectorAll('.nav__link').forEach(link => {
       const href = link.getAttribute('href');
-      if (currentPath.endsWith(href) || (currentPath === '/' && href === 'index.html')) {
-        link.classList.add('nav__link--active');
+      if (href === '/' || href === '/index' || href === 'index.html') {
+        if (currentPath === '/' || currentPath === '') {
+          link.classList.add('nav__link--active');
+        }
+      } else {
+        const normalizedHref = href.replace(/\.html$/, '');
+        if (currentPath === normalizedHref || currentPath.endsWith(normalizedHref)) {
+          link.classList.add('nav__link--active');
+        }
       }
     });
   }

@@ -12,7 +12,8 @@
   <meta property="og:type" content="article">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:image" content="https://namae-shindan-studio.vercel.app/assets/images/og-image.png">
-  <meta property="og:url" content="https://namae-shindan-studio.vercel.app/about.html">
+  <meta property="og:url" content="https://namae-shindan-studio.vercel.app/about">
+  <link rel="canonical" href="https://namae-shindan-studio.vercel.app/about">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="五格について — 赤ちゃん名前診断">
   <meta name="twitter:description" content="姓名判断の基本「五格」の仕組みを分かりやすく解説します。">
@@ -24,13 +25,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/reset.css?v=20260318i">
-  <link rel="stylesheet" href="css/variables.css?v=20260318i">
-  <link rel="stylesheet" href="css/base.css?v=20260318i">
-  <link rel="stylesheet" href="css/components.css?v=20260318i">
-  <link rel="stylesheet" href="css/layout.css?v=20260318i">
-  <link rel="stylesheet" href="css/animations.css?v=20260318i">
-  <link rel="stylesheet" href="css/pages/about.css?v=20260318i">
+  <link rel="stylesheet" href="css/reset.css?v=20260320a">
+  <link rel="stylesheet" href="css/variables.css?v=20260320a">
+  <link rel="stylesheet" href="css/base.css?v=20260320a">
+  <link rel="stylesheet" href="css/components.css?v=20260320a">
+  <link rel="stylesheet" href="css/layout.css?v=20260320a">
+  <link rel="stylesheet" href="css/animations.css?v=20260320a">
+  <link rel="stylesheet" href="css/pages/about.css?v=20260320a">
 
   <!-- JSON-LD -->
   <!-- Favicon -->
@@ -57,14 +58,14 @@
   <!-- Navigation -->
   <nav class="nav" role="navigation" aria-label="メインナビゲーション">
     <div class="container nav-container">
-      <a href="index.html" class="nav__brand">
+      <a href="/" class="nav__brand">
         <img src="assets/images/logo-icon.png" alt="名前診断ロゴ" class="nav__logo">
         <span class="nav__title">名前診断</span>
       </a>
       <ul class="nav__links">
-        <li><a href="index.html" class="nav__link">ホーム</a></li>
-        <li><a href="shindan.html" class="nav__link">姓名判断</a></li>
-        <li><a href="about.html" class="nav__link nav__link--active">五格について</a></li>
+        <li><a href="/" class="nav__link">ホーム</a></li>
+        <li><a href="/shindan" class="nav__link">姓名判断</a></li>
+        <li><a href="/about" class="nav__link nav__link--active">五格について</a></li>
       </ul>
     </div>
   </nav>
@@ -297,7 +298,7 @@
       <!-- CTA -->
       <div class="section-cta">
         <img src="assets/images/cta-crane.png" alt="" class="cta-illustration" loading="lazy" width="200" height="67">
-        <a href="shindan.html" class="btn btn--primary btn--lg">姓名判断を試す</a>
+        <a href="/shindan" class="btn btn--primary btn--lg">姓名判断を試す</a>
       </div>
 
     </div>
@@ -312,20 +313,21 @@
       </div>
       <nav class="footer__nav" aria-label="フッターナビゲーション">
         <ul class="footer__links">
-          <li><a href="index.html" class="footer__link">ホーム</a></li>
-          <li><a href="shindan.html" class="footer__link">姓名判断</a></li>
-          <li><a href="about.html" class="footer__link">五格について</a></li>
+          <li><a href="/" class="footer__link">ホーム</a></li>
+          <li><a href="/shindan" class="footer__link">姓名判断</a></li>
+          <li><a href="/about" class="footer__link">五格について</a></li>
+          <li><a href="/privacy-policy" class="footer__link">プライバシーポリシー</a></li>
         </ul>
       </nav>
       <p class="footer__copyright">&copy; 2026 赤ちゃん名前診断</p>
     </div>
   </footer>
 
-  <script src="js/kanji-strokes.js?v=20260318i"></script>
-  <script src="js/seimei-handan.js?v=20260318i"></script>
-  <script src="js/fortune-data.js?v=20260318i"></script>
-  <script src="js/ui-controller.js?v=20260318i"></script>
-  <script src="js/app.js?v=20260318i"></script>
+  <script src="js/kanji-strokes.js?v=20260320a"></script>
+  <script src="js/seimei-handan.js?v=20260320a"></script>
+  <script src="js/fortune-data.js?v=20260320a"></script>
+  <script src="js/ui-controller.js?v=20260320a"></script>
+  <script src="js/app.js?v=20260320a"></script>
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(function(regs) {
