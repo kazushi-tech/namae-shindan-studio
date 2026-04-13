@@ -940,59 +940,22 @@
 }
 
 /* =======================================================================
-   CTA Link — Compact inline promotion
+   CTA Subtle — Minimal text link below disclaimer
    ======================================================================= */
 
-.cta-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  margin-top: var(--space-6);
-  padding: var(--space-3) var(--space-4);
-  background-color: var(--color-cream);
-  border: 1px solid var(--color-card-border);
-  border-radius: var(--radius-full);
-  text-decoration: none;
-  transition:
-    background-color var(--transition-default),
-    border-color var(--transition-default);
-}
-
-.cta-link:hover {
-  background-color: var(--color-cream-warm);
-  border-color: var(--color-terracotta-light);
-}
-
-.cta-link__icon {
-  font-size: var(--text-base);
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.cta-link__text {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
+.result-cta-subtle {
+  margin-top: var(--space-4);
+  font-size: var(--text-xs);
   color: var(--color-muted);
+  text-align: center;
 }
 
-.cta-link__action {
-  font-family: var(--font-heading);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-bold);
+.result-cta-subtle a {
   color: var(--color-terracotta);
-  white-space: nowrap;
+  text-decoration: none;
+  font-weight: var(--weight-medium);
 }
 
-@media (max-width: 479px) {
-  .cta-link {
-    flex-wrap: wrap;
-    border-radius: var(--radius-md);
-    padding: var(--space-3);
-  }
-
-  .cta-link__text,
-  .cta-link__action {
-    font-size: var(--text-xs);
-  }
+.result-cta-subtle a:hover {
+  text-decoration: underline;
 }
