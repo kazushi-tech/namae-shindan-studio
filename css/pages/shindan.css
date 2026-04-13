@@ -940,114 +940,59 @@
 }
 
 /* =======================================================================
-   CTA Banner — Kids Tokei etc.
+   CTA Link — Compact inline promotion
    ======================================================================= */
 
-.cta-banner {
+.cta-link {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--space-4);
-  margin-top: var(--space-8);
-  padding: var(--space-6);
-  background: linear-gradient(
-    135deg,
-    var(--color-cream) 0%,
-    var(--color-cream-warm) 100%
-  );
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-cream);
   border: 1px solid var(--color-card-border);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-card);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition:
+    background-color var(--transition-default),
+    border-color var(--transition-default);
 }
 
-/* Top accent bar */
-.cta-banner::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(
-    90deg,
-    var(--color-terracotta),
-    var(--color-gold)
-  );
+.cta-link:hover {
+  background-color: var(--color-cream-warm);
+  border-color: var(--color-terracotta-light);
 }
 
-.cta-banner__icon {
-  font-size: var(--text-3xl);
+.cta-link__icon {
+  font-size: var(--text-base);
   line-height: 1;
+  flex-shrink: 0;
 }
 
-.cta-banner__content {
-  flex: 1;
-  min-width: 0;
-}
-
-.cta-banner__title {
-  font-family: var(--font-heading);
-  font-size: var(--text-lg);
-  font-weight: var(--weight-bold);
-  color: var(--color-dark);
-  margin-bottom: var(--space-2);
-}
-
-.cta-banner__text {
+.cta-link__text {
+  font-family: var(--font-body);
   font-size: var(--text-sm);
-  color: var(--color-medium);
-  line-height: var(--leading-relaxed);
-  margin: 0;
+  color: var(--color-muted);
 }
 
-.cta-banner__btn {
-  min-height: 48px;
+.cta-link__action {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-terracotta);
   white-space: nowrap;
 }
 
-/* Hover lift — mouse devices only */
-@media (hover: hover) and (pointer: fine) {
-  .cta-banner {
-    transition:
-      box-shadow var(--transition-default),
-      transform var(--transition-default);
-  }
-
-  .cta-banner:hover {
-    box-shadow: var(--shadow-card-hover);
-    transform: translateY(-2px);
-  }
-}
-
-/* Desktop: horizontal layout */
-@media (min-width: 768px) {
-  .cta-banner {
-    flex-direction: row;
-    text-align: left;
-    padding: var(--space-6) var(--space-8);
-    gap: var(--space-5);
-  }
-
-  .cta-banner__btn {
-    flex-shrink: 0;
-  }
-}
-
-/* Small mobile adjustments */
 @media (max-width: 479px) {
-  .cta-banner {
-    padding: var(--space-5) var(--space-4);
-    margin-top: var(--space-6);
+  .cta-link {
+    flex-wrap: wrap;
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
   }
 
-  .cta-banner__title {
-    font-size: var(--text-base);
-  }
-
-  .cta-banner__text {
+  .cta-link__text,
+  .cta-link__action {
     font-size: var(--text-xs);
   }
 }
