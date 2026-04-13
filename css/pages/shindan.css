@@ -939,23 +939,3 @@
   }
 }
 
-/* =======================================================================
-   CTA Subtle — Minimal text link below disclaimer
-   ======================================================================= */
-
-.result-cta-subtle {
-  margin-top: var(--space-4);
-  font-size: var(--text-xs);
-  color: var(--color-muted);
-  text-align: center;
-}
-
-.result-cta-subtle a {
-  color: var(--color-terracotta);
-  text-decoration: none;
-  font-weight: var(--weight-medium);
-}
-
-.result-cta-subtle a:hover {
-  text-decoration: underline;
-}
