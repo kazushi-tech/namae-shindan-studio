@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://namae-studio.com/sitemap.xml
+Sitemap: https://column.namae-studio.com/wp-sitemap.xml
