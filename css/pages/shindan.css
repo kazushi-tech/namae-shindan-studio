@@ -945,12 +945,12 @@
   }
 }
 
-/* モバイル: 診断結果セクションの縦スペースを圧縮してアフィリ帯の到達距離を短縮 */
+/* モバイル: 診断結果セクションの縦スペースを圧縮して関連情報への到達距離を短縮 */
 @media (max-width: 767px) {
   .gokaku-divider {
     display: none;
   }
-  .affiliate-cards {
+  .related-items {
     margin-top: var(--space-3);
   }
 }

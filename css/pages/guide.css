@@ -119,22 +119,8 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   position: relative;
-  transition: transform var(--transition-default), box-shadow var(--transition-default);
-  text-decoration: none;
+  transition: box-shadow var(--transition-default);
   color: inherit;
-}
-
-.guide-product::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--color-terracotta), var(--color-gold), var(--color-sage));
-}
-
-.guide-product:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-card-hover);
 }
 
 .guide-product__pr {
@@ -175,24 +161,6 @@
   color: var(--color-medium);
   line-height: var(--leading-relaxed);
   flex: 1;
-}
-
-.guide-product__cta {
-  margin-top: var(--space-3);
-  padding: var(--space-2);
-  border: 1.5px solid var(--color-terracotta);
-  color: var(--color-terracotta);
-  border-radius: var(--radius-full);
-  text-align: center;
-  font-family: var(--font-heading);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-bold);
-  transition: background-color var(--transition-default), color var(--transition-default);
-}
-
-.guide-product:hover .guide-product__cta {
-  background-color: var(--color-terracotta);
-  color: var(--color-white);
 }
 
 /* Hub tiles ---------------------------------------------------- */
