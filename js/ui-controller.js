@@ -312,16 +312,20 @@ const UIController = (() => {
   }
 
   /**
-   * 「もっと詳しく知る」関連ページリンクを動的に生成
+   * 「もっと詳しく知る」関連ページリンクを診断結果に合わせて拡張
    * - 使った漢字の詳細 → /kanji/{漢字}
    * - 同じ総画数の他の名前 → /suggestion?soukaku={n}
-   * - 五格の読み解き方 → /about
+   * HTML に元からある汎用リンク（漢字辞典／ランキング／ガイド／コラム／五格）は維持し、
+   * 診断特化リンクは先頭に prepend する。再診断時は data-dynamic の行だけ差し替え。
    */
   function _renderRelatedPages(sei, mei, gokaku) {
     const host = document.getElementById('related-pages-links');
     if (!host) return;
     const firstMei = (mei && [...mei][0]) || '';
     const soukaku = gokaku && gokaku.soukaku ? gokaku.soukaku.value : null;
+
+    // 既存の動的行を削除（汎用リンクは温存）
+    host.querySelectorAll('li[data-dynamic="true"]').forEach((el) => el.remove());
 
     const rows = [];
     if (firstMei) {
@@ -338,14 +342,11 @@ const UIController = (() => {
         href: `/suggestion?soukaku=${soukaku}`
       });
     }
-    rows.push({
-      icon: '✨',
-      text: '五格（天格・地格など）の読み解き方',
-      href: '/about'
-    });
 
-    host.innerHTML = '';
-    rows.forEach((row) => {
+    // 逆順に prepend することで rows の順序通りに先頭から並ぶ
+    rows.slice().reverse().forEach((row) => {
+      const li = document.createElement('li');
+      li.dataset.dynamic = 'true';
       const a = document.createElement('a');
       a.className = 'related-pages__row';
       a.href = row.href;
@@ -354,9 +355,8 @@ const UIController = (() => {
         <span class="related-pages__row-text">${row.text}</span>
         <span class="related-pages__row-arrow" aria-hidden="true">›</span>
       `;
-      const li = document.createElement('li');
       li.appendChild(a);
-      host.appendChild(li);
+      host.insertBefore(li, host.firstChild);
     });
   }
 
