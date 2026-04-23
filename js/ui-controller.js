@@ -39,11 +39,9 @@ const UIController = (() => {
     _wireFavoriteBtn();
     _wireOgDownloadBtn();
 
-    // DOM挿入/削除方式: 初期状態でresultSectionをDOMから除去
+    // 初期状態: 結果セクションは hidden 属性で非表示（HTML 側でも hidden 指定済み）
     if (elements.resultSection) {
-      elements._resultParent = elements.resultSection.parentNode;
-      elements._resultNextSibling = elements.resultSection.nextSibling;
-      elements.resultSection.remove();
+      elements.resultSection.hidden = true;
     }
   }
 
@@ -165,10 +163,8 @@ const UIController = (() => {
       });
     }
 
-    // DOM挿入（二重挿入防止ガード付き）
-    if (elements._resultParent && !elements.resultSection.parentNode) {
-      elements._resultParent.insertBefore(elements.resultSection, elements._resultNextSibling);
-    }
+    // 結果セクションを表示（hidden 属性トグル）
+    elements.resultSection.hidden = false;
 
     // フォーム非活性化
     if (elements.form) {
@@ -275,11 +271,11 @@ const UIController = (() => {
    * 結果をリセット
    */
   function resetResults() {
-    // DOM除去（二重除去防止ガード付き）
-    if (elements.resultSection && elements.resultSection.parentNode) {
-      elements.resultSection.remove();
+    // 結果セクションを非表示に戻す
+    if (elements.resultSection) {
+      elements.resultSection.hidden = true;
     }
-    // grid内容クリア（detached — コストゼロ）
+    // grid内容クリア
     if (elements.gokakuGrid) {
       elements.gokakuGrid.innerHTML = '';
     }

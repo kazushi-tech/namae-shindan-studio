@@ -133,8 +133,8 @@
         </button>
       </form>
 
-      <!-- Results Section (hidden by default) -->
-      <section id="result-section" class="result-section" aria-label="診断結果">
+      <!-- Results Section (hidden by default — 診断後に hidden=false で表示) -->
+      <section id="result-section" class="result-section" aria-label="診断結果" hidden>
         <div class="result-header">
           <h2 class="result-title">診断結果</h2>
           <p class="result-name-display">
@@ -224,14 +224,6 @@
           </div>
         </section>
 
-        <!-- Related Pages — 「もっと詳しく知る」(UIController が動的に link を埋める) -->
-        <section class="related-pages" aria-labelledby="related-pages-heading">
-          <h3 class="related-pages__heading" id="related-pages-heading">📚 もっと詳しく知る</h3>
-          <ul class="related-pages__link-list" id="related-pages-links">
-            <!-- JS で動的注入 -->
-          </ul>
-        </section>
-
         <!-- Retry -->
         <div class="result-actions">
           <button id="retry-btn" class="btn btn--secondary">
@@ -249,6 +241,48 @@
         <div class="result-disclaimer">
           <p>※ 姓名判断は古くから伝わる占いの一種です。科学的根拠に基づくものではなく、あくまで参考情報としてお楽しみください。</p>
         </div>
+      </section>
+
+      <!-- Related Pages — 「もっと詳しく知る」(診断前は汎用リンク、診断後は UIController が上書き) -->
+      <section class="related-pages" aria-labelledby="related-pages-heading">
+        <h3 class="related-pages__heading" id="related-pages-heading">📚 もっと詳しく知る</h3>
+        <ul class="related-pages__link-list" id="related-pages-links">
+          <li>
+            <a class="related-pages__row" href="/kanji/">
+              <span class="related-pages__row-icon" aria-hidden="true">📖</span>
+              <span class="related-pages__row-text">漢字辞典 — 名前に使える漢字の画数・意味</span>
+              <span class="related-pages__row-arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a class="related-pages__row" href="/ranking/">
+              <span class="related-pages__row-icon" aria-hidden="true">🏆</span>
+              <span class="related-pages__row-text">2026年 赤ちゃんの名前ランキング</span>
+              <span class="related-pages__row-arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a class="related-pages__row" href="/guide/">
+              <span class="related-pages__row-icon" aria-hidden="true">📚</span>
+              <span class="related-pages__row-text">名付けお役立ちガイド</span>
+              <span class="related-pages__row-arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a class="related-pages__row" href="https://column.namae-studio.com/" rel="noopener">
+              <span class="related-pages__row-icon" aria-hidden="true">📝</span>
+              <span class="related-pages__row-text">赤ちゃん名前診断コラム</span>
+              <span class="related-pages__row-arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a class="related-pages__row" href="/about">
+              <span class="related-pages__row-icon" aria-hidden="true">✨</span>
+              <span class="related-pages__row-text">五格（天格・地格など）の読み解き方</span>
+              <span class="related-pages__row-arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+        </ul>
       </section>
 
     </div>
