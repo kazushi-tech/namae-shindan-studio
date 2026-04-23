@@ -22,13 +22,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/reset.css?v=20260423a">
-  <link rel="stylesheet" href="css/variables.css?v=20260423a">
-  <link rel="stylesheet" href="css/base.css?v=20260423a">
-  <link rel="stylesheet" href="css/components.css?v=20260423a">
-  <link rel="stylesheet" href="css/layout.css?v=20260423a">
-  <link rel="stylesheet" href="css/animations.css?v=20260423a">
-  <link rel="stylesheet" href="css/pages/favorites.css?v=20260423a">
+  <link rel="stylesheet" href="css/reset.css?v=20260424a">
+  <link rel="stylesheet" href="css/variables.css?v=20260424a">
+  <link rel="stylesheet" href="css/base.css?v=20260424a">
+  <link rel="stylesheet" href="css/components.css?v=20260424a">
+  <link rel="stylesheet" href="css/layout.css?v=20260424a">
+  <link rel="stylesheet" href="css/animations.css?v=20260424a">
+  <link rel="stylesheet" href="css/pages/favorites.css?v=20260424a">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
@@ -71,6 +71,7 @@
       </nav>
 
       <div class="page-header">
+        <img src="assets/images/favorites-header.png" alt="" class="page-header__illustration" width="600" height="300" loading="eager" decoding="async">
         <h1 class="page-title">⭐ お気に入り</h1>
         <p class="page-subtitle">保存した診断結果を一覧で確認できます</p>
       </div>
@@ -79,7 +80,7 @@
       <section id="favorites-list" aria-live="polite">
         <!-- 空状態 -->
         <div id="favorites-empty" class="favorites-empty" hidden>
-          <div class="favorites-empty__icon">🌱</div>
+          <img src="assets/images/favorites-empty.png" alt="" class="favorites-empty__img" width="512" height="512" loading="lazy" decoding="async">
           <p class="favorites-empty__text">
             まだお気に入りがないのじゃ。<br>
             姓名判断の結果画面で <strong>☆お気に入り</strong> ボタンを押すと保存されるぞ。
@@ -123,18 +124,18 @@
   </footer>
 
   <!-- Core JS -->
-  <script src="js/core/storage.js?v=20260423a"></script>
-  <script src="js/core/analytics.js?v=20260423a"></script>
-  <script src="js/core/share.js?v=20260423a"></script>
-  <script src="js/core/favorites.js?v=20260423a"></script>
-  <script src="js/core/og-generator.js?v=20260423a"></script>
-  <script src="js/core/router.js?v=20260423a"></script>
-  <script src="js/core/ab-test.js?v=20260423a"></script>
-  <script src="js/core/nav.js?v=20260423b"></script>
-  <script src="js/core/boot.js?v=20260423a"></script>
+  <script src="js/core/storage.js?v=20260424a"></script>
+  <script src="js/core/analytics.js?v=20260424a"></script>
+  <script src="js/core/share.js?v=20260424a"></script>
+  <script src="js/core/favorites.js?v=20260424a"></script>
+  <script src="js/core/og-generator.js?v=20260424a"></script>
+  <script src="js/core/router.js?v=20260424a"></script>
+  <script src="js/core/ab-test.js?v=20260424a"></script>
+  <script src="js/core/nav.js?v=20260424a"></script>
+  <script src="js/core/boot.js?v=20260424a"></script>
 
   <!-- Page JS -->
-  <script src="js/favorites-page.js?v=20260423a"></script>
+  <script src="js/favorites-page.js?v=20260424a"></script>
 
 <script>
   if ('serviceWorker' in navigator) {

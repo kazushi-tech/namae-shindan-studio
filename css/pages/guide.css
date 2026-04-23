@@ -45,6 +45,48 @@
   opacity: 0.85;
 }
 
+/* Watercolor hero illustration */
+.guide-hero__illust img {
+  display: block;
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .guide-hero__illust img { max-width: 240px; }
+}
+
+@media (max-width: 479px) {
+  .guide-hero__illust img { max-width: 200px; }
+}
+
+/* Tile icon image overlays the emoji — keep emoji as fallback */
+.guide-hub__tile-icon img {
+  display: block;
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+  margin-bottom: var(--space-2);
+  pointer-events: none;
+}
+
+@media (max-width: 479px) {
+  .guide-hub__tile-icon img {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* When a tile icon contains an image, hide the emoji text to avoid duplication */
+.guide-hub__tile-icon--with-image {
+  font-size: 0;
+  line-height: 0;
+}
+
 /* --- 記事本文 ---------------------------------------------------- */
 .guide-article {
   max-width: 760px;

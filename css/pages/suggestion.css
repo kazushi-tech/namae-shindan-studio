@@ -4,6 +4,32 @@
    ========================================================================== */
 
 /* =======================================================================
+   Page header illustration (Nano Banana 2 watercolor)
+   ======================================================================= */
+
+.page-header__illustration {
+  display: block;
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto var(--space-6);
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .page-header__illustration {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 479px) {
+  .page-header__illustration {
+    max-width: 240px;
+  }
+}
+
+/* =======================================================================
    Suggestion Page Header
    ======================================================================= */
 

@@ -11,9 +11,12 @@ const API_KEY = process.env.IMAGE_API_KEY;
 const MODEL = 'gemini-3.1-flash-image-preview';
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
+const FORCE = process.argv.includes('--force');
+
 const COMMON_STYLE = 'Soft Japanese watercolor illustration, warm cream and coral palette with mint green and gold accents, no text, no people or faces, gentle and cute, white/cream background, baby-themed, traditional Japanese aesthetic, sakura cherry blossom motif';
 
 const IMAGES = [
+  // --- 既存 8 エントリ（Phase 1） ---
   {
     filename: 'hero-baby.png',
     prompt: 'Cherry blossom petals floating in the air, soft baby shoes and a blanket placed together, watercolor illustration style. ' + COMMON_STYLE,
@@ -45,6 +48,56 @@ const IMAGES = [
   {
     filename: 'cta-crane.png',
     prompt: 'Origami cranes flying with cherry blossom petals, hopeful watercolor illustration. ' + COMMON_STYLE,
+  },
+
+  // --- 新規 12 エントリ（Phase: 画像欠損ページ向け） ---
+  {
+    filename: 'suggestion-header.png',
+    prompt: 'Horizontal 2:1 landscape composition. Floating cherry blossom petals drift around a hanging naming tag tied with a soft coral ribbon and little floating hearts, gentle breeze feeling, washi paper texture base. ' + COMMON_STYLE,
+  },
+  {
+    filename: 'favorites-header.png',
+    prompt: 'Horizontal 2:1 landscape composition. A small wooden shelf displaying washi paper bookmarks and little star-shaped ornaments with scattered gold stardust, warm cozy atmosphere. ' + COMMON_STYLE,
+  },
+  {
+    filename: 'favorites-empty.png',
+    prompt: 'Square 1:1 composition. A tiny fresh green sprout in an empty woven basket on washi paper, gentle and hopeful "about to begin" mood, soft mint and cream tones. ' + COMMON_STYLE,
+  },
+  {
+    filename: 'guide-hero.png',
+    prompt: 'Horizontal 2:1 landscape composition. Flat-lay arrangement of a Japanese stitch-bound book, a calligraphy brush, fresh young leaves and a tied cord knot, soft cream background with delicate sakura petals at the corners. ' + COMMON_STYLE,
+  },
+  {
+    filename: 'guide-tile-meimei.png',
+    prompt: 'Square 1:1 composition. A formal Japanese naming certificate (meimeisho) on washi paper with a calligraphy brush poised just above, no hands visible, gentle soft gold accents. ' + COMMON_STYLE,
+  },
+  {
+    filename: 'guide-tile-faq.png',
+    prompt: 'Square 1:1 composition. Floating question marks and speech bubbles alongside a paper balloon (kamifuusen), curious and friendly atmosphere, coral and mint pastel colors. ' + COMMON_STYLE,
+  },
+  {
+    filename: 'guide-tile-shussan.png',
+    prompt: 'Square 1:1 composition. A baby bottle, a folded newborn onesie and a small hand rattle arranged as a still life on washi paper, gentle cream and peach palette. ' + COMMON_STYLE,
+  },
+  {
+    filename: 'guide-tile-miyamairi.png',
+    prompt: 'Square 1:1 composition. A small Japanese shrine torii gate with cherry blossom branches and a tiny wooden ema votive tablet, serene and celebratory mood. ' + COMMON_STYLE,
+  },
+  {
+    filename: 'ranking-hero.png',
+    prompt: 'Horizontal 2:1 landscape composition. A gentle trophy on a ranking podium surrounded by floating petals and gold confetti, gender-neutral pastel palette, celebratory but calm. ' + COMMON_STYLE,
+  },
+  {
+    filename: 'ranking-tile-girls.png',
+    prompt: 'Square 1:1 composition. A soft pink ribbon, a delicate flower crown and baby-pink watercolor sakura petals, feminine yet gentle, no human figures. ' + COMMON_STYLE,
+  },
+  {
+    filename: 'ranking-tile-boys.png',
+    prompt: 'Square 1:1 composition. An indigo blue ribbon, a folded origami paper crane and a small pinwheel on sage green washi paper, calm and fresh. ' + COMMON_STYLE,
+  },
+  {
+    filename: 'kanji-hero.png',
+    prompt: 'Horizontal 2:1 landscape composition. A soft brush, a small round black stone, a tiny ink droplet and a sheet of washi paper with abstract softly bleeding watercolor blots, scholarly and tranquil atmosphere. ' + COMMON_STYLE,
   },
 ];
 
@@ -91,13 +144,20 @@ async function main() {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
 
-  console.log(`Generating ${IMAGES.length} images...\n`);
+  console.log(`Generating ${IMAGES.length} images...${FORCE ? ' (--force mode: overwrite existing)' : ''}\n`);
 
   const results = await Promise.allSettled(IMAGES.map(async (img, index) => {
+    const outputPath = path.join(OUTPUT_DIR, img.filename);
+
+    // 冪等性ガード: 既存ファイルは --force 指定がない限り skip
+    if (!FORCE && fs.existsSync(outputPath)) {
+      console.log(`[${index + 1}/${IMAGES.length}] ⊘ Skip: ${img.filename} (already exists)`);
+      return { filename: img.filename, success: true, skipped: true };
+    }
+
     console.log(`[${index + 1}/${IMAGES.length}] Generating ${img.filename}...`);
     try {
       const imageBuffer = await generateImage(img.prompt);
-      const outputPath = path.join(OUTPUT_DIR, img.filename);
       fs.writeFileSync(outputPath, imageBuffer);
       const sizeKB = Math.round(imageBuffer.length / 1024);
       console.log(`  ✓ Saved: ${img.filename} (${sizeKB}KB)`);
@@ -110,15 +170,20 @@ async function main() {
 
   console.log('\n--- Summary ---');
   const successful = results.filter(r => r.status === 'fulfilled' && r.value.success);
+  const skipped = results.filter(r => r.status === 'fulfilled' && r.value.skipped);
+  const generated = successful.length - skipped.length;
   const failed = results.filter(r => r.status === 'rejected' || (r.status === 'fulfilled' && !r.value.success));
 
-  console.log(`Success: ${successful.length}/${IMAGES.length}`);
+  console.log(`Total: ${IMAGES.length}`);
+  console.log(`Generated: ${generated}`);
+  console.log(`Skipped (already exist): ${skipped.length}`);
   if (failed.length > 0) {
     console.log(`Failed: ${failed.length}`);
     failed.forEach(f => {
       const result = f.status === 'fulfilled' ? f.value : f.reason;
       console.log(`  - ${result.filename || 'unknown'}`);
     });
+    process.exitCode = 1;
   }
 }
 

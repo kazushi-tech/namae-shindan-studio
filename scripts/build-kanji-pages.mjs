@@ -15,7 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const DATA = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/kanji-meanings.json'), 'utf8'));
 const OUT_DIR = path.join(ROOT, 'kanji');
-const VERSION = '20260423b';
+const VERSION = '20260424a';
 
 if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
 
@@ -138,6 +138,8 @@ function renderPage(kanji, d) {
           <li class="breadcrumb__item"><span class="breadcrumb__current">${esc(kanji)}</span></li>
         </ol>
       </nav>
+
+      <img src="/assets/images/kanji-hero.png" alt="" class="kanji-hero__illust" width="600" height="300" loading="eager" decoding="async">
 
       <section class="kanji-hero">
         <div class="kanji-hero__badge-wrap">

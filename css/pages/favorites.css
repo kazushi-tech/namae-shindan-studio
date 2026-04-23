@@ -2,6 +2,39 @@
    pages/favorites.css — お気に入り一覧ページ
    ========================================================================== */
 
+/* Page header illustration (Nano Banana 2 watercolor) */
+.page-header__illustration {
+  display: block;
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto var(--space-6);
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .page-header__illustration { max-width: 320px; }
+}
+
+@media (max-width: 479px) {
+  .page-header__illustration { max-width: 240px; }
+}
+
+/* Empty state illustration */
+.favorites-empty__img {
+  display: block;
+  max-width: 180px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto var(--space-4);
+  pointer-events: none;
+}
+
+@media (max-width: 479px) {
+  .favorites-empty__img { max-width: 140px; }
+}
+
 .favorites-empty {
   text-align: center;
   padding: var(--space-12) var(--space-4);

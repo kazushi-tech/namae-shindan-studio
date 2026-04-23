@@ -15,6 +15,39 @@
   padding: var(--space-8) 0 var(--space-4);
 }
 
+/* Watercolor hero illustration */
+.ranking-hero__illust {
+  display: block;
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto var(--space-4);
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .ranking-hero__illust { max-width: 320px; }
+}
+
+@media (max-width: 479px) {
+  .ranking-hero__illust { max-width: 240px; }
+}
+
+/* Tile icon (girls/boys) image */
+.ranking-hub__tile-icon {
+  display: block;
+  width: 96px;
+  height: 96px;
+  margin-bottom: var(--space-2);
+  object-fit: contain;
+  pointer-events: none;
+}
+
+@media (max-width: 479px) {
+  .ranking-hub__tile-icon { width: 72px; height: 72px; }
+}
+
 .ranking-badge {
   display: inline-block;
   padding: var(--space-1) var(--space-3);
