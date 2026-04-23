@@ -77,14 +77,29 @@ const App = (() => {
       });
     }
 
-    // URLパラメータからの自動診断（シェアURL対応）
+    // URLパラメータからのプリフィル＆自動診断
+    // - 両方そろっていれば自動診断（シェアURL対応）
+    // - 片方のみのときは入力欄に値を入れ、空の側へフォーカスを当ててヒントを出す
+    //   （/ranking や /kanji 配下からの導線は `?mei=...` のみで来るケースがあるため）
     const urlParams = new URLSearchParams(location.search);
     const seiParam = urlParams.get('sei');
     const meiParam = urlParams.get('mei');
-    if (seiParam && meiParam && els.seiInput && els.meiInput) {
-      els.seiInput.value = seiParam;
-      els.meiInput.value = meiParam;
-      handleShindan();
+    if (els.seiInput && els.meiInput) {
+      if (seiParam) els.seiInput.value = seiParam;
+      if (meiParam) els.meiInput.value = meiParam;
+      // 入力済みの欄に対する画数プレビューも更新
+      if (seiParam) UIController.updateStrokePreview(seiParam, UIController.elements.seiPreview);
+      if (meiParam) UIController.updateStrokePreview(meiParam, UIController.elements.meiPreview);
+
+      if (seiParam && meiParam) {
+        handleShindan();
+      } else if (seiParam && !meiParam) {
+        els.meiInput.focus();
+        els.meiInput.placeholder = '名を入力して診断を開始';
+      } else if (!seiParam && meiParam) {
+        els.seiInput.focus();
+        els.seiInput.placeholder = '姓を入力して診断を開始';
+      }
     }
   }
 

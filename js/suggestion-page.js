@@ -73,6 +73,9 @@
         if (filters.fortune === 'daikichi' && f.rating !== '大吉') return false;
         if (filters.fortune === 'kichi' && !['大吉', '吉'].includes(f.rating)) return false;
       }
+      if (filters.targetSoukaku && Number(n.strokes) !== Number(filters.targetSoukaku)) {
+        return false;
+      }
       return true;
     });
   }
@@ -131,7 +134,9 @@
       chars,
       headGroup: fd.get('headGroup') || '',
       fortune: fd.get('fortune') || 'any',
-      includeKanji: fd.get('includeKanji') || ''
+      includeKanji: fd.get('includeKanji') || '',
+      // URL 経由でのみ設定される（UI 上の入力欄は無い）— /suggestion?soukaku=N
+      targetSoukaku: form.dataset.targetSoukaku || ''
     };
   }
 
@@ -143,6 +148,7 @@
     const data = await loadData();
     const results = filterNames(data.names, filters);
     renderResults(results, seiInput);
+    renderSoukakuBadge(filters.targetSoukaku);
     // URL に条件を反映
     const params = new URLSearchParams();
     if (seiInput) params.set('sei', seiInput);
@@ -151,11 +157,36 @@
     if (filters.headGroup) params.set('head', filters.headGroup);
     if (filters.fortune && filters.fortune !== 'any') params.set('fortune', filters.fortune);
     if (filters.includeKanji) params.set('k', filters.includeKanji);
+    if (filters.targetSoukaku) params.set('soukaku', filters.targetSoukaku);
     const qs = params.toString();
     history.replaceState(null, '', qs ? `${location.pathname}?${qs}` : location.pathname);
 
     // 計測
     if (window.Analytics) window.Analytics.toolCompleted('suggestion', '', { count: results.length });
+  }
+
+  // 総画フィルタ（URL 経由）の状態バッジ — 解除ボタン付き
+  function renderSoukakuBadge(target) {
+    const count = document.getElementById('suggestion-result-count');
+    if (!count) return;
+    const old = document.getElementById('suggestion-soukaku-badge');
+    if (old) old.remove();
+    if (!target) return;
+    const badge = document.createElement('div');
+    badge.id = 'suggestion-soukaku-badge';
+    badge.style.cssText = 'margin:var(--space-3) 0;display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;font-size:var(--text-sm)';
+    badge.innerHTML = `
+      <span>🔢 総画 <strong>${esc(String(target))}</strong> 画で絞り込み中</span>
+      <button type="button" class="btn btn--ghost btn--sm" id="suggestion-soukaku-clear">解除</button>
+    `;
+    count.parentNode && count.parentNode.insertBefore(badge, count.nextSibling);
+    const clear = badge.querySelector('#suggestion-soukaku-clear');
+    if (clear) clear.addEventListener('click', () => {
+      const form = document.getElementById('suggestion-form');
+      if (!form) return;
+      delete form.dataset.targetSoukaku;
+      form.dispatchEvent(new Event('submit', { cancelable: true }));
+    });
   }
 
   function initFromUrl(form) {

@@ -675,6 +675,22 @@
 
   .nav__links--open {
     display: flex;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+    z-index: 60;
+  }
+
+  /* ドロワー展開中は本文スクロールを抑止 */
+  body.nav-drawer-open {
+    overflow: hidden;
+  }
+  body.nav-drawer-open::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.28);
+    z-index: 40;
+    pointer-events: none;
   }
 
   .nav__link {

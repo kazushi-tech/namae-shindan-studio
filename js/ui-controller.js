@@ -321,18 +321,21 @@ const UIController = (() => {
   function _renderRelatedPages(sei, mei, gokaku) {
     const host = document.getElementById('related-pages-links');
     if (!host) return;
-    const firstMei = (mei && [...mei][0]) || '';
+    const meiChars = mei ? [...mei] : [];
     const soukaku = gokaku && gokaku.soukaku ? gokaku.soukaku.value : null;
+    // 漢字ページの実在ホワイトリスト（shindan.html で window.__KANJI_PAGES__ に埋め込み済み）
+    const kanjiPages = (typeof window !== 'undefined' && window.__KANJI_PAGES__) || {};
+    const existingKanji = meiChars.find((ch) => Object.prototype.hasOwnProperty.call(kanjiPages, ch)) || '';
 
     // 既存の動的行を削除（汎用リンクは温存）
     host.querySelectorAll('li[data-dynamic="true"]').forEach((el) => el.remove());
 
     const rows = [];
-    if (firstMei) {
+    if (existingKanji) {
       rows.push({
         icon: '📖',
-        text: `「${firstMei}」の詳細・由来を見る`,
-        href: `/kanji/${encodeURIComponent(firstMei)}`
+        text: `「${existingKanji}」の詳細・由来を見る`,
+        href: `/kanji/${encodeURIComponent(existingKanji)}`
       });
     }
     if (soukaku) {

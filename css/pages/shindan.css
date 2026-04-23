@@ -304,10 +304,16 @@
   overflow: hidden;
 }
 
+@media (max-width: 767px) {
+  .gokaku-grid {
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+}
 @media (max-width: 479px) {
   .gokaku-grid {
-    gap: var(--space-3);
-    margin-bottom: var(--space-6);
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
   }
 }
 
@@ -936,6 +942,16 @@
 @media (max-width: 479px) {
   .gokaku-divider__img {
     max-width: 180px;
+  }
+}
+
+/* モバイル: 診断結果セクションの縦スペースを圧縮してアフィリ帯の到達距離を短縮 */
+@media (max-width: 767px) {
+  .gokaku-divider {
+    display: none;
+  }
+  .affiliate-cards {
+    margin-top: var(--space-3);
   }
 }
 
