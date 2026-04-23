@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>結びの命名 - 診断結果強化モジュール</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&amp;family=Zen+Maru+Gothic:wght@700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00513f",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#fff0ee",
+                        "on-surface-variant": "#57423e",
+                        "surface-container-highest": "#f2deda",
+                        "surface-variant": "#f2deda",
+                        "secondary-container": "#9cf3d5",
+                        "on-primary-fixed-variant": "#822717",
+                        "surface-container-high": "#f8e4e0",
+                        "primary-container": "#e8725c",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#a23e2c",
+                        "primary": "#a23e2c",
+                        "secondary-fixed": "#9cf3d5",
+                        "on-tertiary-fixed-variant": "#5e4200",
+                        "on-surface": "#241917",
+                        "inverse-primary": "#ffb4a6",
+                        "surface-bright": "#fff8f6",
+                        "tertiary-fixed-dim": "#f6bd52",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#ffede9",
+                        "on-primary-fixed": "#3f0300",
+                        "surface": "#fff8f6",
+                        "on-primary-container": "#5e0c02",
+                        "on-error-container": "#93000a",
+                        "on-background": "#241917",
+                        "on-secondary-fixed": "#002118",
+                        "surface-container": "#fee9e5",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#bf8c23",
+                        "secondary-fixed-dim": "#81d7ba",
+                        "outline": "#8a726d",
+                        "inverse-surface": "#3a2e2b",
+                        "tertiary-fixed": "#ffdea8",
+                        "tertiary": "#7d5800",
+                        "background": "#fff8f6",
+                        "primary-fixed-dim": "#ffb4a6",
+                        "outline-variant": "#ddc0ba",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#ffdad3",
+                        "on-secondary-container": "#0a725a",
+                        "on-tertiary-fixed": "#271900",
+                        "surface-dim": "#ead6d2",
+                        "secondary": "#006b54",
+                        "on-tertiary-container": "#3e2a00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "40px",
+                        "sm": "16px",
+                        "xl": "64px",
+                        "md": "24px",
+                        "base": "4px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Noto Sans JP"],
+                        "h1": ["Zen Maru Gothic"],
+                        "h3": ["Zen Maru Gothic"],
+                        "h2": ["Zen Maru Gothic"],
+                        "label": ["Noto Sans JP"],
+                        "body-lg": ["Noto Sans JP"],
+                        "body-md": ["Noto Sans JP"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "1.6", "fontWeight": "300" }],
+                        "h1": ["32px", { "lineHeight": "1.4", "fontWeight": "900" }],
+                        "h3": ["20px", { "lineHeight": "1.5", "fontWeight": "700" }],
+                        "h2": ["24px", { "lineHeight": "1.5", "fontWeight": "700" }],
+                        "label": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.8", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.7", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .wagara-bg {
+            background-image: radial-gradient(#ddc0ba 1px, transparent 1px);
+            background-size: 16px 16px;
+            background-color: rgba(255, 248, 246, 0.95);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen wagara-bg flex flex-col">
+<header class="bg-stone-50/90 dark:bg-stone-900/90 backdrop-blur-md font-serif tracking-tight docked full-width top-0 sticky border-b border-orange-100 dark:border-stone-800 shadow-sm z-50">
+<div class="flex justify-between items-center w-full px-4 h-16 max-w-screen-xl mx-auto">
+<div class="text-xl font-bold text-orange-800 dark:text-orange-200" style="color: #E8725C; font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700;">名前診断スタジオ</div>
+<div class="hidden md:flex gap-4">
+<!-- Nav items would go here for desktop -->
+</div>
+<div class="flex gap-4 items-center">
+<button class="text-orange-700 dark:text-orange-400 hover:bg-orange-50/50 dark:hover:bg-stone-800 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+<button class="text-orange-700 dark:text-orange-400 hover:bg-orange-50/50 dark:hover:bg-stone-800 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow flex justify-center w-full py-xl px-4 md:px-lg">
+<div class="w-full max-w-[960px] flex flex-col gap-xl">
+<!-- Result Recommend Module -->
+<section class="result-recommend flex flex-col gap-md">
+<h2 class="font-h2 text-h2 text-on-surface text-center">🎋 決まった名前を、形に残しませんか？</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-sm">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest rounded-[16px] border border-[#E8DFD3] overflow-hidden shadow-[0_4px_12px_rgba(61,48,41,0.06)] hover:-translate-y-1.5 hover:-rotate-1 hover:shadow-[0_8px_24px_rgba(61,48,41,0.12)] transition-transform duration-300 group cursor-pointer relative"><div class="absolute top-2 right-2 bg-[#5C4F44] text-white text-[10px] px-1.5 py-0.5 rounded">PR</div>
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-fixed-dim to-secondary-fixed"></div>
+<div class="p-md flex flex-col gap-sm items-center text-center">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="edit_document">edit_document</span>
+<h3 class="font-h3 text-h3 text-on-surface">命名書</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">プロの書家が心を込めて書き上げる、一生の宝物。</p>
+<p class="font-bold text-[#E8725C] mt-2">¥1,800〜</p><button class="mt-4 w-full py-2 border border-[#E8725C] text-[#E8725C] rounded-full text-sm font-bold hover:bg-orange-50 transition-colors">詳細を見る</button></div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest rounded-[16px] border border-[#E8DFD3] overflow-hidden shadow-[0_4px_12px_rgba(61,48,41,0.06)] hover:-translate-y-1.5 hover:-rotate-1 hover:shadow-[0_8px_24px_rgba(61,48,41,0.12)] transition-transform duration-300 group cursor-pointer relative"><div class="absolute top-2 right-2 bg-[#5C4F44] text-white text-[10px] px-1.5 py-0.5 rounded">PR</div>
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-fixed-dim to-secondary-fixed"></div>
+<div class="p-md flex flex-col gap-sm items-center text-center">
+<span class="material-symbols-outlined text-4xl text-tertiary-fixed-dim" data-icon="brush">brush</span>
+<h3 class="font-h3 text-h3 text-on-surface">赤ちゃん筆</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">初めての髪の毛で作る、世界に一つだけの筆。</p>
+<p class="font-bold text-[#E8725C] mt-2">¥8,000〜</p><button class="mt-4 w-full py-2 border border-[#E8725C] text-[#E8725C] rounded-full text-sm font-bold hover:bg-orange-50 transition-colors">詳細を見る</button></div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest rounded-[16px] border border-[#E8DFD3] overflow-hidden shadow-[0_4px_12px_rgba(61,48,41,0.06)] hover:-translate-y-1.5 hover:-rotate-1 hover:shadow-[0_8px_24px_rgba(61,48,41,0.12)] transition-transform duration-300 group cursor-pointer relative"><div class="absolute top-2 right-2 bg-[#5C4F44] text-white text-[10px] px-1.5 py-0.5 rounded">PR</div>
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-fixed-dim to-secondary-fixed"></div>
+<div class="p-md flex flex-col gap-sm items-center text-center">
+<span class="material-symbols-outlined text-4xl text-secondary" data-icon="photo_camera">photo_camera</span>
+<h3 class="font-h3 text-h3 text-on-surface">写真撮影</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">今しかない愛らしい姿を、プロのカメラマンが記録。</p>
+<p class="font-bold text-[#6EC4A8] mt-2">無料見積もり</p><button class="mt-4 w-full py-2 border border-[#E8725C] text-[#E8725C] rounded-full text-sm font-bold hover:bg-orange-50 transition-colors">詳細を見る</button></div>
+</article>
+<!-- Card 4 -->
+<article class="bg-surface-container-lowest rounded-[16px] border border-[#E8DFD3] overflow-hidden shadow-[0_4px_12px_rgba(61,48,41,0.06)] hover:-translate-y-1.5 hover:-rotate-1 hover:shadow-[0_8px_24px_rgba(61,48,41,0.12)] transition-transform duration-300 group cursor-pointer relative">
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-fixed-dim to-secondary-fixed"></div>
+<div class="p-md flex flex-col gap-sm items-center text-center">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="schedule">schedule</span>
+<h3 class="font-h3 text-h3 text-on-surface">キッズ時計</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">毎日の成長を刻む、特別なオリジナル時計。</p>
+<p class="font-bold text-[#F0B84D] mt-2">成長記録</p><button class="mt-4 w-full py-2 bg-gradient-to-r from-[#E8725C] to-[#a23e2c] text-white rounded-full text-sm font-bold shadow-sm hover:opacity-90 transition-opacity">アプリを試す</button></div>
+</article>
+</div>
+</section>
+<!-- AdSense Result Module -->
+<section class="adsense-result flex justify-center py-md">
+<div class="w-[336px] h-[280px] bg-[#FCEDE8] flex items-center justify-center rounded-lg border border-outline-variant shadow-sm relative overflow-hidden">
+<span class="font-body-sm text-body-sm text-on-surface-variant/50">広告スペース</span>
+</div>
+</section>
+<!-- Related Pages Module -->
+<section class="related-pages flex flex-col gap-md">
+<h2 class="font-h2 text-h2 text-on-surface text-center">もっと詳しく知る</h2>
+<div class="flex flex-col gap-sm">
+<a class="bg-[#FEFAF5] rounded-lg p-md flex items-center justify-between border border-outline-variant hover:border-primary transition-colors shadow-sm hover:shadow-md group" href="#">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="spellcheck">spellcheck</span>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface font-medium group-hover:text-primary transition-colors">漢字の詳細・由来</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+<a class="bg-[#FEFAF5] rounded-lg p-md flex items-center justify-between border border-outline-variant hover:border-primary transition-colors shadow-sm hover:shadow-md group" href="#">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="calculate">calculate</span>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface font-medium group-hover:text-primary transition-colors">同じ総画数の他の名前</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+<a class="bg-[#FEFAF5] rounded-lg p-md flex items-center justify-between border border-outline-variant hover:border-primary transition-colors shadow-sm hover:shadow-md group" href="#">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface font-medium group-hover:text-primary transition-colors">五格（天格・地格など）の読み解き方</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+</section>
+</div>
+</main>
+<nav class="bg-white/95 dark:bg-stone-950/95 text-[11px] font-medium font-sans text-lg font-black text-orange-700 fixed bottom-0 w-full rounded-t-2xl z-50 border-t border-orange-50 dark:border-stone-800 shadow-[0_-4px_12px_rgba(61,48,41,0.08)] fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pt-2 pb-safe md:hidden">
+<a class="flex flex-col items-center justify-center text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/40 rounded-xl px-3 py-1 hover:text-orange-500" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="auto_awesome" data-weight="fill" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span>診断</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 px-3 py-1 hover:text-orange-500" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="favorite">favorite</span>
+<span>お気に入り</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 px-3 py-1 hover:text-orange-500" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="trending_up">trending_up</span>
+<span>トレンド</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 px-3 py-1 hover:text-orange-500" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="settings">settings</span>
+<span>設定</span>
+</a>
+</nav>
+</body></html>

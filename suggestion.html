@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>名前候補ジェネレーター — 姓と条件から名前を提案 | 赤ちゃん名前診断</title>
+  <meta name="description" content="姓と希望条件（性別・画数・読み頭文字・含みたい漢字）を入力して、人気の名前候補を一覧提案。全ての候補は五格の運勢つきで詳しく診断できます。">
+
+  <meta property="og:title" content="名前候補ジェネレーター — 赤ちゃん名前診断">
+  <meta property="og:description" content="姓と条件から人気の名前候補を提案。画数と運勢つきで比較できます。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:image" content="https://namae-studio.com/assets/images/og-image.png">
+  <meta property="og:url" content="https://namae-studio.com/suggestion">
+  <link rel="canonical" href="https://namae-studio.com/suggestion">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/reset.css?v=20260423b">
+  <link rel="stylesheet" href="/css/variables.css?v=20260423b">
+  <link rel="stylesheet" href="/css/base.css?v=20260423b">
+  <link rel="stylesheet" href="/css/components.css?v=20260423b">
+  <link rel="stylesheet" href="/css/layout.css?v=20260423b">
+  <link rel="stylesheet" href="/css/animations.css?v=20260423b">
+  <link rel="stylesheet" href="/css/pages/suggestion.css?v=20260423b">
+
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/images/logo-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#E8725C">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "名前候補ジェネレーター",
+    "description": "姓と条件から赤ちゃんの名前候補を提案する無料ツール",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://namae-studio.com/" },
+        { "@type": "ListItem", "position": 2, "name": "名前候補ジェネレーター" }
+      ]
+    }
+  }
+  </script>
+</head>
+<body data-page="suggestion">
+
+  <nav class="nav" role="navigation" aria-label="メインナビゲーション">
+    <div class="container nav-container">
+      <a href="/" class="nav__brand">
+        <img src="/assets/images/logo-icon.png" alt="名前診断ロゴ" class="nav__logo">
+        <span class="nav__title">名前診断</span>
+      </a>
+      <button class="nav__toggle" aria-label="メニュー" aria-expanded="false"><span></span><span></span><span></span></button>
+      <ul class="nav__links">
+        <li><a href="/" class="nav__link">ホーム</a></li>
+        <li><a href="/shindan" class="nav__link">姓名判断</a></li>
+        <li><a href="/suggestion" class="nav__link nav__link--active">名前候補</a></li>
+        <li><a href="/ranking/" class="nav__link">ランキング</a></li>
+        <li><a href="/kanji/" class="nav__link">漢字辞典</a></li>
+        <li><a href="/guide/" class="nav__link">ガイド</a></li>
+        <li><a href="/about" class="nav__link">五格</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="section">
+    <div class="container">
+
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item"><a href="/" class="breadcrumb__link">ホーム</a></li>
+          <li class="breadcrumb__item"><span class="breadcrumb__current">名前候補</span></li>
+        </ol>
+      </nav>
+
+      <div class="page-header">
+        <h1 class="page-title">名前候補ジェネレーター</h1>
+        <p class="page-subtitle">ご希望の条件に合わせて、人気の名前を候補としてご提案します</p>
+      </div>
+
+      <!-- Form -->
+      <form id="suggestion-form" class="suggestion-form card" novalidate>
+
+        <div class="suggestion-field">
+          <label class="suggestion-field__label" for="sei-input">姓（お父様・お母様の姓）</label>
+          <input type="text" id="sei-input" name="sei" class="input-field" placeholder="例: 山田" autocomplete="off" maxlength="10">
+          <p class="input-group__hint" style="margin-top: var(--space-1)">姓を入れると、姓名判断の結果画面へワンクリックで引き継げます。</p>
+        </div>
+
+        <div class="suggestion-field">
+          <label class="suggestion-field__label">性別</label>
+          <div class="suggestion-radios">
+            <span><input type="radio" id="g-any"   name="gender" value="any"   checked><label for="g-any">こだわらない</label></span>
+            <span><input type="radio" id="g-boys"  name="gender" value="boys"><label for="g-boys">男の子</label></span>
+            <span><input type="radio" id="g-girls" name="gender" value="girls"><label for="g-girls">女の子</label></span>
+          </div>
+        </div>
+
+        <div class="suggestion-field">
+          <label class="suggestion-field__label">文字数（複数選択可）</label>
+          <div class="suggestion-radios">
+            <span><input type="checkbox" id="c-1" name="chars" value="1"><label for="c-1">1文字</label></span>
+            <span><input type="checkbox" id="c-2" name="chars" value="2"><label for="c-2">2文字</label></span>
+            <span><input type="checkbox" id="c-3" name="chars" value="3"><label for="c-3">3文字</label></span>
+            <span><input type="checkbox" id="c-4" name="chars" value="4"><label for="c-4">4文字以上</label></span>
+          </div>
+        </div>
+
+        <div class="suggestion-field">
+          <label class="suggestion-field__label">読みの頭文字</label>
+          <div class="suggestion-radios">
+            <span><input type="radio" id="h-any" name="headGroup" value="" checked><label for="h-any">指定なし</label></span>
+            <span><input type="radio" id="h-a"  name="headGroup" value="a"><label for="h-a">あ行</label></span>
+            <span><input type="radio" id="h-ka" name="headGroup" value="ka"><label for="h-ka">か行</label></span>
+            <span><input type="radio" id="h-sa" name="headGroup" value="sa"><label for="h-sa">さ行</label></span>
+            <span><input type="radio" id="h-ta" name="headGroup" value="ta"><label for="h-ta">た行</label></span>
+            <span><input type="radio" id="h-na" name="headGroup" value="na"><label for="h-na">な行</label></span>
+            <span><input type="radio" id="h-ha" name="headGroup" value="ha"><label for="h-ha">は行</label></span>
+            <span><input type="radio" id="h-ma" name="headGroup" value="ma"><label for="h-ma">ま行</label></span>
+            <span><input type="radio" id="h-ya" name="headGroup" value="ya"><label for="h-ya">や行</label></span>
+            <span><input type="radio" id="h-ra" name="headGroup" value="ra"><label for="h-ra">ら行</label></span>
+            <span><input type="radio" id="h-wa" name="headGroup" value="wa"><label for="h-wa">わ行</label></span>
+          </div>
+        </div>
+
+        <div class="suggestion-field">
+          <label class="suggestion-field__label">運勢</label>
+          <div class="suggestion-radios">
+            <span><input type="radio" id="f-any"      name="fortune" value="any" checked><label for="f-any">こだわらない</label></span>
+            <span><input type="radio" id="f-kichi"    name="fortune" value="kichi"><label for="f-kichi">吉以上</label></span>
+            <span><input type="radio" id="f-daikichi" name="fortune" value="daikichi"><label for="f-daikichi">大吉のみ</label></span>
+          </div>
+        </div>
+
+        <div class="suggestion-field">
+          <label class="suggestion-field__label" for="include-kanji">含みたい漢字（任意）</label>
+          <input type="text" id="include-kanji" name="includeKanji" class="input-field" placeholder="例: 蓮 結 凛" autocomplete="off" maxlength="20">
+          <p class="input-group__hint" style="margin-top: var(--space-1)">複数指定可。入力した漢字すべてを含む名前のみを表示します。</p>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--lg btn--block suggestion-submit">候補を見る</button>
+      </form>
+
+      <!-- Results -->
+      <section class="suggestion-results" aria-live="polite">
+        <h2 class="section-title" style="text-align: left; margin-top: var(--space-8)">🌱 おすすめの名前候補</h2>
+        <p id="suggestion-result-count" class="suggestion-count" hidden></p>
+
+        <div id="suggestion-empty" class="suggestion-empty" hidden>
+          <div class="suggestion-empty__icon">🌱</div>
+          <p>条件に合う名前が見つかりませんでした。条件を緩めてもう一度お試しください。</p>
+        </div>
+
+        <div id="suggestion-results-grid" class="suggestion-results__grid"></div>
+      </section>
+
+      <section class="card" style="margin-top: var(--space-10); padding: var(--space-6)">
+        <h2 class="card__title">このツールについて</h2>
+        <div class="card__body">
+          <p>本ツールは、人気の名前データベース（約160件）から条件に合う名前を絞り込んで提示する <strong>Tier A エンジン</strong> です。完全にブラウザ内で動作し、入力情報は外部に送信されません。</p>
+          <p style="margin-top: var(--space-3)">姓を入れておくと、お気に入りの候補を見つけた際に「詳しく診断」ボタンから姓名判断画面へそのまま引き継げます。</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="footer__brand-name">🌸 赤ちゃん名前診断</span>
+        <p class="footer__brand-desc">大切なお子さまに最高の名前を</p>
+      </div>
+      <nav class="footer__nav" aria-label="フッターナビゲーション">
+        <ul class="footer__links">
+          <li><a href="/" class="footer__link">ホーム</a></li>
+          <li><a href="/shindan" class="footer__link">姓名判断</a></li>
+          <li><a href="/suggestion" class="footer__link">名前候補</a></li>
+          <li><a href="/ranking/" class="footer__link">ランキング</a></li>
+          <li><a href="/kanji/" class="footer__link">漢字辞典</a></li>
+          <li><a href="/guide/" class="footer__link">ガイド</a></li>
+          <li><a href="/favorites" class="footer__link">お気に入り</a></li>
+          <li><a href="/about" class="footer__link">五格について</a></li>
+          <li><a href="/privacy-policy" class="footer__link">プライバシーポリシー</a></li>
+        </ul>
+      </nav>
+      <p class="footer__copyright">&copy; 2026 赤ちゃん名前診断</p>
+    </div>
+  </footer>
+
+  <!-- Core & fortune data for rating resolution -->
+  <script src="/js/core/storage.js?v=20260423b"></script>
+  <script src="/js/core/analytics.js?v=20260423b"></script>
+  <script src="/js/core/nav.js?v=20260423b"></script>
+  <script src="/js/core/boot.js?v=20260423b"></script>
+  <script src="/js/fortune-data.js?v=20260423b"></script>
+  <script>
+    // FortuneData.load() はfetchで data/fortune-meanings.json を読む
+    if (window.FortuneData && window.FortuneData.load) window.FortuneData.load();
+  </script>
+  <script src="/js/suggestion-page.js?v=20260423b"></script>
+</body>
+</html>

@@ -127,7 +127,145 @@
 }
 
 /* =======================================================================
-   Coming Soon Placeholder
+   Form Controls — 名前候補ジェネレーター
+   ======================================================================= */
+
+.suggestion-form {
+  position: relative;
+  overflow: hidden;
+}
+
+.suggestion-form::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-gold), var(--color-sage));
+}
+
+.suggestion-field {
+  margin-bottom: var(--space-5);
+}
+
+.suggestion-field__label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--space-2);
+  letter-spacing: 0.05em;
+}
+
+.suggestion-radios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.suggestion-radios input[type="radio"],
+.suggestion-radios input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.suggestion-radios label {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-card-border);
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-medium);
+  cursor: pointer;
+  transition: all var(--transition-default);
+  user-select: none;
+}
+
+.suggestion-radios label:hover {
+  border-color: var(--color-terracotta);
+  color: var(--color-terracotta);
+}
+
+.suggestion-radios input:checked + label {
+  background-color: var(--color-terracotta);
+  color: var(--color-white);
+  border-color: var(--color-terracotta);
+}
+
+.suggestion-submit {
+  margin-top: var(--space-4);
+}
+
+/* =======================================================================
+   Result Card (Phase 2 updated)
+   ======================================================================= */
+
+.suggestion-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.suggestion-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-gold), var(--color-sage));
+}
+
+.suggestion-card__fortune {
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.suggestion-card__strokes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) 0;
+  border-top: 1px dashed var(--color-divider);
+  border-bottom: 1px dashed var(--color-divider);
+  margin: var(--space-3) 0;
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+
+.suggestion-card__actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+  margin-top: var(--space-3);
+}
+
+/* =======================================================================
+   Empty / Loading states
+   ======================================================================= */
+
+.suggestion-empty {
+  padding: var(--space-10) var(--space-4);
+  text-align: center;
+  color: var(--color-muted);
+}
+
+.suggestion-empty__icon {
+  font-size: 2.5rem;
+  opacity: 0.6;
+  margin-bottom: var(--space-3);
+}
+
+.suggestion-count {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin-bottom: var(--space-4);
+}
+
+/* =======================================================================
+   Coming Soon Placeholder (legacy)
    ======================================================================= */
 
 .coming-soon {

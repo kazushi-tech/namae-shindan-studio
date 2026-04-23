@@ -1,0 +1,308 @@
+/* ==========================================================================
+   pages/guide.css — 名付けお役立ちガイド
+   ========================================================================== */
+
+.guide-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .guide-hero {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-8);
+  }
+}
+
+.guide-hero__text {
+  flex: 1;
+}
+
+.guide-hero__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-black);
+  color: var(--color-dark);
+  margin-bottom: var(--space-3);
+  line-height: var(--leading-snug);
+}
+
+.guide-hero__desc {
+  font-size: var(--text-base);
+  color: var(--color-medium);
+  line-height: var(--leading-relaxed);
+}
+
+.guide-hero__illust {
+  flex-shrink: 0;
+  max-width: 280px;
+  font-size: 4rem;
+  text-align: center;
+  opacity: 0.85;
+}
+
+/* --- 記事本文 ---------------------------------------------------- */
+.guide-article {
+  max-width: 760px;
+  margin: var(--space-8) auto 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-dark);
+}
+
+.guide-article h2 {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin: var(--space-8) 0 var(--space-4);
+  padding-left: var(--space-3);
+  border-left: 4px solid var(--color-terracotta);
+}
+
+.guide-article h3 {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin: var(--space-6) 0 var(--space-2);
+}
+
+.guide-article p {
+  margin: var(--space-3) 0;
+  color: var(--color-medium);
+}
+
+.guide-article ul,
+.guide-article ol {
+  margin: var(--space-3) 0;
+  padding-left: var(--space-5);
+  color: var(--color-medium);
+}
+
+.guide-article li {
+  margin-bottom: var(--space-2);
+  line-height: var(--leading-relaxed);
+}
+
+.guide-article strong { color: var(--color-dark); }
+
+/* Product grid (商品紹介) ---------------------------------------- */
+.guide-product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+
+@media (min-width: 640px) {
+  .guide-product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .guide-product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.guide-product {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  transition: transform var(--transition-default), box-shadow var(--transition-default);
+  text-decoration: none;
+  color: inherit;
+}
+
+.guide-product::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-gold), var(--color-sage));
+}
+
+.guide-product:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.guide-product__pr {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  padding: 2px var(--space-1);
+  background-color: #5C4F44;
+  color: var(--color-white);
+  font-size: 10px;
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius-sm);
+}
+
+.guide-product__body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.guide-product__icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-1);
+}
+
+.guide-product__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  line-height: var(--leading-snug);
+}
+
+.guide-product__desc {
+  font-size: var(--text-sm);
+  color: var(--color-medium);
+  line-height: var(--leading-relaxed);
+  flex: 1;
+}
+
+.guide-product__cta {
+  margin-top: var(--space-3);
+  padding: var(--space-2);
+  border: 1.5px solid var(--color-terracotta);
+  color: var(--color-terracotta);
+  border-radius: var(--radius-full);
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  transition: background-color var(--transition-default), color var(--transition-default);
+}
+
+.guide-product:hover .guide-product__cta {
+  background-color: var(--color-terracotta);
+  color: var(--color-white);
+}
+
+/* Hub tiles ---------------------------------------------------- */
+.guide-hub__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .guide-hub__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .guide-hub__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.guide-hub__tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-default), box-shadow var(--transition-default);
+}
+
+.guide-hub__tile::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-gold), var(--color-sage));
+}
+
+.guide-hub__tile:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.guide-hub__tile-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.guide-hub__tile-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+}
+
+.guide-hub__tile-desc {
+  font-size: var(--text-sm);
+  color: var(--color-medium);
+  line-height: var(--leading-relaxed);
+}
+
+/* FAQ accordion --------------------------------------------------- */
+.faq-list {
+  margin-top: var(--space-4);
+}
+
+.faq-item {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-2);
+  overflow: hidden;
+}
+
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: var(--space-4);
+  font-family: var(--font-heading);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item summary::after {
+  content: "＋";
+  color: var(--color-terracotta);
+  font-size: var(--text-lg);
+  flex-shrink: 0;
+  transition: transform var(--transition-default);
+}
+
+.faq-item[open] summary::after {
+  content: "−";
+}
+
+.faq-item__body {
+  padding: 0 var(--space-4) var(--space-4);
+  color: var(--color-medium);
+  line-height: var(--leading-relaxed);
+}

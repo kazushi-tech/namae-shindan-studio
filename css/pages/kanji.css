@@ -1,0 +1,371 @@
+/* ==========================================================================
+   pages/kanji.css — 漢字辞典ページ
+   ========================================================================== */
+
+.kanji-bg {
+  background-image:
+    radial-gradient(circle at 100% 0%, rgba(255, 180, 166, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 0% 100%, rgba(156, 243, 213, 0.15) 0%, transparent 50%);
+  background-color: var(--color-bg);
+}
+
+/* --- Hub: 漢字グリッド ----------------------------------------- */
+.kanji-hub__search {
+  margin: var(--space-6) auto;
+  max-width: 520px;
+}
+
+.kanji-hub__search input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  border: 2px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-white);
+  transition: border-color var(--transition-default);
+}
+
+.kanji-hub__search input:focus {
+  outline: none;
+  border-color: var(--color-terracotta);
+}
+
+.kanji-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.kanji-grid__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: transform var(--transition-default), box-shadow var(--transition-default);
+  position: relative;
+  overflow: hidden;
+}
+
+.kanji-grid__item::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-gold), var(--color-sage));
+}
+
+.kanji-grid__item:hover {
+  transform: translateY(-3px) rotate(-1deg);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.kanji-grid__char {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: var(--weight-black);
+  line-height: 1;
+  color: var(--color-dark);
+  margin-bottom: var(--space-2);
+}
+
+.kanji-grid__strokes {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+
+/* --- Detail: Hero --------------------------------------------- */
+.kanji-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  align-items: center;
+  text-align: center;
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .kanji-hero {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+  }
+}
+
+.kanji-hero__badge-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.kanji-hero__big {
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: 50%;
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-heading);
+  font-size: 150px;
+  font-weight: var(--weight-black);
+  color: var(--color-terracotta);
+  line-height: 1;
+  transition: transform var(--transition-default), box-shadow var(--transition-default);
+}
+
+.kanji-hero__big:hover {
+  transform: translateY(-4px) rotate(-1deg);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.kanji-hero__strokes-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-gold);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+}
+
+.kanji-hero__content {
+  flex: 1;
+}
+
+.kanji-hero__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-black);
+  color: var(--color-dark);
+  margin-bottom: var(--space-3);
+  line-height: var(--leading-snug);
+}
+
+.kanji-hero__summary {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  color: var(--color-medium);
+  line-height: var(--leading-relaxed);
+}
+
+/* --- Main 2-column grid --------------------------------------- */
+.kanji-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+
+@media (min-width: 1024px) {
+  .kanji-layout {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+/* --- Section card --------------------------------------------- */
+.kanji-section {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+
+.kanji-section::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-gold), var(--color-sage));
+}
+
+.kanji-section__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--space-4);
+}
+
+.kanji-section__body {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-medium);
+}
+
+.kanji-section__body p + p { margin-top: var(--space-3); }
+
+.kanji-section__list {
+  margin-top: var(--space-2);
+  padding-left: var(--space-5);
+  color: var(--color-medium);
+}
+
+.kanji-section__list li {
+  margin-bottom: var(--space-2);
+  line-height: var(--leading-relaxed);
+}
+
+/* --- Meta sidebar --------------------------------------------- */
+.kanji-meta {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+  position: sticky;
+  top: 96px;
+}
+
+.kanji-meta__heading {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid var(--color-terracotta);
+}
+
+.kanji-meta__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.kanji-meta__row:last-child { border-bottom: none; }
+
+.kanji-meta__label {
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  min-width: 80px;
+}
+
+.kanji-meta__value {
+  font-size: var(--text-sm);
+  color: var(--color-dark);
+  text-align: right;
+  word-break: break-all;
+}
+
+/* --- Popular names tabs --------------------------------------- */
+.kanji-tabs {
+  display: flex;
+  gap: var(--space-2);
+  border-bottom: 1px solid var(--color-card-border);
+  margin-bottom: var(--space-4);
+}
+
+.kanji-tab {
+  padding: var(--space-2) var(--space-4);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.kanji-tab--active {
+  color: var(--color-terracotta);
+  border-bottom-color: var(--color-terracotta);
+}
+
+.kanji-names-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+}
+
+@media (min-width: 600px) {
+  .kanji-names-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.kanji-name-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: transform var(--transition-default), box-shadow var(--transition-default);
+}
+
+.kanji-name-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-terracotta);
+}
+
+.kanji-name-card__name {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+}
+
+.kanji-name-card__reading {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  margin-top: 2px;
+}
+
+/* --- Related chips -------------------------------------------- */
+.kanji-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.kanji-chip {
+  padding: var(--space-1) var(--space-3);
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  text-decoration: none;
+  transition: all var(--transition-default);
+}
+
+.kanji-chip:hover {
+  background-color: var(--color-terracotta);
+  color: var(--color-white);
+  border-color: var(--color-terracotta);
+}

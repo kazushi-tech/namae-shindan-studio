@@ -66,11 +66,15 @@
         <img src="assets/images/logo-icon.png" alt="名前診断ロゴ" class="nav__logo">
         <span class="nav__title">名前診断</span>
       </a>
+      <button class="nav__toggle" aria-label="メニュー" aria-expanded="false"><span></span><span></span><span></span></button>
       <ul class="nav__links">
         <li><a href="/" class="nav__link">ホーム</a></li>
         <li><a href="/shindan" class="nav__link nav__link--active">姓名判断</a></li>
-        <li><a href="/favorites" class="nav__link">お気に入り</a></li>
-        <li><a href="/about" class="nav__link">五格について</a></li>
+        <li><a href="/suggestion" class="nav__link">名前候補</a></li>
+        <li><a href="/ranking/" class="nav__link">ランキング</a></li>
+        <li><a href="/kanji/" class="nav__link">漢字辞典</a></li>
+        <li><a href="/guide/" class="nav__link">ガイド</a></li>
+        <li><a href="/about" class="nav__link">五格</a></li>
         <li><a href="https://column.namae-studio.com/" class="nav__link" rel="noopener">コラム</a></li>
       </ul>
     </div>
@@ -183,37 +187,49 @@
 
         <!-- Affiliate / Related Items Cards -->
         <section class="affiliate-cards" aria-labelledby="aff-heading">
-          <h3 class="affiliate-cards__heading" id="aff-heading">🎁 お子さまへの記念</h3>
+          <h3 class="affiliate-cards__heading" id="aff-heading">🎋 決まった名前を、形に残しませんか？</h3>
           <p class="pr-notice">[PR] 以下は名付け・記念行事に役立つサービスのご紹介です。リンク経由の購入により当サイトに紹介料が入る場合があります。</p>
           <div class="affiliate-cards__grid">
-            <a class="affiliate-card" href="#meimei-sho" data-af-program="a8" data-af-product="meimei-sho" rel="sponsored noopener">
+            <a class="affiliate-card" href="/guide/meimei-tools#meimei-sho" data-af-program="a8" data-af-product="meimei-sho" rel="sponsored noopener">
               <span class="pr-label affiliate-card__label"></span>
               <span class="affiliate-card__icon" aria-hidden="true">📜</span>
               <h4 class="affiliate-card__title">命名書</h4>
-              <p class="affiliate-card__desc">プロの書道家が毛筆で清書。お子さまの記念となる一枚を。</p>
-              <span class="affiliate-card__cta">比較を見る</span>
+              <p class="affiliate-card__desc">プロの書家が心を込めて書き上げる、一生の宝物。</p>
+              <p class="affiliate-card__price affiliate-card__price--primary">¥1,800〜</p>
+              <span class="affiliate-card__cta">詳細を見る</span>
             </a>
-            <a class="affiliate-card" href="#akachan-fude" data-af-program="moshimo" data-af-product="akachan-fude" rel="sponsored noopener">
+            <a class="affiliate-card" href="/guide/meimei-tools#akachan-fude" data-af-program="moshimo" data-af-product="akachan-fude" rel="sponsored noopener">
               <span class="pr-label affiliate-card__label"></span>
               <span class="affiliate-card__icon" aria-hidden="true">🖌️</span>
               <h4 class="affiliate-card__title">赤ちゃん筆</h4>
-              <p class="affiliate-card__desc">産毛で作る世界に一本だけの記念筆。長く残る贈り物。</p>
-              <span class="affiliate-card__cta">選び方を見る</span>
+              <p class="affiliate-card__desc">初めての髪の毛で作る、世界にひとつだけの筆。</p>
+              <p class="affiliate-card__price affiliate-card__price--primary">¥8,000〜</p>
+              <span class="affiliate-card__cta">詳細を見る</span>
             </a>
-            <a class="affiliate-card" href="#kinen-photo" data-af-program="afb" data-af-product="photo-studio" rel="sponsored noopener">
+            <a class="affiliate-card" href="/guide/meimei-tools#photo" data-af-program="afb" data-af-product="photo-studio" rel="sponsored noopener">
               <span class="pr-label affiliate-card__label"></span>
               <span class="affiliate-card__icon" aria-hidden="true">📷</span>
-              <h4 class="affiliate-card__title">記念撮影</h4>
-              <p class="affiliate-card__desc">お宮参り・お食い初めを素敵な一枚に残しましょう。</p>
-              <span class="affiliate-card__cta">スタジオ比較</span>
+              <h4 class="affiliate-card__title">写真撮影</h4>
+              <p class="affiliate-card__desc">今しかない愛らしい姿を、プロのカメラマンが記録。</p>
+              <p class="affiliate-card__price affiliate-card__price--sage">無料見積もり</p>
+              <span class="affiliate-card__cta">詳細を見る</span>
             </a>
             <a class="affiliate-card" href="https://www.kids-tokei.com/" target="_blank" rel="noopener noreferrer" data-af-program="kids-tokei" data-af-product="audition">
               <span class="affiliate-card__icon" aria-hidden="true">⏰</span>
               <h4 class="affiliate-card__title">キッズ時計</h4>
-              <p class="affiliate-card__desc">お子さまのモデルオーディションはこちらから。</p>
-              <span class="affiliate-card__cta">応募する</span>
+              <p class="affiliate-card__desc">毎日の成長を刻む、特別なオリジナル時計。</p>
+              <p class="affiliate-card__price affiliate-card__price--gold">成長記録</p>
+              <span class="affiliate-card__cta">アプリを試す</span>
             </a>
           </div>
+        </section>
+
+        <!-- Related Pages — 「もっと詳しく知る」(UIController が動的に link を埋める) -->
+        <section class="related-pages" aria-labelledby="related-pages-heading">
+          <h3 class="related-pages__heading" id="related-pages-heading">📚 もっと詳しく知る</h3>
+          <ul class="related-pages__link-list" id="related-pages-links">
+            <!-- JS で動的注入 -->
+          </ul>
         </section>
 
         <!-- Retry -->
@@ -267,6 +283,7 @@
   <script src="js/core/og-generator.js?v=20260423a"></script>
   <script src="js/core/router.js?v=20260423a"></script>
   <script src="js/core/ab-test.js?v=20260423a"></script>
+  <script src="js/core/nav.js?v=20260423b"></script>
   <script src="js/core/boot.js?v=20260423a"></script>
 
   <!-- JS -->

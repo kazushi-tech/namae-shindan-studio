@@ -1181,6 +1181,18 @@
   flex: 1;
 }
 
+.affiliate-card__price {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  margin: var(--space-2) 0 var(--space-3);
+  line-height: 1.2;
+}
+
+.affiliate-card__price--primary { color: var(--color-terracotta); }
+.affiliate-card__price--sage    { color: var(--color-sage); }
+.affiliate-card__price--gold    { color: var(--color-gold); }
+
 .affiliate-card__cta {
   font-family: var(--font-heading);
   font-size: var(--text-sm);
@@ -1264,6 +1276,70 @@
 
 .related-pages__link:hover {
   color: var(--color-terracotta);
+}
+
+/* --- Full-width link rows (shindan 結果の「もっと詳しく知る」) --- */
+.related-pages__link-list {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.related-pages__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-dark);
+  transition:
+    border-color var(--transition-default),
+    box-shadow var(--transition-default),
+    transform var(--transition-fast);
+}
+
+.related-pages__row:hover {
+  border-color: var(--color-terracotta);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.related-pages__row-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-cream);
+  color: var(--color-terracotta);
+  border-radius: 50%;
+  font-size: 1.25rem;
+}
+
+.related-pages__row-text {
+  flex: 1;
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+}
+
+.related-pages__row-arrow {
+  flex-shrink: 0;
+  color: var(--color-muted);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+  font-size: 1.25rem;
+}
+
+.related-pages__row:hover .related-pages__row-arrow {
+  color: var(--color-terracotta);
+  transform: translateX(3px);
 }
 
 /* =======================================================================

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>漢字辞典 — 赤ちゃんの名付けで人気の漢字を検索 | 赤ちゃん名前診断</title>
+  <meta name="description" content="名付けで人気の漢字を意味・読み・画数・運勢つきで紹介する漢字辞典。蓮・結・凛・陽など、赤ちゃんの名付けに使いたい漢字を深く知ることができます。">
+
+  <meta property="og:title" content="漢字辞典 — 名付けに使いたい漢字を検索">
+  <meta property="og:description" content="名付けで人気の漢字を意味・読み・画数・運勢つきで紹介する漢字辞典。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:image" content="https://namae-studio.com/assets/images/og-image.png">
+  <meta property="og:url" content="https://namae-studio.com/kanji/">
+  <link rel="canonical" href="https://namae-studio.com/kanji/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/reset.css?v=20260423b">
+  <link rel="stylesheet" href="/css/variables.css?v=20260423b">
+  <link rel="stylesheet" href="/css/base.css?v=20260423b">
+  <link rel="stylesheet" href="/css/components.css?v=20260423b">
+  <link rel="stylesheet" href="/css/layout.css?v=20260423b">
+  <link rel="stylesheet" href="/css/animations.css?v=20260423b">
+  <link rel="stylesheet" href="/css/pages/kanji.css?v=20260423b">
+
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/images/logo-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#E8725C">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "name": "赤ちゃん名前診断 漢字辞典",
+    "description": "赤ちゃんの名付けで人気の漢字を意味・読み・運勢つきで解説",
+    "url": "https://namae-studio.com/kanji/",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://namae-studio.com/" },
+        { "@type": "ListItem", "position": 2, "name": "漢字辞典", "item": "https://namae-studio.com/kanji/" }
+      ]
+    }
+  }
+  </script>
+</head>
+<body data-page="kanji-hub" class="kanji-bg">
+
+  <nav class="nav" role="navigation" aria-label="メインナビゲーション">
+    <div class="container nav-container">
+      <a href="/" class="nav__brand">
+        <img src="/assets/images/logo-icon.png" alt="名前診断ロゴ" class="nav__logo">
+        <span class="nav__title">名前診断</span>
+      </a>
+      <button class="nav__toggle" aria-label="メニュー" aria-expanded="false"><span></span><span></span><span></span></button>
+      <ul class="nav__links">
+        <li><a href="/" class="nav__link">ホーム</a></li>
+        <li><a href="/shindan" class="nav__link">姓名判断</a></li>
+        <li><a href="/suggestion" class="nav__link">名前候補</a></li>
+        <li><a href="/ranking/" class="nav__link">ランキング</a></li>
+        <li><a href="/kanji/" class="nav__link nav__link--active">漢字辞典</a></li>
+        <li><a href="/guide/" class="nav__link">ガイド</a></li>
+        <li><a href="/about" class="nav__link">五格</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="section">
+    <div class="container">
+
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item"><a href="/" class="breadcrumb__link">ホーム</a></li>
+          <li class="breadcrumb__item"><span class="breadcrumb__current">漢字辞典</span></li>
+        </ol>
+      </nav>
+
+      <div class="page-header">
+        <h1 class="page-title">漢字辞典</h1>
+        <p class="page-subtitle">名付けで人気の漢字を意味・読み・画数・運勢つきでご紹介します</p>
+      </div>
+
+      <div class="kanji-hub__search">
+        <input type="text" id="kanji-filter-input" placeholder="漢字で検索（例: 蓮）" autocomplete="off">
+      </div>
+
+      <section aria-label="漢字一覧">
+        <h2 class="section-title" style="text-align: left; margin-top: var(--space-8)">よく選ばれる人気の漢字</h2>
+        <div class="kanji-grid" id="kanji-grid">
+          <a class="kanji-grid__item" href="/kanji/%E8%93%AE"><span class="kanji-grid__char">蓮</span><span class="kanji-grid__strokes">13画</span></a>
+          <a class="kanji-grid__item" href="/kanji/%E7%B5%90"><span class="kanji-grid__char">結</span><span class="kanji-grid__strokes">12画</span></a>
+          <a class="kanji-grid__item" href="/kanji/%E5%87%9B"><span class="kanji-grid__char">凛</span><span class="kanji-grid__strokes">15画</span></a>
+          <a class="kanji-grid__item" href="/kanji/%E9%99%BD"><span class="kanji-grid__char">陽</span><span class="kanji-grid__strokes">12画</span></a>
+          <a class="kanji-grid__item" href="/kanji/%E5%BF%83"><span class="kanji-grid__char">心</span><span class="kanji-grid__strokes">4画</span></a>
+          <a class="kanji-grid__item" href="/kanji/%E5%92%B2"><span class="kanji-grid__char">咲</span><span class="kanji-grid__strokes">9画</span></a>
+          <a class="kanji-grid__item" href="/kanji/%E8%91%B5"><span class="kanji-grid__char">葵</span><span class="kanji-grid__strokes">12画</span></a>
+          <a class="kanji-grid__item" href="/kanji/%E5%84%AA"><span class="kanji-grid__char">優</span><span class="kanji-grid__strokes">17画</span></a>
+          <a class="kanji-grid__item" href="/kanji/%E8%92%BC"><span class="kanji-grid__char">蒼</span><span class="kanji-grid__strokes">13画</span></a>
+          <a class="kanji-grid__item" href="/kanji/%E7%BF%94"><span class="kanji-grid__char">翔</span><span class="kanji-grid__strokes">12画</span></a>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top: var(--space-10); padding: var(--space-6)">
+        <h2 class="card__title">漢字辞典について</h2>
+        <div class="card__body">
+          <p>本辞典は、赤ちゃんの名付けに特化した漢字情報をまとめたものです。各漢字ページでは、以下をご確認いただけます。</p>
+          <ul style="margin: var(--space-3) 0; padding-left: var(--space-5); line-height: var(--leading-relaxed)">
+            <li>意味・語源と、名前に込められる願い</li>
+            <li>音読み・訓読み・名のり（名前専用の読み方）</li>
+            <li>画数と、画数占いでの運勢の解説</li>
+            <li>その漢字を使った人気の名前リスト（男女別）</li>
+            <li>関連する漢字の提案</li>
+          </ul>
+          <p>現在は厳選した人気の漢字を公開中です。今後順次追加予定です。</p>
+        </div>
+      </section>
+
+      <div class="section-cta" style="margin-top: var(--space-10)">
+        <a href="/shindan" class="btn btn--primary btn--lg">姓名判断を試す</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="footer__brand-name">🌸 赤ちゃん名前診断</span>
+        <p class="footer__brand-desc">大切なお子さまに最高の名前を</p>
+      </div>
+      <nav class="footer__nav" aria-label="フッターナビゲーション">
+        <ul class="footer__links">
+          <li><a href="/" class="footer__link">ホーム</a></li>
+          <li><a href="/shindan" class="footer__link">姓名判断</a></li>
+          <li><a href="/suggestion" class="footer__link">名前候補</a></li>
+          <li><a href="/ranking/" class="footer__link">ランキング</a></li>
+          <li><a href="/kanji/" class="footer__link">漢字辞典</a></li>
+          <li><a href="/guide/" class="footer__link">ガイド</a></li>
+          <li><a href="/favorites" class="footer__link">お気に入り</a></li>
+          <li><a href="/about" class="footer__link">五格について</a></li>
+          <li><a href="/privacy-policy" class="footer__link">プライバシーポリシー</a></li>
+        </ul>
+      </nav>
+      <p class="footer__copyright">&copy; 2026 赤ちゃん名前診断</p>
+    </div>
+  </footer>
+
+  <script src="/js/core/storage.js?v=20260423b"></script>
+  <script src="/js/core/analytics.js?v=20260423b"></script>
+  <script src="/js/core/nav.js?v=20260423b"></script>
+  <script src="/js/core/boot.js?v=20260423b"></script>
+  <script>
+    // 簡易フィルタ（入力に含まれる文字で絞り込み）
+    (function () {
+      const input = document.getElementById('kanji-filter-input');
+      const items = Array.from(document.querySelectorAll('.kanji-grid__item'));
+      if (!input) return;
+      input.addEventListener('input', () => {
+        const q = input.value.trim();
+        items.forEach(item => {
+          const char = item.querySelector('.kanji-grid__char').textContent;
+          item.style.display = !q || char.includes(q) ? '' : 'none';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

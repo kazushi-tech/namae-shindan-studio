@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>名前候補ジェネレーター - 名前診断スタジオ</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&amp;family=Zen+Maru+Gothic:wght@700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#ffede9",
+                        "inverse-surface": "#3a2e2b",
+                        "on-tertiary-container": "#3e2a00",
+                        "tertiary-fixed-dim": "#f6bd52",
+                        "on-secondary-fixed": "#002118",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00513f",
+                        "outline": "#8a726d",
+                        "on-primary-fixed": "#3f0300",
+                        "on-tertiary-fixed": "#271900",
+                        "surface-bright": "#fff8f6",
+                        "on-error": "#ffffff",
+                        "secondary": "#006b54",
+                        "secondary-fixed-dim": "#81d7ba",
+                        "surface-variant": "#f2deda",
+                        "surface-dim": "#ead6d2",
+                        "surface-container": "#fee9e5",
+                        "primary-container": "#e8725c",
+                        "background": "#fff8f6",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#7d5800",
+                        "secondary-fixed": "#9cf3d5",
+                        "primary-fixed": "#ffdad3",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb4a6",
+                        "on-tertiary-fixed-variant": "#5e4200",
+                        "on-background": "#241917",
+                        "tertiary-fixed": "#ffdea8",
+                        "primary-fixed-dim": "#ffb4a6",
+                        "primary": "#a23e2c",
+                        "outline-variant": "#ddc0ba",
+                        "on-surface-variant": "#57423e",
+                        "surface-tint": "#a23e2c",
+                        "tertiary-container": "#bf8c23",
+                        "surface": "#fff8f6",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#f8e4e0",
+                        "on-primary-container": "#5e0c02",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#fff0ee",
+                        "surface-container-highest": "#f2deda",
+                        "on-primary-fixed-variant": "#822717",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#0a725a",
+                        "secondary-container": "#9cf3d5",
+                        "on-surface": "#241917"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "8px",
+                        "md": "24px",
+                        "lg": "40px",
+                        "sm": "16px",
+                        "xl": "64px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Noto Sans JP"],
+                        "label": ["Noto Sans JP"],
+                        "h1": ["Zen Maru Gothic"],
+                        "h2": ["Zen Maru Gothic"],
+                        "body-md": ["Noto Sans JP"],
+                        "body-lg": ["Noto Sans JP"],
+                        "h3": ["Zen Maru Gothic"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "1.6", "fontWeight": "300" }],
+                        "label": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "h1": ["32px", { "lineHeight": "1.4", "fontWeight": "900" }],
+                        "h2": ["24px", { "lineHeight": "1.5", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.7", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.8", "fontWeight": "500" }],
+                        "h3": ["20px", { "lineHeight": "1.5", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom styles for specific requirements that are hard to do with pure utilities cleanly */
+        .tactile-card:hover {
+            transform: translateY(-6px) rotate(-1deg);
+        }
+        .bg-wagara {
+            background-image: radial-gradient(#ddc0ba 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen flex flex-col relative bg-wagara relative">
+<!-- Misty background overlay for organic feel -->
+<div class="fixed inset-0 pointer-events-none bg-[radial-gradient(circle_at_top_right,_var(--tw-colors-surface-container),_transparent_50%),_radial-gradient(circle_at_bottom_left,_var(--tw-colors-surface-container-high),_transparent_40%)] opacity-80 z-[-1]"></div>
+<!-- TopNavBar (Web) -->
+<header class="hidden md:flex bg-white/90 dark:bg-stone-900/90 backdrop-blur-sm docked full-width top-0 z-50 border-b border-[#E8DFD3] dark:border-stone-800 shadow-[0_2px_10px_rgba(61,48,41,0.06)] transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-bold text-orange-700 dark:text-orange-500 font-h2 tracking-tight">
+                名前診断スタジオ
+            </div>
+<nav class="flex gap-lg">
+<a class="text-stone-600 dark:text-stone-400 hover:text-orange-600 transition-colors hover:bg-stone-50 dark:hover:bg-stone-800 px-3 py-2 rounded-md font-body-md text-body-md" href="#">ホーム</a>
+<!-- Active Navigation Item -->
+<a class="text-orange-700 dark:text-orange-400 font-bold border-b-2 border-orange-600 pb-1 hover:bg-stone-50 dark:hover:bg-stone-800 px-3 py-2 font-body-md text-body-md" href="#">姓名判断</a>
+<a class="text-stone-600 dark:text-stone-400 hover:text-orange-600 transition-colors hover:bg-stone-50 dark:hover:bg-stone-800 px-3 py-2 rounded-md font-body-md text-body-md" href="#">五格について</a>
+<a class="text-stone-600 dark:text-stone-400 hover:text-orange-600 transition-colors hover:bg-stone-50 dark:hover:bg-stone-800 px-3 py-2 rounded-md font-body-md text-body-md" href="#">コラム</a>
+</nav>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-8 pb-32 md:pt-32 md:pb-xl px-4 w-full">
+<div class="max-w-7xl mx-auto">
+<!-- Page Header -->
+<div class="text-center mb-lg">
+<h1 class="font-h1 text-h1 text-on-surface mb-xs">名前候補ジェネレーター</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">ご希望の条件に合わせて、幸運を導くお名前をご提案します。</p>
+</div>
+<!-- Input Panel -->
+<section class="max-w-[880px] mx-auto bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_2px_10px_rgba(61,48,41,0.06)] p-md md:p-lg mb-xl relative overflow-hidden">
+<!-- Decorative subtle top border gradient -->
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-container to-secondary absolute top-0 left-0"></div>
+<form class="space-y-lg">
+<!-- Surname -->
+<div class="flex flex-col gap-xs">
+<label class="font-label text-label text-on-surface flex items-center gap-2" for="surname">
+<span aria-hidden="true" class="material-symbols-outlined text-[16px] text-tertiary-container">stylus</span>
+                            姓（ひらがな 又は 漢字）
+                        </label>
+<input class="w-full bg-surface border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:ring-secondary focus:border-secondary transition-colors outline-none shadow-sm placeholder:text-outline" id="surname" placeholder="例：山田" type="text" value="山田"/>
+</div>
+<!-- Gender -->
+<div class="flex flex-col gap-xs">
+<span class="font-label text-label text-on-surface">性別</span>
+<div class="flex flex-wrap gap-sm">
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="gender" type="radio" value="boy"/>
+<div class="px-6 py-3 rounded-full border border-outline-variant text-on-surface-variant peer-checked:bg-secondary-container peer-checked:text-on-secondary-container peer-checked:border-secondary peer-checked:font-bold transition-all font-body-sm text-body-sm flex items-center gap-2 hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[18px]">face</span>男の子
+                                </div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only" name="gender" type="radio" value="girl"/>
+<div class="px-6 py-3 rounded-full border border-outline-variant text-on-surface-variant peer-checked:bg-secondary-container peer-checked:text-on-secondary-container peer-checked:border-secondary peer-checked:font-bold transition-all font-body-sm text-body-sm flex items-center gap-2 hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[18px]">face_3</span>女の子
+                                </div>
+</label>
+<label class="cursor-pointer relative">
+<input checked="" class="peer sr-only" name="gender" type="radio" value="any"/>
+<div class="px-6 py-3 rounded-full border border-outline-variant text-on-surface-variant peer-checked:bg-secondary-container peer-checked:text-on-secondary-container peer-checked:border-secondary peer-checked:font-bold transition-all font-body-sm text-body-sm flex items-center gap-2 hover:bg-surface-variant">
+                                    こだわらない
+                                </div>
+</label>
+</div>
+</div>
+<!-- Character Count -->
+<div class="flex flex-col gap-xs">
+<span class="font-label text-label text-on-surface">文字数（名前）</span>
+<div class="flex flex-wrap gap-sm">
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="w-5 h-5 rounded border border-outline-variant flex items-center justify-center group-hover:border-secondary transition-colors relative bg-surface">
+<input class="opacity-0 absolute inset-0 cursor-pointer peer" type="checkbox"/>
+<span class="material-symbols-outlined text-[16px] text-secondary opacity-0 peer-checked:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">1文字</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="w-5 h-5 rounded border border-outline-variant flex items-center justify-center group-hover:border-secondary transition-colors relative bg-surface">
+<input checked="" class="opacity-0 absolute inset-0 cursor-pointer peer" type="checkbox"/>
+<span class="material-symbols-outlined text-[16px] text-secondary opacity-0 peer-checked:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">2文字</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="w-5 h-5 rounded border border-outline-variant flex items-center justify-center group-hover:border-secondary transition-colors relative bg-surface">
+<input class="opacity-0 absolute inset-0 cursor-pointer peer" type="checkbox"/>
+<span class="material-symbols-outlined text-[16px] text-secondary opacity-0 peer-checked:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">3文字</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="w-5 h-5 rounded border border-outline-variant flex items-center justify-center group-hover:border-secondary transition-colors relative bg-surface">
+<input class="opacity-0 absolute inset-0 cursor-pointer peer" type="checkbox"/>
+<span class="material-symbols-outlined text-[16px] text-secondary opacity-0 peer-checked:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">4文字</span>
+</label>
+</div>
+</div>
+<!-- Fortune Level -->
+<div class="flex flex-col gap-xs">
+<span class="font-label text-label text-on-surface flex items-center gap-2">
+<span aria-hidden="true" class="material-symbols-outlined text-[16px] text-tertiary-container">auto_awesome</span>
+                            吉凶レベル
+                        </span>
+<div class="flex flex-wrap gap-sm">
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="w-5 h-5 rounded-full border border-outline-variant flex items-center justify-center group-hover:border-secondary transition-colors relative bg-surface">
+<input class="opacity-0 absolute inset-0 cursor-pointer peer" name="fortune" type="radio" value="daikichi"/>
+<div class="w-2.5 h-2.5 rounded-full bg-secondary opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">大吉のみ</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="w-5 h-5 rounded-full border border-outline-variant flex items-center justify-center group-hover:border-secondary transition-colors relative bg-surface">
+<input checked="" class="opacity-0 absolute inset-0 cursor-pointer peer" name="fortune" type="radio" value="kichi"/>
+<div class="w-2.5 h-2.5 rounded-full bg-secondary opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">吉以上</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="w-5 h-5 rounded-full border border-outline-variant flex items-center justify-center group-hover:border-secondary transition-colors relative bg-surface">
+<input class="opacity-0 absolute inset-0 cursor-pointer peer" name="fortune" type="radio" value="any"/>
+<div class="w-2.5 h-2.5 rounded-full bg-secondary opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">こだわらない</span>
+</label>
+</div>
+</div>
+<!-- Starting Character -->
+<div class="flex flex-col gap-xs bg-surface-container-high p-4 rounded-lg border border-outline-variant/50">
+<span class="font-label text-label text-on-surface">読みの頭文字（任意）</span>
+<div class="flex flex-wrap gap-2">
+<!-- Array of pills for 'a' to 'wa' -->
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant hover:bg-surface-variant hover:border-outline transition-colors font-body-sm text-body-sm" type="button">あ行</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant hover:bg-surface-variant hover:border-outline transition-colors font-body-sm text-body-sm" type="button">か行</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant hover:bg-surface-variant hover:border-outline transition-colors font-body-sm text-body-sm" type="button">さ行</button>
+<button class="px-4 py-2 rounded-full border border-secondary bg-secondary-container text-on-secondary-container font-bold transition-colors font-body-sm text-body-sm" type="button">た行</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant hover:bg-surface-variant hover:border-outline transition-colors font-body-sm text-body-sm" type="button">な行</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant hover:bg-surface-variant hover:border-outline transition-colors font-body-sm text-body-sm" type="button">は行</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant hover:bg-surface-variant hover:border-outline transition-colors font-body-sm text-body-sm" type="button">ま行</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant hover:bg-surface-variant hover:border-outline transition-colors font-body-sm text-body-sm" type="button">や行</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant hover:bg-surface-variant hover:border-outline transition-colors font-body-sm text-body-sm" type="button">ら行</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant bg-surface text-on-surface-variant hover:bg-surface-variant hover:border-outline transition-colors font-body-sm text-body-sm" type="button">わ行</button>
+</div>
+</div>
+<!-- Included Kanji -->
+<div class="flex flex-col gap-xs">
+<label class="font-label text-label text-on-surface" for="kanji">含みたい漢字（任意）</label>
+<input class="w-full bg-surface border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:ring-secondary focus:border-secondary transition-colors outline-none shadow-sm placeholder:text-outline" id="kanji" placeholder="例：陽、心、大" type="text"/>
+</div>
+<!-- Submit Action -->
+<div class="pt-sm">
+<button class="w-full bg-primary text-on-primary font-h3 text-h3 py-4 rounded-lg shadow-[0_2px_10px_rgba(61,48,41,0.06)] hover:bg-[#D05A46] hover:shadow-[0_4px_12px_rgba(61,48,41,0.12)] hover:-translate-y-0.5 transition-all duration-300 flex justify-center items-center gap-2" type="button">
+<span class="material-symbols-outlined">search</span>
+                            候補を見る
+                        </button>
+</div>
+</form>
+</section>
+<!-- Results Section (Bento Grid) -->
+<section class="mt-xl">
+<div class="flex items-center gap-3 mb-md">
+<span class="material-symbols-outlined text-[28px] text-tertiary-container" style="font-variation-settings: 'FILL' 1;">eco</span>
+<h2 class="font-h2 text-h2 text-on-surface">おすすめの名前候補</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Result Card 1 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_2px_10px_rgba(61,48,41,0.06)] p-md relative overflow-hidden tactile-card transition-all duration-300">
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-container to-secondary absolute top-0 left-0"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="font-label text-label text-on-surface-variant mb-1 tracking-widest">たける</p>
+<h3 class="font-h1 text-h1 text-on-surface leading-none">尊</h3>
+</div>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-sm font-label text-label inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">stars</span>大吉
+                            </span>
+</div>
+<div class="flex gap-2 mb-4">
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">天格<span class="text-secondary font-bold">15</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">人格<span class="text-secondary font-bold">24</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">地格<span class="text-secondary font-bold">12</span></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">
+                            周囲からの信頼が厚く、リーダーシップを発揮する画数構成です。穏やかな性格の中に強い意志を持ち合わせています。
+                        </p>
+<button class="w-full border border-primary text-primary hover:bg-primary-container/20 px-4 py-2 rounded-lg text-center block font-label text-label transition-colors" type="button">
+                            詳しく診断
+                        </button>
+</article>
+<!-- Result Card 2 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_2px_10px_rgba(61,48,41,0.06)] p-md relative overflow-hidden tactile-card transition-all duration-300" style="transition-delay: 0.1s;">
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-container to-secondary absolute top-0 left-0"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="font-label text-label text-on-surface-variant mb-1 tracking-widest">たいき</p>
+<h3 class="font-h1 text-h1 text-on-surface leading-none">大樹</h3>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-sm font-label text-label inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">thumb_up</span>吉
+                            </span>
+</div>
+<div class="flex gap-2 mb-4">
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">天格<span class="text-secondary font-bold">15</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">人格<span class="text-secondary font-bold">11</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">地格<span class="text-secondary font-bold">19</span></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">
+                            大木のように真っ直ぐ育ち、多くの人を守る包容力を持つ名前です。才能豊かで、独自の道を開拓します。
+                        </p>
+<button class="w-full border border-primary text-primary hover:bg-primary-container/20 px-4 py-2 rounded-lg text-center block font-label text-label transition-colors" type="button">
+                            詳しく診断
+                        </button>
+</article>
+<!-- Result Card 3 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_2px_10px_rgba(61,48,41,0.06)] p-md relative overflow-hidden tactile-card transition-all duration-300" style="transition-delay: 0.2s;">
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-container to-secondary absolute top-0 left-0"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="font-label text-label text-on-surface-variant mb-1 tracking-widest">たくと</p>
+<h3 class="font-h1 text-h1 text-on-surface leading-none">拓斗</h3>
+</div>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-sm font-label text-label inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">stars</span>大吉
+                            </span>
+</div>
+<div class="flex gap-2 mb-4">
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">天格<span class="text-secondary font-bold">15</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">人格<span class="text-secondary font-bold">13</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">地格<span class="text-secondary font-bold">12</span></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">
+                            自らの手で未来を切り開く力強さと、星のように輝く才能を示唆する吉名。創造性に溢れています。
+                        </p>
+<button class="w-full border border-primary text-primary hover:bg-primary-container/20 px-4 py-2 rounded-lg text-center block font-label text-label transition-colors" type="button">
+                            詳しく診断
+                        </button>
+</article>
+<!-- Result Card 4 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_2px_10px_rgba(61,48,41,0.06)] p-md relative overflow-hidden tactile-card transition-all duration-300">
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-container to-secondary absolute top-0 left-0"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="font-label text-label text-on-surface-variant mb-1 tracking-widest">つかさ</p>
+<h3 class="font-h1 text-h1 text-on-surface leading-none">司</h3>
+</div>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-sm font-label text-label inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">stars</span>大吉
+                            </span>
+</div>
+<div class="flex gap-2 mb-4">
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">天格<span class="text-secondary font-bold">15</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">人格<span class="text-secondary font-bold">10</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">地格<span class="text-secondary font-bold">5</span></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">聡明で判断力に優れ、人をまとめる役割を担う運勢です。堅実な努力で大成します。</p>
+<button class="w-full border border-primary text-primary hover:bg-primary-container/20 px-4 py-2 rounded-lg text-center block font-label text-label transition-colors" type="button">詳しく診断</button>
+</article>
+<!-- Result Card 5 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_2px_10px_rgba(61,48,41,0.06)] p-md relative overflow-hidden tactile-card transition-all duration-300" style="transition-delay: 0.1s;">
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-container to-secondary absolute top-0 left-0"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="font-label text-label text-on-surface-variant mb-1 tracking-widest">ともや</p>
+<h3 class="font-h1 text-h1 text-on-surface leading-none">智也</h3>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-sm font-label text-label inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">thumb_up</span>吉
+                            </span>
+</div>
+<div class="flex gap-2 mb-4">
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">天格<span class="text-secondary font-bold">15</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">人格<span class="text-secondary font-bold">17</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">地格<span class="text-secondary font-bold">15</span></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">知的好奇心が旺盛で、人間関係にも恵まれるバランスの良い画数です。穏やかな人生を歩みます。</p>
+<button class="w-full border border-primary text-primary hover:bg-primary-container/20 px-4 py-2 rounded-lg text-center block font-label text-label transition-colors" type="button">詳しく診断</button>
+</article>
+<!-- Result Card 6 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_2px_10px_rgba(61,48,41,0.06)] p-md relative overflow-hidden tactile-card transition-all duration-300" style="transition-delay: 0.2s;">
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-container to-secondary absolute top-0 left-0"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="font-label text-label text-on-surface-variant mb-1 tracking-widest">とうま</p>
+<h3 class="font-h1 text-h1 text-on-surface leading-none">透真</h3>
+</div>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-sm font-label text-label inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">stars</span>大吉
+                            </span>
+</div>
+<div class="flex gap-2 mb-4">
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">天格<span class="text-secondary font-bold">15</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">人格<span class="text-secondary font-bold">15</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">地格<span class="text-secondary font-bold">20</span></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">純粋で真っ直ぐな心を持ち、真理を探究する姿勢が評価されます。芸術的な才能にも恵まれます。</p>
+<button class="w-full border border-primary text-primary hover:bg-primary-container/20 px-4 py-2 rounded-lg text-center block font-label text-label transition-colors" type="button">詳しく診断</button>
+</article>
+<!-- Result Card 7 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_2px_10px_rgba(61,48,41,0.06)] p-md relative overflow-hidden tactile-card transition-all duration-300">
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-container to-secondary absolute top-0 left-0"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="font-label text-label text-on-surface-variant mb-1 tracking-widest">たつみ</p>
+<h3 class="font-h1 text-h1 text-on-surface leading-none">巽</h3>
+</div>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-sm font-label text-label inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">stars</span>大吉
+                            </span>
+</div>
+<div class="flex gap-2 mb-4">
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">天格<span class="text-secondary font-bold">15</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">人格<span class="text-secondary font-bold">17</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">地格<span class="text-secondary font-bold">12</span></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">風のように自由で、柔軟な発想力を持つ名前です。どんな環境でも適応し、成功を収めます。</p>
+<button class="w-full border border-primary text-primary hover:bg-primary-container/20 px-4 py-2 rounded-lg text-center block font-label text-label transition-colors" type="button">詳しく診断</button>
+</article>
+<!-- Result Card 8 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_2px_10px_rgba(61,48,41,0.06)] p-md relative overflow-hidden tactile-card transition-all duration-300" style="transition-delay: 0.1s;">
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-container to-secondary absolute top-0 left-0"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="font-label text-label text-on-surface-variant mb-1 tracking-widest">たかし</p>
+<h3 class="font-h1 text-h1 text-on-surface leading-none">貴史</h3>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-sm font-label text-label inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">thumb_up</span>吉
+                            </span>
+</div>
+<div class="flex gap-2 mb-4">
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">天格<span class="text-secondary font-bold">15</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">人格<span class="text-secondary font-bold">17</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">地格<span class="text-secondary font-bold">17</span></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">気品があり、歴史を重んじる誠実な人柄を表します。地道な努力が実を結ぶ大器晩成型です。</p>
+<button class="w-full border border-primary text-primary hover:bg-primary-container/20 px-4 py-2 rounded-lg text-center block font-label text-label transition-colors" type="button">詳しく診断</button>
+</article>
+<!-- Result Card 9 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_2px_10px_rgba(61,48,41,0.06)] p-md relative overflow-hidden tactile-card transition-all duration-300" style="transition-delay: 0.2s;">
+<div class="h-[3px] w-full bg-gradient-to-r from-primary via-tertiary-container to-secondary absolute top-0 left-0"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="font-label text-label text-on-surface-variant mb-1 tracking-widest">てっぺい</p>
+<h3 class="font-h1 text-h1 text-on-surface leading-none">鉄平</h3>
+</div>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-sm font-label text-label inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">stars</span>大吉
+                            </span>
+</div>
+<div class="flex gap-2 mb-4">
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">天格<span class="text-secondary font-bold">15</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">人格<span class="text-secondary font-bold">18</span></div>
+<div class="bg-surface-variant px-2 py-1 rounded text-[11px] font-medium text-on-surface-variant flex gap-1">地格<span class="text-secondary font-bold">18</span></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">鉄のように固い意志と、平和を愛する心を持つ吉名。困難を乗り越える強さがあります。</p>
+<button class="w-full border border-primary text-primary hover:bg-primary-container/20 px-4 py-2 rounded-lg text-center block font-label text-label transition-colors" type="button">詳しく診断</button>
+</article>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full rounded-t-[20px] z-50 border-t border-[#E8DFD3] dark:border-stone-800 shadow-[0_-4px_12px_rgba(61,48,41,0.08)] bg-white/95 dark:bg-stone-900/95 fixed bottom-0 w-full flex justify-around items-center px-4 pt-2 pb-safe">
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-medium font-serif mt-1">ホーム</span>
+</a>
+<!-- Active Mobile Navigation Item -->
+<a class="flex flex-col items-center justify-center text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-950/30 rounded-xl px-3 py-1 active:scale-95 transition-transform tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="text-[10px] font-medium font-serif mt-1">姓名判断</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="text-[10px] font-medium font-serif mt-1">五格</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 active:scale-95 transition-transform tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined">article</span>
+<span class="text-[10px] font-medium font-serif mt-1">コラム</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="w-full pt-12 pb-24 border-t border-[#E8DFD3] dark:border-stone-800 flat flex flex-col items-center text-center px-6 max-w-7xl mx-auto bg-[#F9F6F2] dark:bg-stone-950 mt-auto">
+<div class="text-lg font-bold text-stone-800 dark:text-stone-200 mb-6 font-h3">名前診断スタジオ</div>
+<div class="flex gap-6 mb-6">
+<a class="text-sm font-serif leading-relaxed text-stone-500 dark:text-stone-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors" href="#">利用規約</a>
+<a class="text-sm font-serif leading-relaxed text-stone-500 dark:text-stone-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors" href="#">プライバシーポリシー</a>
+<a class="text-sm font-serif leading-relaxed text-stone-500 dark:text-stone-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors" href="#">免責事項</a>
+</div>
+<p class="text-sm font-serif leading-relaxed text-stone-700 dark:text-stone-300">
+            © 名前診断スタジオ. 本サービスは姓名判断（占い）に基づく参考情報を提供するものです
+        </p>
+</footer>
+</body></html>

@@ -216,6 +216,9 @@ const UIController = (() => {
       });
     }
 
+    // 関連ページリンクを動的生成
+    _renderRelatedPages(sei, mei, gokaku);
+
     // double rAF でiOS Safariのレイアウト完了を保証
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -310,6 +313,55 @@ const UIController = (() => {
 
     // URLパラメータを除去
     history.replaceState(null, '', location.pathname);
+  }
+
+  /**
+   * 「もっと詳しく知る」関連ページリンクを動的に生成
+   * - 使った漢字の詳細 → /kanji/{漢字}
+   * - 同じ総画数の他の名前 → /suggestion?soukaku={n}
+   * - 五格の読み解き方 → /about
+   */
+  function _renderRelatedPages(sei, mei, gokaku) {
+    const host = document.getElementById('related-pages-links');
+    if (!host) return;
+    const firstMei = (mei && [...mei][0]) || '';
+    const soukaku = gokaku && gokaku.soukaku ? gokaku.soukaku.value : null;
+
+    const rows = [];
+    if (firstMei) {
+      rows.push({
+        icon: '📖',
+        text: `「${firstMei}」の詳細・由来を見る`,
+        href: `/kanji/${encodeURIComponent(firstMei)}`
+      });
+    }
+    if (soukaku) {
+      rows.push({
+        icon: '🔢',
+        text: `総画${soukaku}画の他の名前を探す`,
+        href: `/suggestion?soukaku=${soukaku}`
+      });
+    }
+    rows.push({
+      icon: '✨',
+      text: '五格（天格・地格など）の読み解き方',
+      href: '/about'
+    });
+
+    host.innerHTML = '';
+    rows.forEach((row) => {
+      const a = document.createElement('a');
+      a.className = 'related-pages__row';
+      a.href = row.href;
+      a.innerHTML = `
+        <span class="related-pages__row-icon" aria-hidden="true">${row.icon}</span>
+        <span class="related-pages__row-text">${row.text}</span>
+        <span class="related-pages__row-arrow" aria-hidden="true">›</span>
+      `;
+      const li = document.createElement('li');
+      li.appendChild(a);
+      host.appendChild(li);
+    });
   }
 
   /**
