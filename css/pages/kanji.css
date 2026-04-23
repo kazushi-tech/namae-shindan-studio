@@ -52,9 +52,21 @@
 
 .kanji-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: var(--space-3);
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-4);
   margin-top: var(--space-6);
+}
+
+@media (max-width: 1023px) {
+  .kanji-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 639px) {
+  .kanji-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+}
+
+@media (max-width: 359px) {
+  .kanji-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 .kanji-grid__item {
@@ -62,7 +74,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--space-4);
+  padding: var(--space-5) var(--space-3);
+  aspect-ratio: 1 / 1;
   background-color: var(--color-white);
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius-lg);
@@ -87,7 +100,7 @@
 
 .kanji-grid__char {
   font-family: var(--font-heading);
-  font-size: 48px;
+  font-size: clamp(2rem, 1rem + 2.5vw, 3rem);
   font-weight: var(--weight-black);
   line-height: 1;
   color: var(--color-dark);
@@ -387,4 +400,24 @@
   background-color: var(--color-terracotta);
   color: var(--color-white);
   border-color: var(--color-terracotta);
+}
+
+/* --- 「漢字辞典について」カード -------------------------------- */
+.kanji-about {
+  margin-top: var(--space-10);
+  padding: var(--space-6);
+}
+
+.kanji-about__list {
+  margin: var(--space-3) 0;
+  padding-left: var(--space-6);
+  line-height: var(--leading-relaxed);
+}
+
+.kanji-about__list li {
+  margin-bottom: var(--space-2);
+}
+
+.kanji-about__list li::marker {
+  color: var(--color-terracotta);
 }

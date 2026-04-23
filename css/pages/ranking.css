@@ -37,9 +37,9 @@
 /* Tile icon (girls/boys) image */
 .ranking-hub__tile-icon {
   display: block;
-  width: 96px;
-  height: 96px;
-  margin-bottom: var(--space-2);
+  width: 88px;
+  height: 88px;
+  margin: 0 auto var(--space-3);
   object-fit: contain;
   pointer-events: none;
 }
@@ -64,9 +64,9 @@
 /* --- Hub: ランキングタイル ---------------------------------------- */
 .ranking-hub__grid {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-5);
   grid-template-columns: 1fr;
-  margin-top: var(--space-6);
+  margin-top: var(--space-8);
 }
 
 @media (min-width: 768px) {
@@ -78,8 +78,8 @@
 .ranking-hub__tile {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-6);
+  gap: var(--space-3);
+  padding: var(--space-7);
   background-color: var(--color-white);
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius-lg);
@@ -87,6 +87,7 @@
   color: inherit;
   position: relative;
   overflow: hidden;
+  min-height: 240px;
   transition: transform var(--transition-default), box-shadow var(--transition-default);
 }
 
@@ -104,6 +105,7 @@
 }
 
 .ranking-hub__tile-year {
+  align-self: center;
   font-family: var(--font-heading);
   font-size: var(--text-sm);
   color: var(--color-muted);
@@ -112,15 +114,19 @@
 
 .ranking-hub__tile-title {
   font-family: var(--font-heading);
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
   color: var(--color-dark);
+  margin: 0;
 }
 
 .ranking-hub__tile-desc {
   font-size: var(--text-sm);
   color: var(--color-medium);
   line-height: var(--leading-relaxed);
+  margin: 0;
+  flex: 1;
 }
 
 /* --- TOP 3 (Bento Grid) ------------------------------------------- */
