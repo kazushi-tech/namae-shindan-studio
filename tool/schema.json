@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "namae-studio/tool/schema.json",
+  "title": "Tool Result Schema v1.0",
+  "description": "名前診断スタジオ（および50サイト量産テンプレ）で全ツールが返す結果オブジェクトの統一スキーマ。share.js / favorites.js / og-generator.js はこのスキーマのみを前提に実装される。",
+  "type": "object",
+  "required": ["resultVersion", "title", "summary", "rating", "scores", "keywords", "shareable", "permalinkParams"],
+  "properties": {
+    "resultVersion": {
+      "type": "string",
+      "const": "1.0",
+      "description": "互換性判定用バージョン識別子"
+    },
+    "title": {
+      "type": "string",
+      "description": "結果の見出し（例: 『山田 太郎さんの姓名判断』）"
+    },
+    "summary": {
+      "type": "string",
+      "description": "結果全体の1〜2文サマリ（シェアテキストに使用）"
+    },
+    "rating": {
+      "type": "string",
+      "enum": ["大吉", "吉", "半吉", "凶", "大凶"],
+      "description": "総合評価（総格の画数から算出）"
+    },
+    "scores": {
+      "type": "array",
+      "description": "個別スコア配列。姓名判断では五格の5要素。",
+      "items": {
+        "type": "object",
+        "required": ["label", "value", "rating"],
+        "properties": {
+          "label": { "type": "string", "description": "天格 / 人格 / 地格 / 外格 / 総格" },
+          "value": { "type": "number", "description": "画数（正規化後）" },
+          "rating": { "type": "string", "enum": ["大吉", "吉", "半吉", "凶", "大凶"] },
+          "description": { "type": "string", "description": "画数解説" },
+          "keywords": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "description": "結果から抽出されるキーワード配列（OG画像・シェアに使用）",
+      "items": { "type": "string" }
+    },
+    "shareable": {
+      "type": "boolean",
+      "description": "シェアボタン活性化フラグ"
+    },
+    "permalinkParams": {
+      "type": "object",
+      "description": "結果を復元するためのURLクエリパラメータ",
+      "additionalProperties": { "type": "string" }
+    },
+    "meta": {
+      "type": "object",
+      "description": "任意のメタ情報（計算日時・入力値など）",
+      "additionalProperties": true
+    }
+  }
+}

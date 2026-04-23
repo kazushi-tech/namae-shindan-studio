@@ -12,12 +12,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/reset.css?v=20260320a">
-  <link rel="stylesheet" href="css/variables.css?v=20260320a">
-  <link rel="stylesheet" href="css/base.css?v=20260320a">
-  <link rel="stylesheet" href="css/components.css?v=20260320a">
-  <link rel="stylesheet" href="css/layout.css?v=20260320a">
-  <link rel="stylesheet" href="css/animations.css?v=20260320a">
+  <link rel="stylesheet" href="css/reset.css?v=20260423a">
+  <link rel="stylesheet" href="css/variables.css?v=20260423a">
+  <link rel="stylesheet" href="css/base.css?v=20260423a">
+  <link rel="stylesheet" href="css/components.css?v=20260423a">
+  <link rel="stylesheet" href="css/layout.css?v=20260423a">
+  <link rel="stylesheet" href="css/animations.css?v=20260423a">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
@@ -36,6 +36,7 @@
       <ul class="nav__links">
         <li><a href="/" class="nav__link">ホーム</a></li>
         <li><a href="/shindan" class="nav__link">姓名判断</a></li>
+        <li><a href="/favorites" class="nav__link">お気に入り</a></li>
         <li><a href="/about" class="nav__link">五格について</a></li>
       </ul>
     </div>
@@ -66,6 +67,7 @@
         <ul class="footer__links">
           <li><a href="/" class="footer__link">ホーム</a></li>
           <li><a href="/shindan" class="footer__link">姓名判断</a></li>
+          <li><a href="/favorites" class="footer__link">お気に入り</a></li>
           <li><a href="/about" class="footer__link">五格について</a></li>
           <li><a href="/privacy-policy" class="footer__link">プライバシーポリシー</a></li>
         </ul>
@@ -73,6 +75,11 @@
       <p class="footer__copyright">&copy; 2026 赤ちゃん名前診断</p>
     </div>
   </footer>
+
+  <!-- Core JS -->
+  <script src="js/core/storage.js?v=20260423a"></script>
+  <script src="js/core/analytics.js?v=20260423a"></script>
+  <script src="js/core/boot.js?v=20260423a"></script>
 
 <script>
   if ('serviceWorker' in navigator) {

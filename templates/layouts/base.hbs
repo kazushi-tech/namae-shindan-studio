@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{site.locale.lang}}">
+<head>
+{{> headMeta}}
+</head>
+<body data-page="{{page}}">
+
+{{> nav}}
+
+<main class="section">
+  <div class="container">
+    {{{body}}}
+  </div>
+</main>
+
+{{> footer}}
+
+<!-- Core JS -->
+<script src="/js/core/storage.js?v={{buildVersion}}"></script>
+<script src="/js/core/analytics.js?v={{buildVersion}}"></script>
+<script src="/js/core/share.js?v={{buildVersion}}"></script>
+<script src="/js/core/favorites.js?v={{buildVersion}}"></script>
+<script src="/js/core/og-generator.js?v={{buildVersion}}"></script>
+<script src="/js/core/router.js?v={{buildVersion}}"></script>
+<script src="/js/core/ab-test.js?v={{buildVersion}}"></script>
+
+<!-- Page JS -->
+<script src="/js/kanji-strokes.js?v={{buildVersion}}"></script>
+<script src="/js/seimei-handan.js?v={{buildVersion}}"></script>
+<script src="/js/fortune-data.js?v={{buildVersion}}"></script>
+<script src="/js/ui-controller.js?v={{buildVersion}}"></script>
+<script src="/js/app.js?v={{buildVersion}}"></script>
+
+{{!-- Service Worker 解除 --}}
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(regs) {
+      regs.forEach(function(r) { r.unregister(); });
+    });
+    if (caches) {
+      caches.keys().then(function(names) { names.forEach(function(n) { caches.delete(n); }); });
+    }
+  }
+</script>
+</body>
+</html>

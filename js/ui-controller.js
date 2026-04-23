@@ -7,6 +7,8 @@ const UIController = (() => {
 
   // DOM要素キャッシュ
   let elements = {};
+  // 直近の診断結果（schema v1.0）を保持。お気に入り・OG画像生成で使用。
+  let currentResult = null;
 
   /**
    * 診断ページの DOM 要素を取得してキャッシュ
@@ -23,8 +25,19 @@ const UIController = (() => {
       gokakuGrid: document.getElementById('gokaku-grid'),
       errorMessage: document.getElementById('error-message'),
       submitBtn: document.getElementById('submit-btn'),
-      retryBtn: document.getElementById('retry-btn')
+      retryBtn: document.getElementById('retry-btn'),
+      favoriteBtn: document.getElementById('favorite-btn'),
+      ogDownloadBtn: document.getElementById('og-download-btn'),
+      ogPreview: document.getElementById('og-preview'),
+      ogPreviewImg: document.getElementById('og-preview-img'),
+      shareX: document.getElementById('share-x'),
+      shareLine: document.getElementById('share-line'),
+      shareFacebook: document.getElementById('share-facebook')
     };
+
+    // お気に入り・OG画像ボタンの配線
+    _wireFavoriteBtn();
+    _wireOgDownloadBtn();
 
     // DOM挿入/削除方式: 初期状態でresultSectionをDOMから除去
     if (elements.resultSection) {
@@ -162,23 +175,46 @@ const UIController = (() => {
       elements.form.classList.add('submitted');
     }
 
-    // シェアURL動的生成
-    const shareParams = new URLSearchParams({ sei, mei });
-    const sharePageUrl = `${location.origin}${location.pathname}?${shareParams}`;
-    const soukakuFortune = gokaku.soukaku
-      ? FortuneData.getFortune(gokaku.soukaku.normalized)?.rating || ''
-      : '';
-    const shareText = encodeURIComponent(
-      `「${sei}${mei}」さんの姓名判断結果は「総格: ${soukakuFortune}」でした！`
-    );
-    const shareUrl = encodeURIComponent(sharePageUrl);
+    // schema v1.0 準拠の Result を生成し保持
+    currentResult = (SeimeiHandan.toResultV1)
+      ? SeimeiHandan.toResultV1(sei, mei, gokaku)
+      : null;
 
-    const shareX = document.getElementById('share-x');
-    const shareLine = document.getElementById('share-line');
-    const shareFb = document.getElementById('share-facebook');
-    if (shareX) shareX.href = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
-    if (shareLine) shareLine.href = `https://social-plugins.line.me/lineit/share?url=${shareUrl}`;
-    if (shareFb) shareFb.href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+    // シェアURL動的生成（Share モジュールがあればそちらを優先）
+    if (currentResult && typeof Share !== 'undefined') {
+      Share.wireElements(currentResult, {
+        x: elements.shareX,
+        line: elements.shareLine,
+        facebook: elements.shareFacebook
+      });
+    } else {
+      // フォールバック: 旧ロジック
+      const shareParams = new URLSearchParams({ sei, mei });
+      const sharePageUrl = `${location.origin}${location.pathname}?${shareParams}`;
+      const soukakuFortune = gokaku.soukaku
+        ? FortuneData.getFortune(gokaku.soukaku.normalized)?.rating || ''
+        : '';
+      const shareText = encodeURIComponent(
+        `「${sei}${mei}」さんの姓名判断結果は「総格: ${soukakuFortune}」でした！`
+      );
+      const shareUrl = encodeURIComponent(sharePageUrl);
+      if (elements.shareX) elements.shareX.href = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+      if (elements.shareLine) elements.shareLine.href = `https://social-plugins.line.me/lineit/share?url=${shareUrl}`;
+      if (elements.shareFacebook) elements.shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+    }
+
+    // お気に入りボタンの状態を更新
+    _refreshFavoriteBtn();
+
+    // OGプレビューを非表示にリセット
+    if (elements.ogPreview) elements.ogPreview.hidden = true;
+
+    // 計測: tool_completed
+    if (typeof Analytics !== 'undefined' && currentResult) {
+      Analytics.toolCompleted('seimei-handan', currentResult.rating, {
+        soukaku: gokaku.soukaku ? gokaku.soukaku.value : 0
+      });
+    }
 
     // double rAF でiOS Safariのレイアウト完了を保証
     requestAnimationFrame(() => {
@@ -264,8 +300,81 @@ const UIController = (() => {
     }
     hideError();
 
+    // 結果クリア
+    currentResult = null;
+    if (elements.favoriteBtn) {
+      elements.favoriteBtn.classList.remove('favorite-btn--active');
+      elements.favoriteBtn.textContent = 'お気に入り';
+    }
+    if (elements.ogPreview) elements.ogPreview.hidden = true;
+
     // URLパラメータを除去
     history.replaceState(null, '', location.pathname);
+  }
+
+  /**
+   * お気に入り☆ボタンの配線
+   */
+  function _wireFavoriteBtn() {
+    if (!elements.favoriteBtn || elements.favoriteBtn.__nsBound) return;
+    elements.favoriteBtn.__nsBound = true;
+    elements.favoriteBtn.addEventListener('click', () => {
+      if (!currentResult || typeof Favorites === 'undefined') return;
+      const id = Favorites.idFor(currentResult);
+      if (Favorites.has(id)) {
+        Favorites.remove(id);
+      } else {
+        Favorites.add(currentResult);
+        elements.favoriteBtn.classList.add('favorite-btn--flash');
+        setTimeout(() => elements.favoriteBtn.classList.remove('favorite-btn--flash'), 600);
+      }
+      _refreshFavoriteBtn();
+    });
+  }
+
+  function _refreshFavoriteBtn() {
+    if (!elements.favoriteBtn || !currentResult || typeof Favorites === 'undefined') return;
+    const saved = Favorites.has(Favorites.idFor(currentResult));
+    elements.favoriteBtn.classList.toggle('favorite-btn--active', saved);
+    elements.favoriteBtn.textContent = saved ? '保存済み' : 'お気に入り';
+  }
+
+  /**
+   * OG画像ダウンロードボタンの配線
+   */
+  function _wireOgDownloadBtn() {
+    if (!elements.ogDownloadBtn || elements.ogDownloadBtn.__nsBound) return;
+    elements.ogDownloadBtn.__nsBound = true;
+    elements.ogDownloadBtn.addEventListener('click', async () => {
+      if (!currentResult || typeof OGGenerator === 'undefined') return;
+      const origLabel = elements.ogDownloadBtn.textContent;
+      elements.ogDownloadBtn.textContent = '生成中...';
+      elements.ogDownloadBtn.disabled = true;
+      try {
+        const dataUrl = await OGGenerator.generateForResult(currentResult);
+        // プレビュー表示
+        if (elements.ogPreview && elements.ogPreviewImg) {
+          elements.ogPreviewImg.src = dataUrl;
+          elements.ogPreview.hidden = false;
+        }
+        // 直接ダウンロードも提供
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        const sei = currentResult.permalinkParams?.sei || 'name';
+        const mei = currentResult.permalinkParams?.mei || '';
+        a.download = `seimei-${sei}${mei}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        if (typeof Analytics !== 'undefined') Analytics.resultShared('og-download', 'seimei-handan');
+      } catch (e) {
+        console.error('OG画像生成に失敗しました', e);
+        alert('画像の生成に失敗しました。もう一度お試しください。');
+      } finally {
+        elements.ogDownloadBtn.textContent = origLabel;
+        elements.ogDownloadBtn.disabled = false;
+      }
+    });
   }
 
   /**
@@ -287,6 +396,7 @@ const UIController = (() => {
     showResults,
     resetResults,
     setLoading,
-    get elements() { return elements; }
+    get elements() { return elements; },
+    get currentResult() { return currentResult; }
   };
 })();

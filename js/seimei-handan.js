@@ -102,10 +102,75 @@ const SeimeiHandan = (() => {
     soukaku: { name: '総格', meaning: '総合運', description: 'すべての画数を合計した、人生全体の総合的な運勢です。' }
   };
 
+  /**
+   * 既存の calculate() の結果と姓名文字列を tool/schema.json (v1.0) 準拠の
+   * Result オブジェクトへ変換する。share.js / favorites.js / og-generator.js
+   * はこのスキーマのみを前提に動く。
+   *
+   * @param {string} sei - 姓（文字列）
+   * @param {string} mei - 名（文字列）
+   * @param {object} gokaku - calculate() の戻り値
+   * @returns {object|null} schema v1.0 準拠オブジェクト、または null
+   */
+  function toResultV1(sei, mei, gokaku) {
+    if (!gokaku) return null;
+    const keys = ['tenkaku', 'jinkaku', 'chikaku', 'gaikaku', 'soukaku'];
+    const getFortune = (typeof FortuneData !== 'undefined' && FortuneData.getFortune)
+      ? FortuneData.getFortune
+      : null;
+
+    const scores = keys.map(k => {
+      const data = gokaku[k];
+      const label = GOKAKU_LABELS[k];
+      const fortune = getFortune ? getFortune(data.normalized) : null;
+      return {
+        label: label.name,
+        value: data.value,
+        rating: fortune ? fortune.rating : '',
+        description: fortune ? fortune.description : label.description,
+        keywords: fortune && fortune.keywords ? fortune.keywords : []
+      };
+    });
+
+    const soukakuFortune = getFortune ? getFortune(gokaku.soukaku.normalized) : null;
+    const rating = soukakuFortune ? soukakuFortune.rating : '';
+
+    const summary = rating
+      ? `総格 ${gokaku.soukaku.value}画・${rating}。五格バランスをチェック！`
+      : `総格 ${gokaku.soukaku.value}画。五格のバランスをご確認ください。`;
+
+    const keywords = soukakuFortune && soukakuFortune.keywords
+      ? soukakuFortune.keywords.slice(0, 5)
+      : [];
+
+    return {
+      resultVersion: '1.0',
+      title: `${sei} ${mei} さんの姓名判断`,
+      summary,
+      rating,
+      scores,
+      keywords,
+      shareable: true,
+      permalinkParams: { sei, mei },
+      meta: {
+        toolType: 'seimei-handan',
+        calculatedAt: new Date().toISOString(),
+        gokakuRaw: {
+          tenkaku: gokaku.tenkaku.value,
+          jinkaku: gokaku.jinkaku.value,
+          chikaku: gokaku.chikaku.value,
+          gaikaku: gokaku.gaikaku.value,
+          soukaku: gokaku.soukaku.value
+        }
+      }
+    };
+  }
+
   return {
     calculate,
     calculateGokaku,
     normalizeStrokes,
+    toResultV1,
     GOKAKU_LABELS
   };
 })();

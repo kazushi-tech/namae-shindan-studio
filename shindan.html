@@ -25,13 +25,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/reset.css?v=20260320a">
-  <link rel="stylesheet" href="css/variables.css?v=20260320a">
-  <link rel="stylesheet" href="css/base.css?v=20260320a">
-  <link rel="stylesheet" href="css/components.css?v=20260320a">
-  <link rel="stylesheet" href="css/layout.css?v=20260320a">
-  <link rel="stylesheet" href="css/animations.css?v=20260320a">
-  <link rel="stylesheet" href="css/pages/shindan.css?v=20260320a">
+  <link rel="stylesheet" href="css/reset.css?v=20260423a">
+  <link rel="stylesheet" href="css/variables.css?v=20260423a">
+  <link rel="stylesheet" href="css/base.css?v=20260423a">
+  <link rel="stylesheet" href="css/components.css?v=20260423a">
+  <link rel="stylesheet" href="css/layout.css?v=20260423a">
+  <link rel="stylesheet" href="css/animations.css?v=20260423a">
+  <link rel="stylesheet" href="css/pages/shindan.css?v=20260423a">
+  <link rel="stylesheet" href="css/pages/favorites.css?v=20260423a">
 
   <!-- JSON-LD -->
   <!-- Favicon -->
@@ -68,6 +69,7 @@
       <ul class="nav__links">
         <li><a href="/" class="nav__link">ホーム</a></li>
         <li><a href="/shindan" class="nav__link nav__link--active">姓名判断</a></li>
+        <li><a href="/favorites" class="nav__link">お気に入り</a></li>
         <li><a href="/about" class="nav__link">五格について</a></li>
         <li><a href="https://column.namae-studio.com/" class="nav__link" rel="noopener">コラム</a></li>
       </ul>
@@ -140,6 +142,26 @@
         <!-- Gokaku Grid -->
         <div id="gokaku-grid" class="gokaku-grid"></div>
 
+        <!-- Ad Slot A4: 結果グリッド下（最高RPM位置） — AdSense 承認後に有効化 -->
+        <aside class="ad-slot ad-slot--rect" data-ns-ad="shindan_result_rect" aria-label="広告" hidden>
+          <span class="ad-slot__label">広告</span>
+          <div class="ad-slot__inner">
+            <!-- AdSense unit will be injected here when enabled via site.config.json -->
+          </div>
+        </aside>
+
+        <!-- Result Actions: ☆お気に入り + OG画像ダウンロード -->
+        <div class="result-actions" style="flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-top: var(--space-6)">
+          <button id="favorite-btn" class="favorite-btn" type="button">お気に入り</button>
+          <button id="og-download-btn" class="og-download-btn" type="button">OG画像をダウンロード</button>
+        </div>
+
+        <!-- OG Preview (初期は非表示、生成後に表示) -->
+        <div id="og-preview" class="og-preview" hidden>
+          <p style="font-size: var(--text-sm); color: var(--color-muted); margin-bottom: var(--space-2)">生成したOG画像のプレビュー（右クリックで保存）</p>
+          <img id="og-preview-img" alt="OG画像プレビュー">
+        </div>
+
         <!-- Share -->
         <div class="share-section">
           <p class="share-section__label">診断結果をシェア</p>
@@ -159,6 +181,41 @@
           </div>
         </div>
 
+        <!-- Affiliate / Related Items Cards -->
+        <section class="affiliate-cards" aria-labelledby="aff-heading">
+          <h3 class="affiliate-cards__heading" id="aff-heading">🎁 お子さまへの記念</h3>
+          <p class="pr-notice">[PR] 以下は名付け・記念行事に役立つサービスのご紹介です。リンク経由の購入により当サイトに紹介料が入る場合があります。</p>
+          <div class="affiliate-cards__grid">
+            <a class="affiliate-card" href="#meimei-sho" data-af-program="a8" data-af-product="meimei-sho" rel="sponsored noopener">
+              <span class="pr-label affiliate-card__label"></span>
+              <span class="affiliate-card__icon" aria-hidden="true">📜</span>
+              <h4 class="affiliate-card__title">命名書</h4>
+              <p class="affiliate-card__desc">プロの書道家が毛筆で清書。お子さまの記念となる一枚を。</p>
+              <span class="affiliate-card__cta">比較を見る</span>
+            </a>
+            <a class="affiliate-card" href="#akachan-fude" data-af-program="moshimo" data-af-product="akachan-fude" rel="sponsored noopener">
+              <span class="pr-label affiliate-card__label"></span>
+              <span class="affiliate-card__icon" aria-hidden="true">🖌️</span>
+              <h4 class="affiliate-card__title">赤ちゃん筆</h4>
+              <p class="affiliate-card__desc">産毛で作る世界に一本だけの記念筆。長く残る贈り物。</p>
+              <span class="affiliate-card__cta">選び方を見る</span>
+            </a>
+            <a class="affiliate-card" href="#kinen-photo" data-af-program="afb" data-af-product="photo-studio" rel="sponsored noopener">
+              <span class="pr-label affiliate-card__label"></span>
+              <span class="affiliate-card__icon" aria-hidden="true">📷</span>
+              <h4 class="affiliate-card__title">記念撮影</h4>
+              <p class="affiliate-card__desc">お宮参り・お食い初めを素敵な一枚に残しましょう。</p>
+              <span class="affiliate-card__cta">スタジオ比較</span>
+            </a>
+            <a class="affiliate-card" href="https://www.kids-tokei.com/" target="_blank" rel="noopener noreferrer" data-af-program="kids-tokei" data-af-product="audition">
+              <span class="affiliate-card__icon" aria-hidden="true">⏰</span>
+              <h4 class="affiliate-card__title">キッズ時計</h4>
+              <p class="affiliate-card__desc">お子さまのモデルオーディションはこちらから。</p>
+              <span class="affiliate-card__cta">応募する</span>
+            </a>
+          </div>
+        </section>
+
         <!-- Retry -->
         <div class="result-actions">
           <button id="retry-btn" class="btn btn--secondary">
@@ -167,8 +224,8 @@
           <a href="/about" class="btn btn--outline">
             五格について詳しく
           </a>
-          <a href="https://www.kids-tokei.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer">
-            📸 記念撮影はこちら
+          <a href="/favorites" class="btn btn--ghost">
+            ⭐ お気に入り一覧
           </a>
         </div>
 
@@ -192,6 +249,7 @@
         <ul class="footer__links">
           <li><a href="/" class="footer__link">ホーム</a></li>
           <li><a href="/shindan" class="footer__link">姓名判断</a></li>
+          <li><a href="/favorites" class="footer__link">お気に入り</a></li>
           <li><a href="/about" class="footer__link">五格について</a></li>
           <li><a href="https://column.namae-studio.com/" class="footer__link" rel="noopener">コラム</a></li>
           <li><a href="/privacy-policy" class="footer__link">プライバシーポリシー</a></li>
@@ -201,12 +259,22 @@
     </div>
   </footer>
 
+  <!-- Core JS -->
+  <script src="js/core/storage.js?v=20260423a"></script>
+  <script src="js/core/analytics.js?v=20260423a"></script>
+  <script src="js/core/share.js?v=20260423a"></script>
+  <script src="js/core/favorites.js?v=20260423a"></script>
+  <script src="js/core/og-generator.js?v=20260423a"></script>
+  <script src="js/core/router.js?v=20260423a"></script>
+  <script src="js/core/ab-test.js?v=20260423a"></script>
+  <script src="js/core/boot.js?v=20260423a"></script>
+
   <!-- JS -->
-  <script src="js/kanji-strokes.js?v=20260320a"></script>
-  <script src="js/seimei-handan.js?v=20260320a"></script>
-  <script src="js/fortune-data.js?v=20260320a"></script>
-  <script src="js/ui-controller.js?v=20260320a"></script>
-  <script src="js/app.js?v=20260320a"></script>
+  <script src="js/kanji-strokes.js?v=20260423a"></script>
+  <script src="js/seimei-handan.js?v=20260423a"></script>
+  <script src="js/fortune-data.js?v=20260423a"></script>
+  <script src="js/ui-controller.js?v=20260423a"></script>
+  <script src="js/app.js?v=20260423a"></script>
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(function(regs) {

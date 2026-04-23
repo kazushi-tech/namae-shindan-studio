@@ -1,0 +1,19 @@
+{{!-- partials/nav.hbs — 共通ナビゲーション --}}
+<nav class="nav" role="navigation" aria-label="メインナビゲーション">
+  <div class="container nav-container">
+    <a href="/" class="nav__brand">
+      <img src="/assets/images/logo-icon.png" alt="{{site.brand.shortName}}ロゴ" class="nav__logo">
+      <span class="nav__title">{{site.brand.shortName}}</span>
+    </a>
+    <ul class="nav__links">
+      {{#each site.nav}}
+      <li>
+        <a href="{{this.href}}"
+           class="nav__link{{#if this.active}} nav__link--active{{/if}}"
+           {{#if this.external}}rel="noopener"{{/if}}
+        >{{this.label}}</a>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</nav>

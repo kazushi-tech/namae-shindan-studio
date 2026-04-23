@@ -1,0 +1,19 @@
+{{!-- partials/footer.hbs — 共通フッター --}}
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <span class="footer__brand-name">{{site.brand.emoji}} {{site.brand.name}}</span>
+      <p class="footer__brand-desc">{{site.brand.tagline}}</p>
+    </div>
+    <nav class="footer__nav" aria-label="フッターナビゲーション">
+      <ul class="footer__links">
+        {{#each site.footer.links}}
+        <li>
+          <a href="{{this.href}}" class="footer__link"{{#if this.external}} rel="noopener"{{/if}}>{{this.label}}</a>
+        </li>
+        {{/each}}
+      </ul>
+    </nav>
+    <p class="footer__copyright">{{site.footer.copyright}}</p>
+  </div>
+</footer>

@@ -1,0 +1,59 @@
+{
+  "page": "home",
+  "path": "/",
+  "meta": {
+    "title": "赤ちゃん名前診断 — 姓名判断で最高の名前を",
+    "description": "無料の姓名判断サービス。赤ちゃんの名前の画数から五格（天格・人格・地格・外格・総格）を診断。お子さまにぴったりの名前探しをお手伝いします。",
+    "og": {
+      "title": "赤ちゃん名前診断 — 姓名判断で最高の名前を",
+      "description": "無料の姓名判断サービス。画数から五格を診断して、お子さまにぴったりの名前を見つけましょう。",
+      "type": "website",
+      "image": "/assets/images/og-image.png"
+    }
+  },
+  "hero": {
+    "title": ["大切なお子さまに", "最高の名前を"],
+    "subtitle": "姓名判断で名前の画数を診断。\nお子さまの幸せな未来への第一歩を、ここから。",
+    "cta": { "label": "無料で診断する", "href": "/shindan" },
+    "illustration": "/assets/images/hero-baby.png"
+  },
+  "features": {
+    "title": "3つのポイント",
+    "items": [
+      {
+        "icon": "/assets/images/feature-speed.png",
+        "title": "瞬時に結果表示",
+        "text": "名前を入力するだけで、五格の診断結果がすぐに表示されます。サーバー通信なしの高速診断。"
+      },
+      {
+        "icon": "/assets/images/feature-gokaku.png",
+        "title": "五格で詳しく診断",
+        "text": "天格・人格・地格・外格・総格の5つの観点から、名前の持つ運勢を丁寧に解説します。"
+      },
+      {
+        "icon": "/assets/images/feature-free.png",
+        "title": "完全無料で安心",
+        "text": "会員登録不要ですぐ使える。お子さまの名付けをじっくり考えられる環境をお届けします。"
+      }
+    ]
+  },
+  "howItWorks": {
+    "title": "使い方はかんたん",
+    "steps": [
+      { "number": "1", "title": "姓と名を入力", "text": "漢字・ひらがな・カタカナで姓と名を入力してください。" },
+      { "number": "2", "title": "診断ボタンを押す", "text": "「診断する」ボタンを押すと、すぐに結果が表示されます。" },
+      { "number": "3", "title": "五格の結果を確認", "text": "天格・人格・地格・外格・総格それぞれの運勢を確認できます。" }
+    ],
+    "cta": { "label": "さっそく診断してみる", "href": "/shindan" }
+  },
+  "abTests": {
+    "hero-cta-copy": {
+      "experimentId": "hero-cta-copy",
+      "variants": {
+        "A": "無料で診断する",
+        "B": "名前を診断してみる"
+      }
+    }
+  },
+  "disclaimer": "※ 本サービスは姓名判断（占い）に基づく参考情報を提供するものです。診断結果は名前の画数による伝統的な占いの一つであり、科学的根拠に基づくものではありません。名付けの際のひとつの参考としてお楽しみください。"
+}
