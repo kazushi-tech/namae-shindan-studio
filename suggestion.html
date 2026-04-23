@@ -18,13 +18,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/css/reset.css?v=20260424b">
-  <link rel="stylesheet" href="/css/variables.css?v=20260424b">
-  <link rel="stylesheet" href="/css/base.css?v=20260424b">
-  <link rel="stylesheet" href="/css/components.css?v=20260424b">
-  <link rel="stylesheet" href="/css/layout.css?v=20260424b">
-  <link rel="stylesheet" href="/css/animations.css?v=20260424b">
-  <link rel="stylesheet" href="/css/pages/suggestion.css?v=20260424b">
+  <link rel="stylesheet" href="/css/reset.css?v=20260424c">
+  <link rel="stylesheet" href="/css/variables.css?v=20260424c">
+  <link rel="stylesheet" href="/css/base.css?v=20260424c">
+  <link rel="stylesheet" href="/css/components.css?v=20260424c">
+  <link rel="stylesheet" href="/css/layout.css?v=20260424c">
+  <link rel="stylesheet" href="/css/animations.css?v=20260424c">
+  <link rel="stylesheet" href="/css/pages/suggestion.css?v=20260424c">
 
   <link rel="icon" type="image/png" href="/assets/images/favicon.png">
   <link rel="apple-touch-icon" href="/assets/images/logo-icon.png">
@@ -165,11 +165,11 @@
         <div id="suggestion-results-grid" class="suggestion-results__grid"></div>
       </section>
 
-      <section class="card" style="margin-top: var(--space-10); padding: var(--space-6)">
+      <section class="card suggestion-about">
         <h2 class="card__title">このツールについて</h2>
         <div class="card__body">
           <p>本ツールは、人気の名前データベース（約160件）から条件に合う名前を絞り込んで提示する <strong>Tier A エンジン</strong> です。完全にブラウザ内で動作し、入力情報は外部に送信されません。</p>
-          <p style="margin-top: var(--space-3)">姓を入れておくと、お気に入りの候補を見つけた際に「詳しく診断」ボタンから姓名判断画面へそのまま引き継げます。</p>
+          <p>姓を入れておくと、お気に入りの候補を見つけた際に「詳しく診断」ボタンから姓名判断画面へそのまま引き継げます。</p>
         </div>
       </section>
     </div>
@@ -199,15 +199,15 @@
   </footer>
 
   <!-- Core & fortune data for rating resolution -->
-  <script src="/js/core/storage.js?v=20260424b"></script>
-  <script src="/js/core/analytics.js?v=20260424b"></script>
-  <script src="/js/core/nav.js?v=20260424b"></script>
-  <script src="/js/core/boot.js?v=20260424b"></script>
-  <script src="/js/fortune-data.js?v=20260424b"></script>
+  <script src="/js/core/storage.js?v=20260424c"></script>
+  <script src="/js/core/analytics.js?v=20260424c"></script>
+  <script src="/js/core/nav.js?v=20260424c"></script>
+  <script src="/js/core/boot.js?v=20260424c"></script>
+  <script src="/js/fortune-data.js?v=20260424c"></script>
   <script>
     // FortuneData.load() はfetchで data/fortune-meanings.json を読む
     if (window.FortuneData && window.FortuneData.load) window.FortuneData.load();
   </script>
-  <script src="/js/suggestion-page.js?v=20260424b"></script>
+  <script src="/js/suggestion-page.js?v=20260424c"></script>
 </body>
 </html>
