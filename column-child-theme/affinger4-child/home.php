@@ -22,7 +22,7 @@ get_header();
       <?php affinger4_child_breadcrumb(); ?>
 
       <div class="page-header">
-        <h1 class="page-header__title">名付けガイド</h1>
+        <h1 class="page-header__title">コラム一覧</h1>
         <?php
         global $wp_query;
         $total = isset( $wp_query->found_posts ) ? (int) $wp_query->found_posts : 0;

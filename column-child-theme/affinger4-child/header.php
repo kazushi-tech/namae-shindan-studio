@@ -52,7 +52,7 @@
         <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/kanji/">漢字図鑑</a></li>
         <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/about.html">五格</a></li>
         <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/favorites.html">お気に入り</a></li>
-        <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-current="page">名付けガイド</a></li>
+        <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-current="page">コラム</a></li>
       </ul>
     </nav>
   </div>

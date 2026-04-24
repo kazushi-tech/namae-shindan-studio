@@ -27,7 +27,7 @@ get_header();
           if ( is_home() ) {
               single_post_title( '', true );
               if ( ! get_option( 'page_for_posts' ) ) {
-                  echo '名付けガイド';
+                  echo 'コラム一覧';
               }
           } elseif ( is_category() ) {
               single_cat_title();
