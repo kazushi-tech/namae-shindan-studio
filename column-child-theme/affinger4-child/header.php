@@ -44,29 +44,16 @@
     </button>
 
     <nav class="site-nav" id="site-nav" aria-label="グローバルナビゲーション">
-      <?php
-      if ( has_nav_menu( 'child-primary' ) ) {
-          wp_nav_menu( array(
-              'theme_location' => 'child-primary',
-              'menu_class'     => 'site-nav__list',
-              'container'      => false,
-              'depth'          => 1,
-              'fallback_cb'    => false,
-          ) );
-      } else {
-          // フォールバック: メニュー未設定時は固定リンクを出力
-          ?>
-          <ul class="site-nav__list">
-            <li class="site-nav__item"><a class="site-nav__link" href="<?php echo esc_url( home_url( '/' ) ); ?>">ホーム</a></li>
-            <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/shindan.html">姓名判断</a></li>
-            <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/suggestion.html">名前提案</a></li>
-            <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/ranking/">人気ランキング</a></li>
-            <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/kanji/">漢字図鑑</a></li>
-            <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-current="page">名付けガイド</a></li>
-          </ul>
-          <?php
-      }
-      ?>
+      <ul class="site-nav__list">
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/">ホーム</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/shindan.html">姓名判断</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/suggestion.html">名前提案</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/ranking/">人気ランキング</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/kanji/">漢字図鑑</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/about.html">五格</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/favorites.html">お気に入り</a></li>
+        <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-current="page">名付けガイド</a></li>
+      </ul>
     </nav>
   </div>
 </header>

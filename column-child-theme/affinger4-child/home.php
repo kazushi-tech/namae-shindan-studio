@@ -12,17 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-$hub_tiles = array(
-    array( 'url' => 'https://namae-studio.com/',                    'icon' => '🏠', 'title' => 'ホーム',     'desc' => '名前診断スタジオのトップへ。' ),
-    array( 'url' => 'https://namae-studio.com/shindan.html',        'icon' => '🔮', 'title' => '姓名判断',   'desc' => '画数・五格から運勢を無料鑑定。' ),
-    array( 'url' => 'https://namae-studio.com/meimei-list.html',    'icon' => '✨', 'title' => '名前候補',   'desc' => '響き・願いから候補を一覧で提案。' ),
-    array( 'url' => 'https://namae-studio.com/ranking.html',        'icon' => '📊', 'title' => 'ランキング', 'desc' => '人気の名前・漢字のランキング。' ),
-    array( 'url' => 'https://namae-studio.com/kanji-dictionary.html','icon' => '📖','title' => '漢字辞典',   'desc' => '名付けに使える漢字の意味と読み。' ),
-    array( 'url' => 'https://namae-studio.com/guide/',              'icon' => '📘', 'title' => 'ガイド',     'desc' => '名付け FAQ・出産準備・お宮参り。' ),
-    array( 'url' => 'https://namae-studio.com/about.html',          'icon' => '🎋', 'title' => '五格',       'desc' => '天格・人格・地格・外格・総格の意味。' ),
-    array( 'url' => 'https://namae-studio.com/favorites.html',      'icon' => '⭐', 'title' => 'お気に入り', 'desc' => '保存した名前候補をここで管理。' ),
-);
-
 get_header();
 ?>
 
@@ -42,21 +31,6 @@ get_header();
           <span class="page-header__count">全 <?php echo esc_html( number_format_i18n( $total ) ); ?> 件</span>
         <?php endif; ?>
       </div>
-
-      <section class="site-hub" aria-label="サイト内メインメニュー">
-        <h2 class="site-hub__heading">名前診断スタジオの主要ページ</h2>
-        <ul class="site-hub__grid">
-          <?php foreach ( $hub_tiles as $t ) : ?>
-            <li class="site-hub__item">
-              <a class="site-hub__tile" href="<?php echo esc_url( $t['url'] ); ?>" rel="noopener">
-                <span class="site-hub__tile-icon" aria-hidden="true"><?php echo esc_html( $t['icon'] ); ?></span>
-                <span class="site-hub__tile-title"><?php echo esc_html( $t['title'] ); ?></span>
-                <span class="site-hub__tile-desc"><?php echo esc_html( $t['desc'] ); ?></span>
-              </a>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-      </section>
 
       <?php if ( have_posts() ) : ?>
         <div class="article-grid">

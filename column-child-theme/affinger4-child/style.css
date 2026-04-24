@@ -5,7 +5,7 @@ Description: column.namae-studio.com 専用 AFFINGER4 子テーマ。本体 nama
 Author: namae-studio
 Author URI: https://namae-studio.com/
 Template: affinger4
-Version: 1.0.6
+Version: 1.0.7
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: affinger4-child
@@ -1503,65 +1503,4 @@ button {
   html {
     scroll-behavior: auto;
   }
-}
-
-/* =========================================================
-   Site Hub — home.php 上部のサイト内ハブタイル
-   ========================================================= */
-.site-hub { margin: 0 0 var(--space-10); }
-
-.site-hub__heading {
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  font-weight: 700;
-  color: var(--color-medium);
-  margin: 0 0 var(--space-5);
-  padding-left: var(--space-3);
-  border-left: 4px solid var(--color-terracotta);
-}
-
-.site-hub__grid {
-  display: grid;
-  gap: var(--space-5);
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 600px)  { .site-hub__grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 960px)  { .site-hub__grid { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 1200px) { .site-hub__grid { grid-template-columns: repeat(4, 1fr); } }
-
-.site-hub__tile {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
-  box-shadow: var(--shadow-card);
-  text-decoration: none;
-  color: inherit;
-  min-height: 140px;
-  transition: transform var(--transition-default), box-shadow var(--transition-default);
-}
-.site-hub__tile:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-card-hover);
-}
-.site-hub__tile:hover .site-hub__tile-title { color: var(--color-terracotta); }
-
-.site-hub__tile-icon  { font-size: 32px; line-height: 1; }
-.site-hub__tile-title {
-  font-family: var(--font-heading);
-  font-size: var(--text-lg);
-  font-weight: 700;
-  color: var(--color-medium);
-  transition: color var(--transition-default);
-}
-.site-hub__tile-desc  {
-  font-size: var(--text-sm);
-  color: var(--color-muted);
-  line-height: 1.6;
 }
