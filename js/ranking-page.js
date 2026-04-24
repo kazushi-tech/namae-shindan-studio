@@ -24,6 +24,11 @@
     return `/shindan?mei=${encodeURIComponent(name)}`;
   }
 
+  // お気に入り登録導線: 姓入力後に自動で Favorites.add するよう autofav=1 を付与
+  function favHref(name) {
+    return `/shindan?mei=${encodeURIComponent(name)}&autofav=1`;
+  }
+
   async function render(jsonUrl) {
     try {
       const res = await fetch(jsonUrl, { cache: 'no-cache' });
@@ -65,6 +70,12 @@
         tile.className = `top3__card top3__card--${key} animate-slide-up`;
         tile.style.animationDelay = `${medalIdx * 0.1}s`;
         tile.innerHTML = `
+          <a class="ranking-fav-btn ranking-fav-btn--top3"
+             href="${favHref(e.name)}"
+             aria-label="「${esc(e.name)}」をお気に入りに追加 (診断後自動保存)"
+             title="姓を入力して診断すると、自動でお気に入り登録されます">
+            <span aria-hidden="true">☆</span>
+          </a>
           <div class="top3__rank-badge top3__rank-badge--${key}">${e.rank}</div>
           <h2 class="top3__name">${esc(e.name)}</h2>
           <p class="top3__reading">${esc(e.reading || '')}</p>
@@ -99,8 +110,22 @@
               <span class="ranking-list__fortune ranking-list__fortune--${fortuneCls}">${esc(e.fortune)}</span>
             </div>
           </div>
+          <button type="button" class="ranking-fav-btn ranking-fav-btn--row"
+             data-fav-target="${esc(e.name)}"
+             aria-label="「${esc(e.name)}」をお気に入りに追加 (診断後自動保存)"
+             title="姓を入力して診断すると、自動でお気に入り登録されます">
+            <span aria-hidden="true">☆</span>
+          </button>
           <span class="ranking-list__action">診断</span>
         `;
+        const favBtn = row.querySelector('.ranking-fav-btn');
+        if (favBtn) {
+          favBtn.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            location.href = favHref(e.name);
+          });
+        }
         listEl.appendChild(row);
       });
     }

@@ -110,7 +110,16 @@
       const card = document.createElement('article');
       card.className = 'suggestion-card animate-slide-up';
       card.style.animationDelay = `${Math.min(i, 6) * 0.05}s`;
+      card.dataset.meiName = n.name;
+      const favId = _computeFavoriteId(seiInput, n.name);
+      const isSaved = favId && typeof Favorites !== 'undefined' && Favorites.has(favId);
       card.innerHTML = `
+        <button type="button"
+          class="suggestion-card__fav${isSaved ? ' suggestion-card__fav--active' : ''}"
+          aria-label="${isSaved ? 'お気に入りから削除' : 'お気に入りに追加'}"
+          aria-pressed="${isSaved ? 'true' : 'false'}">
+          <span class="suggestion-card__fav-icon" aria-hidden="true">${isSaved ? '★' : '☆'}</span>
+        </button>
         <div class="suggestion-card__reading">${esc(n.reading)}</div>
         <div class="suggestion-card__name">${esc(n.name)}</div>
         ${f ? `<div class="suggestion-card__fortune"><span class="badge badge--${ratingCls}">${esc(f.rating)}</span></div>` : ''}
@@ -122,8 +131,85 @@
           <a class="btn btn--outline btn--sm" href="${shindanHref}">詳しく診断</a>
         </div>
       `;
+      const favBtn = card.querySelector('.suggestion-card__fav');
+      if (favBtn) {
+        favBtn.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          onFavoriteToggle(n.name);
+        });
+      }
       host.appendChild(card);
     });
+  }
+
+  // 現在の姓入力値を取得（未入力なら空）
+  function _currentSei() {
+    const form = document.getElementById('suggestion-form');
+    if (!form || !form.elements['sei']) return '';
+    return form.elements['sei'].value.trim();
+  }
+
+  function _computeFavoriteId(sei, mei) {
+    if (!sei || !mei || typeof Favorites === 'undefined') return '';
+    try {
+      return Favorites.idFor({ permalinkParams: { sei, mei } });
+    } catch (e) { return ''; }
+  }
+
+  // ⭐ クリック: 姓未入力なら誘導、入力済みならその場で計算→保存
+  async function onFavoriteToggle(meiName) {
+    const sei = _currentSei();
+    if (!sei) {
+      const seiField = document.getElementById('sei-input');
+      if (seiField) {
+        seiField.focus();
+        seiField.placeholder = '先に姓を入力してください';
+      }
+      const live = document.getElementById('ns-live-alert');
+      if (live) live.textContent = 'お気に入り登録には姓の入力が必要です。';
+      return;
+    }
+    if (typeof Favorites === 'undefined' || typeof SeimeiHandan === 'undefined'
+      || typeof KanjiStrokes === 'undefined') {
+      console.warn('依存モジュール未ロード');
+      return;
+    }
+    // KanjiStrokes が未ロードなら待つ
+    if (!KanjiStrokes.isLoaded()) {
+      try { await KanjiStrokes.load(); } catch (e) { /* noop */ }
+    }
+    const seiData = KanjiStrokes.getStrokesArray(sei);
+    const meiData = KanjiStrokes.getStrokesArray(meiName);
+    if (seiData.unknownChars.length > 0 || meiData.unknownChars.length > 0) {
+      const live = document.getElementById('ns-live-alert');
+      if (live) live.textContent = '画数の取得に失敗しました。姓の文字を見直してください。';
+      return;
+    }
+    const gokaku = SeimeiHandan.calculate(seiData.strokes, meiData.strokes);
+    const result = SeimeiHandan.toResultV1(sei, meiName, gokaku);
+    if (!result) return;
+    const id = Favorites.idFor(result);
+    if (Favorites.has(id)) {
+      Favorites.remove(id);
+    } else {
+      Favorites.add(result);
+    }
+    // このカードのボタン表示を更新
+    const host = document.getElementById('suggestion-results-grid');
+    if (host) {
+      host.querySelectorAll(`.suggestion-card[data-mei-name="${CSS.escape(meiName)}"]`).forEach(card => {
+        const btn = card.querySelector('.suggestion-card__fav');
+        const icon = card.querySelector('.suggestion-card__fav-icon');
+        if (!btn) return;
+        const nowSaved = Favorites.has(id);
+        btn.classList.toggle('suggestion-card__fav--active', nowSaved);
+        btn.setAttribute('aria-pressed', nowSaved ? 'true' : 'false');
+        btn.setAttribute('aria-label', nowSaved ? 'お気に入りから削除' : 'お気に入りに追加');
+        if (icon) icon.textContent = nowSaved ? '★' : '☆';
+      });
+    }
+    const live = document.getElementById('ns-live');
+    if (live) live.textContent = Favorites.has(id) ? `${sei} ${meiName} をお気に入りに登録しました。` : `${sei} ${meiName} をお気に入りから削除しました。`;
   }
 
   function getFormFilters(form) {
@@ -149,6 +235,11 @@
     const results = filterNames(data.names, filters);
     renderResults(results, seiInput);
     renderSoukakuBadge(filters.targetSoukaku);
+    const resultsSection = document.querySelector('.suggestion-results');
+    if (resultsSection) {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      resultsSection.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    }
     // URL に条件を反映
     const params = new URLSearchParams();
     if (seiInput) params.set('sei', seiInput);

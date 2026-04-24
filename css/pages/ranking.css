@@ -302,7 +302,7 @@
 
 .ranking-list__row {
   display: grid;
-  grid-template-columns: 40px 1fr auto;
+  grid-template-columns: 40px 1fr auto auto;
   gap: var(--space-3);
   align-items: center;
   padding: var(--space-3) var(--space-5);
@@ -397,4 +397,50 @@
 
 .ranking-list__row:hover .ranking-list__action::after {
   transform: translateX(3px);
+}
+
+/* ==========================================================================
+   ⭐ Ranking Favorite Button — ranking カードの「お気に入り追加」導線
+   ========================================================================== */
+
+.ranking-fav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--color-gold);
+  background-color: var(--color-white);
+  color: var(--color-gold-dark);
+  border-radius: 50%;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1;
+  font-size: 18px;
+  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.ranking-fav-btn:hover {
+  background-color: var(--color-gold);
+  color: var(--color-white);
+  transform: translateY(-1px);
+}
+
+.ranking-fav-btn:focus-visible {
+  outline: 2px solid var(--color-gold-dark);
+  outline-offset: 2px;
+}
+
+.ranking-fav-btn--top3 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+
+.ranking-fav-btn--row {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
 }

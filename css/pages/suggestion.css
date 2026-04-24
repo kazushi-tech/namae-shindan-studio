@@ -289,6 +289,48 @@ body[data-page="suggestion"] .page-header {
   margin-top: var(--space-3);
 }
 
+/* ⭐ Fav button (absolute, 右上) */
+.suggestion-card__fav {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--color-gold);
+  background: var(--color-white);
+  color: var(--color-gold-dark);
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  z-index: 2;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), color var(--transition-fast);
+}
+
+.suggestion-card__fav-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.suggestion-card__fav:hover {
+  background-color: var(--color-gold);
+  color: var(--color-white);
+  transform: translateY(-1px);
+}
+
+.suggestion-card__fav--active {
+  background-color: var(--color-gold);
+  color: var(--color-white);
+}
+
+.suggestion-card__fav:focus-visible {
+  outline: 2px solid var(--color-gold-dark);
+  outline-offset: 2px;
+}
+
 /* =======================================================================
    Empty / Loading states
    ======================================================================= */

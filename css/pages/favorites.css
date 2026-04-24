@@ -53,6 +53,83 @@
   line-height: var(--leading-relaxed);
 }
 
+/* 3 ステップカード（空状態ガイド） */
+.favorites-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: var(--container-form);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .favorites-steps {
+    max-width: 960px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.favorites-steps__item {
+  position: relative;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  box-shadow: var(--shadow-xs);
+  overflow: hidden;
+}
+
+.favorites-steps__item::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-terracotta), var(--color-gold), var(--color-sage));
+}
+
+.favorites-steps__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-cream);
+  color: var(--color-terracotta-dark);
+  font-family: var(--font-heading);
+  font-weight: var(--weight-black);
+  font-size: var(--text-lg);
+  border: 1.5px solid var(--color-terracotta);
+}
+
+.favorites-steps__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin: var(--space-1) 0 0;
+  line-height: var(--leading-snug);
+}
+
+.favorites-steps__desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted-aa, var(--color-medium));
+  line-height: var(--leading-relaxed);
+  flex: 1;
+  margin: 0;
+}
+
+.favorites-steps__item .btn {
+  align-self: flex-start;
+  margin-top: var(--space-2);
+}
+
 .favorites-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -165,6 +242,64 @@
 }
 
 /* ==========================================================================
+   お気に入り onboarding ヒント — shindan.html 結果画面
+   ========================================================================== */
+
+.favorite-hint {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  max-width: var(--container-form);
+  margin: var(--space-6) auto var(--space-3);
+  padding: var(--space-3) var(--space-10) var(--space-3) var(--space-4);
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-gold);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+}
+
+.favorite-hint__icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+  color: var(--color-gold-dark);
+}
+
+.favorite-hint__text {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-on-cream, var(--color-dark));
+  margin: 0;
+}
+
+.favorite-hint__text small {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted-aa, var(--color-medium));
+}
+
+.favorite-hint__close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--color-muted);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 50%;
+  transition: background-color var(--transition-fast);
+}
+
+.favorite-hint__close:hover {
+  background-color: var(--color-white);
+  color: var(--color-dark);
+}
+
+/* ==========================================================================
    ☆ Favorite Button — Result 画面に置く
    ========================================================================== */
 
@@ -206,6 +341,17 @@
 
 .favorite-btn--active::before {
   content: "★";
+}
+
+.favorite-btn--large {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-base);
+  border-width: 2px;
+  box-shadow: var(--shadow-xs);
+}
+
+.favorite-btn--large::before {
+  font-size: 1.4em;
 }
 
 .favorite-btn--flash {

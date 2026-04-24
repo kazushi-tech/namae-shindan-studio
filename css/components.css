@@ -797,6 +797,44 @@
 }
 
 /* =======================================================================
+   Page Header (generic — used by about / shindan / favorites / etc)
+   ======================================================================= */
+
+.page-header {
+  text-align: center;
+  padding: var(--space-8) 0 var(--space-6);
+}
+
+.page-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-black);
+  color: var(--color-dark);
+  margin-bottom: var(--space-4);
+}
+
+.page-subtitle {
+  font-size: var(--text-base);
+  color: var(--color-muted);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.page-header__illustration {
+  display: block;
+  max-width: 400px;
+  height: auto;
+  margin: 0 auto var(--space-6);
+  border-radius: var(--radius-lg);
+}
+
+@media (max-width: 479px) {
+  .page-header__illustration {
+    max-width: 280px;
+  }
+}
+
+/* =======================================================================
    Footer
    ======================================================================= */
 
@@ -899,6 +937,91 @@
 .footer__copyright {
   font-size: var(--text-xs);
   color: var(--color-muted);
+}
+
+/* =======================================================================
+   Promo Card — キッズ時計 LP など外部アフィリエイト導線
+   ======================================================================= */
+
+.promo-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+  max-width: var(--container-form);
+  margin: var(--space-8) auto;
+  padding: var(--space-5) var(--space-6);
+  background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-cream-warm) 100%);
+  border: 1px solid var(--color-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow var(--transition-default), transform var(--transition-default);
+}
+
+.promo-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.promo-card__pr {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  padding: 2px var(--space-1);
+  background-color: #5C4F44;
+  color: var(--color-white);
+  font-size: 10px;
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+}
+
+.promo-card__icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.promo-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin: 0;
+  line-height: var(--leading-snug);
+}
+
+.promo-card__desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-on-cream, var(--color-medium));
+  line-height: var(--leading-relaxed);
+  margin: 0;
+}
+
+.promo-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-terracotta);
+  font-family: var(--font-heading);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  margin-top: var(--space-1);
+}
+
+.promo-card__cta::after {
+  content: "›";
+  transition: transform var(--transition-fast);
+}
+
+.promo-card:hover .promo-card__cta::after {
+  transform: translateX(3px);
+}
+
+.promo-card--kids-tokei {
+  border-color: var(--color-gold);
 }
 
 /* =======================================================================

@@ -8,6 +8,9 @@
   gap: var(--space-4);
   align-items: flex-start;
   margin-top: var(--space-4);
+  max-width: var(--container-form);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (min-width: 768px) {
@@ -89,7 +92,7 @@
 
 /* --- 記事本文 ---------------------------------------------------- */
 .guide-article {
-  max-width: 760px;
+  max-width: var(--container-form);
   margin: var(--space-8) auto 0;
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);

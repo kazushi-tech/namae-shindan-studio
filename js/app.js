@@ -84,6 +84,7 @@ const App = (() => {
     const urlParams = new URLSearchParams(location.search);
     const seiParam = urlParams.get('sei');
     const meiParam = urlParams.get('mei');
+    const autofavParam = urlParams.get('autofav') === '1';
     if (els.seiInput && els.meiInput) {
       if (seiParam) els.seiInput.value = seiParam;
       if (meiParam) els.meiInput.value = meiParam;
@@ -92,13 +93,18 @@ const App = (() => {
       if (meiParam) UIController.updateStrokePreview(meiParam, UIController.elements.meiPreview);
 
       if (seiParam && meiParam) {
-        handleShindan();
+        handleShindan({ autofav: autofavParam });
       } else if (seiParam && !meiParam) {
         els.meiInput.focus();
         els.meiInput.placeholder = '名を入力して診断を開始';
       } else if (!seiParam && meiParam) {
         els.seiInput.focus();
-        els.seiInput.placeholder = '姓を入力して診断を開始';
+        els.seiInput.placeholder = '姓を入力してください（autofav: 診断後に自動でお気に入り登録）';
+        if (autofavParam) {
+          // 姓入力後に自動フラグを保持するため、submit 時に拾うよう form に記録
+          const form = els.form;
+          if (form) form.dataset.autofav = '1';
+        }
       }
     }
   }
@@ -106,8 +112,10 @@ const App = (() => {
   /**
    * 診断実行
    */
-  function handleShindan() {
+  function handleShindan(opts) {
+    opts = opts || {};
     const els = UIController.elements;
+    const autofav = opts.autofav || (els.form && els.form.dataset.autofav === '1');
     const seiResult = UIController.validateNameInput(els.seiInput?.value || '');
     const meiResult = UIController.validateNameInput(els.meiInput?.value || '');
 
@@ -156,6 +164,20 @@ const App = (() => {
       // URLに姓名パラメータを付与（シェアURL対応）
       const params = new URLSearchParams({ sei: seiResult.cleaned, mei: meiResult.cleaned });
       history.replaceState(null, '', `${location.pathname}?${params}`);
+
+      // autofav=1 で到達した場合、診断完了後に自動でお気に入り登録
+      if (autofav && typeof Favorites !== 'undefined' && UIController.currentResult) {
+        const result = UIController.currentResult;
+        if (!Favorites.has(Favorites.idFor(result))) {
+          Favorites.add(result);
+        }
+        if (els.favoriteBtn) {
+          els.favoriteBtn.classList.add('favorite-btn--active', 'favorite-btn--flash');
+          els.favoriteBtn.textContent = '保存済み';
+          setTimeout(() => els.favoriteBtn.classList.remove('favorite-btn--flash'), 600);
+        }
+        if (els.form) delete els.form.dataset.autofav;
+      }
 
     }, 400);
   }
