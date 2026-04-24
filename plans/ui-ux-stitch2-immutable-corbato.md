@@ -710,27 +710,55 @@ AdSense 審査 / アフィリ審査で必要になる可能性。Contact Form 7 
 
 構文検証: CSS brace `{=180, }=180`、全 PHP ファイルの `{}` と `()` カウントも一致、`node --check nav.js` 通過。PHP は Windows ローカルに入っていないため `php -l` はスキップ（本番 WordPress は PHP 8.x で実行されるため、本番前に管理画面のテーマ有効化で構文エラーは即検出可能）。
 
-### Phase 3（デプロイ、主様担当）
+### Phase 3 & 4（デプロイ + 検証、2026-04-24 完了）
 
-エージェントが生成した `dist/affinger4-child.zip`（約 21 KB）を主様が Xserver にアップロードし、以下を実施する:
+WP 管理画面 → 外観 → テーマ の「テーマのアップロード」から Zip インストール → 有効化 を 4 回繰り返して最終版 v1.0.4 に到達。途中で発覚した 4 つのブロッカーを逐次解消した:
 
-- [ ] `/home/pem/namae-studio.com/public_html/column.namae-studio.com/wp-content/themes/` に Zip アップロード → サーバー側で展開
-- [ ] WP 管理画面 → 外観 → テーマ → 「AFFINGER4 Child — namae-studio column」を **有効化**
-- [ ] 外観 → メニュー → グローバルナビ（子テーマ）に 6 項目（ホーム／姓名判断／名前提案／人気ランキング／漢字図鑑／名付けガイド）を割り当て、**「運営者情報」は削除**
-- [ ] 外観 → カスタマイズ → 追加 CSS を **全削除**（子テーマに移管済み）
-- [ ] サイドバーウィジェット確認（検索 + カテゴリ + CTA カードの HTML）
+#### v1.0.0 → v1.0.1: メニュースラッグ衝突
 
-### Phase 4（検証、有効化後）
+親テーマ AFFINGER4 が `primary-menu` スラッグを登録しており、`register_nav_menus` の後勝ち仕様で子テーマのラベル「グローバルナビ（子テーマ）」が管理画面に現れぬ現象。`child-primary` / `child-footer` に改名して衝突回避。
 
-- [ ] トップ `https://column.namae-studio.com/` 表示確認（PC/タブレット/モバイル）
-- [ ] 記事詳細 `https://column.namae-studio.com/kodomo-naraigoto-itsukara/` 表示確認
-- [ ] PC でグローバルナビ 6 項目が 1 行横並び
-- [ ] モバイルでハンバーガー開閉
-- [ ] 「運営者情報」クリック → 存在しない状態であることを確認
-- [ ] Lighthouse: Accessibility 90+ / SEO 90+
+#### v1.0.1 → v1.0.2: breadcrumb が縦リスト表示
 
-### git
+`<ol class="breadcrumb__list">` に BEM ルールを書き忘れ、ブラウザの OL デフォルトマーカー（`1.` `2.`）が出ておった。`.breadcrumb__list` / `.breadcrumb__item` に `list-style: none` + flex 横並びを追加。ついでに article-hero のオーバーレイを `0.82 → 0.92` に強化してタイトル可読性を向上、body に和柄ドット背景を追加。`page.php` も新設して固定ページでサイドバー付きレイアウトが効くように。
 
-- [x] commit: `feat: column 子テーマ affinger4-child 新設 (stitch2 → BEM 変換)`
-- [x] push: `origin master`
-- `dist/affinger4-child.zip` は `.gitignore` 上の `dist/` にマッチするため未コミット（毎回 `Compress-Archive` で再生成する運用）。
+#### v1.0.2 → v1.0.3: 親テーマのテンプレートが横取り
+
+トップページに子テーマの `index.php` が呼ばれず本文エリアが空になる現象。親 AFFINGER4 が持つ `home.php` / `archive.php` が優先されておった。子テーマに `home.php` / `archive.php` / `search.php` / `404.php` を追加してテンプレートヒエラルキーを完全奪取。
+
+#### v1.0.3 → v1.0.4: 下書きプレビューモード追加
+
+24 件の投稿が意図的に下書きステータスで運用されており、公開前にレイアウト確認できぬ課題が発覚。`functions.php` に `pre_get_posts` フィルタを追加し、管理者ログイン中かつ URL `?preview_drafts` 付き時のみ一覧ページで下書きも描画するように。管理バーにトグルリンク + 画面下中央に「📝 下書きプレビュー中」バッジを表示。非ログインの読者には一切影響しない。
+
+#### 最終確認（2026-04-24 16:06 頃）
+
+主様が `https://column.namae-studio.com/?preview_drafts=1` を開いて下記を目視確認:
+
+- [x] PC グローバルナビ 6 項目が 1 行横並び（「運営者情報」削除済み）
+- [x] パンくず「ホーム」が横並び + `>` 区切り
+- [x] 2 カラムの記事カードグリッド（全 24 件、アイキャッチ付きで美麗）
+- [x] カテゴリバッジ「赤ちゃんのお世話」「子供の成長・発達」がテラコッタ色で左上に配置
+- [x] カード上部の 3px グラデライン（テラコッタ → ゴールド → セージ）
+- [x] サイドバーの検索 + CTA カード（`.btn--primary` テラコッタグラデ）
+- [x] 記事詳細ページの article-hero（イラストフル幅 + ダークオーバーレイ + 日付 + カテゴリ）
+- [x] 下書きプレビューバッジが画面下中央に出現、非管理者には見えない
+- [x] 管理バー「下書き表示を解除 ⇄ 下書きも一覧に表示」トグルリンク動作
+
+### git 履歴
+
+| commit | 内容 |
+| --- | --- |
+| 53ed2b4 | feat: column 子テーマ affinger4-child 新設 (stitch2 → BEM 変換) |
+| 188597d | fix: メニュースラッグを `child-primary` / `child-footer` に改名 |
+| e296d7f | fix: breadcrumb 表示崩れ修正 + hero 可読性向上 + page.php 追加 |
+| f865c79 | feat: home.php / archive.php / search.php / 404.php 追加 |
+| b49dd0e | feat: 下書きプレビューモード（`?preview_drafts` + 管理バー） |
+
+全て `origin master` に push 済。`dist/affinger4-child.zip` は `.gitignore` 上の `dist/` にマッチするため未コミット（毎回 `Compress-Archive` で再生成する運用）。
+
+### 残り作業（別プラン）
+
+- 下書き 24 件の公開タイミングは主様判断
+- 「赤ちゃんの予防接種スケジュール」が重複投稿で存在（2 件）。公開前に片方を整理する
+- `検索エンジンがサイトをインデックスしないようにする` チェックは公開判断時に外す
+- Lighthouse スコア測定 / Nano Banana 2 画像差し込み / Google+ SNS ボタン問題 / お問い合わせページ等は本プラン外の別プランで扱う
