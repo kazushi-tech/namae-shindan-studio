@@ -51,7 +51,9 @@ get_header();
                   <?php else : ?>
                     <img class="article-card__image" src="<?php echo esc_url( affinger4_child_placeholder_image_url() ); ?>" alt="" loading="lazy">
                   <?php endif; ?>
+                </div>
 
+                <div class="article-card__body">
                   <?php
                   $categories = get_the_category();
                   if ( ! empty( $categories ) ) :
@@ -59,11 +61,8 @@ get_header();
                   ?>
                     <span class="article-card__category"><?php echo esc_html( $primary_cat->name ); ?></span>
                   <?php endif; ?>
-                </div>
-
-                <div class="article-card__body">
                   <h2 class="article-card__title"><?php the_title(); ?></h2>
-                  <p class="article-card__excerpt"><?php echo esc_html( wp_trim_words( wp_strip_all_tags( get_the_excerpt() ), 60, '…' ) ); ?></p>
+                  <p class="article-card__excerpt"><?php echo esc_html( wp_trim_words( wp_strip_all_tags( get_the_excerpt() ), 45, '…' ) ); ?></p>
                   <div class="article-card__meta">
                     <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date( 'Y.m.d' ) ); ?></time>
                   </div>
