@@ -94,7 +94,7 @@ small {
    ----------------------------------------------------------------------- */
 
 a {
-  color: var(--color-terracotta);
+  color: var(--color-link-on-light);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.15em;
@@ -195,7 +195,7 @@ pre code {
    ----------------------------------------------------------------------- */
 
 :focus-visible {
-  outline: 3px solid var(--color-terracotta-light);
+  outline: 3px solid var(--color-terracotta-dark);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
   box-shadow: var(--focus-ring);

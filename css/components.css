@@ -164,14 +164,15 @@
 
 /* Secondary — Sage Green */
 .btn--secondary {
-  background-color: var(--color-sage);
+  background-color: var(--color-sage-dark);
   color: var(--color-white);
-  border-color: var(--color-sage);
+  border-color: var(--color-sage-dark);
 }
 
 .btn--secondary:hover {
-  background-color: var(--color-sage-dark);
-  border-color: var(--color-sage-dark);
+  background-color: var(--color-sage);
+  border-color: var(--color-sage);
+  color: var(--color-dark);
   box-shadow: var(--shadow-md);
 }
 
@@ -859,9 +860,21 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2) var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .footer__links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer__links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .footer__link {

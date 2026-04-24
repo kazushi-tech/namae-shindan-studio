@@ -80,13 +80,13 @@
     <div class="container">
 
       <!-- Page Header -->
-      <div class="page-header">
+      <div class="page-header" data-reveal="fade">
         <h1 class="page-title">プライバシーポリシー</h1>
         <p class="page-subtitle">個人情報の取り扱いについて</p>
       </div>
 
       <article class="card about-content">
-        <section class="about-section">
+        <section class="about-section" data-reveal="slide-up">
           <h2>はじめに</h2>
           <p>
             「赤ちゃん名前診断」（以下「本サービス」）は、姓名判断に基づく名前診断を提供する無料のWebサービスです。
@@ -96,7 +96,7 @@
 
         <div class="divider"></div>
 
-        <section class="about-section">
+        <section class="about-section" data-reveal="slide-up">
           <h2>取得・利用する情報</h2>
           <p>
             本サービスで入力いただく姓名（お名前）の情報は、<strong>すべてお使いのブラウザ内（クライアントサイド）で処理</strong>されます。
@@ -109,7 +109,7 @@
 
         <div class="divider"></div>
 
-        <section class="about-section">
+        <section class="about-section" data-reveal="slide-up">
           <h2>ブラウザ保存領域（localStorage等）</h2>
           <p>
             現時点では、本サービスは <code>localStorage</code> やその他のブラウザ保存領域にデータを保存しておりません。
@@ -121,7 +121,7 @@
 
         <div class="divider"></div>
 
-        <section class="about-section">
+        <section class="about-section" data-reveal="slide-up">
           <h2>アクセス解析・ログ等</h2>
           <p>
             本サービスはVercel（ホスティングサービス）上で運営されています。
@@ -135,7 +135,7 @@
 
         <div class="divider"></div>
 
-        <section class="about-section">
+        <section class="about-section" data-reveal="slide-up">
           <h2>第三者サービス</h2>
           <p>
             本サービスでは、以下の第三者サービスを利用しています。
@@ -147,7 +147,7 @@
 
         <div class="divider"></div>
 
-        <section class="about-section">
+        <section class="about-section" data-reveal="slide-up">
           <h2>広告配信について</h2>
           <p>
             本サービスでは、第三者配信の広告サービス（Google AdSense 等）を利用する場合があります。
@@ -169,7 +169,7 @@
 
         <div class="divider"></div>
 
-        <section class="about-section">
+        <section class="about-section" data-reveal="slide-up">
           <h2>アフィリエイトプログラムへの参加</h2>
           <p>
             本サービスでは、以下のアフィリエイトプログラムに参加している、または将来的に参加する場合があります。
@@ -193,7 +193,7 @@
 
         <div class="divider"></div>
 
-        <section class="about-section">
+        <section class="about-section" data-reveal="slide-up">
           <h2>アクセス解析ツール</h2>
           <p>
             本サービスでは、利用状況の把握とサービス改善のため、Google Analytics（GA4）等のアクセス解析ツールを利用する場合があります。
@@ -213,7 +213,7 @@
 
         <div class="divider"></div>
 
-        <section class="about-section">
+        <section class="about-section" data-reveal="slide-up">
           <h2>お問い合わせ</h2>
           <p>
             本ポリシーに関するお問い合わせは、以下までご連絡ください。
@@ -225,7 +225,7 @@
 
         <div class="divider"></div>
 
-        <section class="about-section">
+        <section class="about-section" data-reveal="slide-up">
           <h2>改定について</h2>
           <p>
             本ポリシーは、サービスの変更や法令の改正に応じて、事前の通知なく改定する場合があります。
@@ -271,6 +271,7 @@
   <script src="js/core/ab-test.js?v=20260425a"></script>
   <script src="js/core/nav.js?v=20260425a"></script>
   <script src="js/core/boot.js?v=20260425a"></script>
+  <script src="js/core/scroll-reveal.js?v=20260425a" defer></script>
 
 <script>
   if ('serviceWorker' in navigator) {

@@ -91,14 +91,14 @@
     <div class="container">
 
       <!-- Page Header -->
-      <div class="page-header">
+      <div class="page-header" data-reveal="fade">
         <img src="assets/images/shindan-header.png" alt="" class="page-header__illustration" loading="lazy" width="300" height="150">
         <h1 class="page-title">姓名判断</h1>
         <p class="page-subtitle">姓と名を入力して五格の運勢を診断しましょう</p>
       </div>
 
       <!-- Shindan Form -->
-      <form id="shindan-form" class="shindan-form card" novalidate>
+      <form id="shindan-form" class="shindan-form card" data-reveal="slide-up" data-reveal-delay="80" novalidate>
         <div class="name-input-group">
           <div class="input-group">
             <label for="sei-input" class="input-label">姓（みょうじ）</label>
@@ -112,7 +112,7 @@
               maxlength="10"
               required
             >
-            <div id="sei-stroke-preview" class="stroke-preview" aria-live="polite"></div>
+            <div id="sei-stroke-preview" class="stroke-preview"></div>
           </div>
           <div class="input-group">
             <label for="mei-input" class="input-label">名（なまえ）</label>
@@ -126,7 +126,7 @@
               maxlength="10"
               required
             >
-            <div id="mei-stroke-preview" class="stroke-preview" aria-live="polite"></div>
+            <div id="mei-stroke-preview" class="stroke-preview"></div>
           </div>
         </div>
 
@@ -140,7 +140,7 @@
       </form>
 
       <!-- Results Section (hidden by default — 診断後に hidden=false で表示) -->
-      <section id="result-section" class="result-section" aria-label="診断結果" aria-live="polite" aria-atomic="true" hidden>
+      <section id="result-section" class="result-section" aria-label="診断結果" data-reveal="fade" hidden>
         <div class="result-header">
           <h2 class="result-title">診断結果</h2>
           <p class="result-name-display">
@@ -161,8 +161,8 @@
         </aside>
 
         <!-- Related Items — 暫定: AdSense 審査通過まで控えめトーン -->
-        <section class="related-items" aria-labelledby="rel-heading">
-          <h3 class="related-items__heading" id="rel-heading">🎋 もっと知りたい方へ</h3>
+        <section class="related-items" aria-labelledby="rel-heading" data-reveal="fade" data-reveal-delay="120">
+          <h2 class="related-items__heading" id="rel-heading">🎋 もっと知りたい方へ</h2>
           <p class="related-items__notice">[PR] 一部リンクは広告を含みます。</p>
           <ul class="related-items__list">
             <li><a href="/guide/meimei-tools#meimei-sho" data-af-program="a8" data-af-product="meimei-sho" rel="sponsored noopener">命名書について — プロの書家が残す一生の宝物</a></li>
@@ -191,9 +191,19 @@
           </div>
         </div>
 
-        <!-- Result Actions: ☆お気に入り + OG画像ダウンロード -->
+        <!-- お気に入り機能のヒント（onboarding） -->
+        <div class="favorite-hint" id="favorite-hint" role="note">
+          <span class="favorite-hint__icon" aria-hidden="true">⭐</span>
+          <p class="favorite-hint__text">
+            気になる結果は<strong>お気に入り登録</strong>で、後からいつでも見返せます。<br>
+            <small>ブラウザ内に保存されるので、他人には見えません。</small>
+          </p>
+          <button type="button" class="favorite-hint__close" id="favorite-hint-close" aria-label="ヒントを閉じる">✕</button>
+        </div>
+
+        <!-- Result Actions: ⭐お気に入り + OG画像ダウンロード -->
         <div class="result-actions" style="flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-top: var(--space-6)">
-          <button id="favorite-btn" class="favorite-btn" type="button">お気に入り</button>
+          <button id="favorite-btn" class="favorite-btn favorite-btn--large" type="button">お気に入りに追加</button>
           <button id="og-download-btn" class="og-download-btn" type="button">OG画像をダウンロード</button>
         </div>
 
@@ -223,8 +233,8 @@
       </section>
 
       <!-- Related Pages — 「もっと詳しく知る」(診断前は汎用リンク、診断後は UIController が上書き) -->
-      <section class="related-pages" aria-labelledby="related-pages-heading">
-        <h3 class="related-pages__heading" id="related-pages-heading">📚 もっと詳しく知る</h3>
+      <section class="related-pages" aria-labelledby="related-pages-heading" data-reveal="fade" data-reveal-delay="160">
+        <h2 class="related-pages__heading" id="related-pages-heading">📚 もっと詳しく知る</h2>
         <ul class="related-pages__link-list" id="related-pages-links">
           <li>
             <a class="related-pages__row" href="/kanji/">
@@ -305,6 +315,7 @@
   <script src="js/fortune-data.js?v=20260425a"></script>
   <script src="js/ui-controller.js?v=20260425a"></script>
   <script src="js/app.js?v=20260425a"></script>
+  <script src="js/core/scroll-reveal.js?v=20260425a" defer></script>
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(function(regs) {

@@ -38,6 +38,7 @@ const UIController = (() => {
     // お気に入り・OG画像ボタンの配線
     _wireFavoriteBtn();
     _wireOgDownloadBtn();
+    _wireFavoriteHint();
 
     // 初期状態: 結果セクションは hidden 属性で非表示（HTML 側でも hidden 指定済み）
     if (elements.resultSection) {
@@ -215,6 +216,36 @@ const UIController = (() => {
     // 関連ページリンクを動的生成
     _renderRelatedPages(sei, mei, gokaku);
 
+    // 五格カードは診断直後にまとめてスタガー表示（IntersectionObserver に頼らず
+    // 0/80/160/240/320ms で順次 is-visible を付与）。related-items 等はリビール観測。
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cards = elements.gokakuGrid
+      ? elements.gokakuGrid.querySelectorAll('.gokaku-card[data-reveal]')
+      : [];
+    if (reduced) {
+      cards.forEach((c) => c.classList.add('is-visible'));
+    } else {
+      cards.forEach((c) => {
+        const delay = Number(c.dataset.revealDelay) || 0;
+        c.style.transitionDelay = delay + 'ms';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => c.classList.add('is-visible'));
+        });
+      });
+    }
+    if (window.ScrollReveal && typeof window.ScrollReveal.observe === 'function') {
+      const otherReveals = elements.resultSection.querySelectorAll('[data-reveal]:not(.gokaku-card)');
+      window.ScrollReveal.observe(otherReveals);
+    }
+
+    // スクリーンリーダー向け要約通知 (#ns-live に 1 回だけ流す)
+    const live = document.getElementById('ns-live');
+    if (live && gokaku.soukaku) {
+      const soukakuFortune = FortuneData.getFortune(gokaku.soukaku.normalized);
+      const rating = soukakuFortune ? soukakuFortune.rating : '';
+      live.textContent = `診断結果。${sei}${mei}さんの総格は${rating}、${gokaku.soukaku.value}画です。`;
+    }
+
     // double rAF でiOS Safariのレイアウト完了を保証
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -229,6 +260,8 @@ const UIController = (() => {
   function createGokakuCard(key, data, label, fortune, index) {
     const card = document.createElement('div');
     card.className = 'gokaku-card';
+    card.setAttribute('data-reveal', 'slide-up');
+    card.setAttribute('data-reveal-delay', String(index * 80));
 
     const ratingKey = fortune ? FortuneData.ratingToClass(fortune.rating) : '';
     const score = fortune ? FortuneData.ratingToScore(fortune.rating) : 50;
@@ -303,7 +336,7 @@ const UIController = (() => {
     currentResult = null;
     if (elements.favoriteBtn) {
       elements.favoriteBtn.classList.remove('favorite-btn--active');
-      elements.favoriteBtn.textContent = 'お気に入り';
+      elements.favoriteBtn.textContent = 'お気に入りに追加';
     }
     if (elements.ogPreview) elements.ogPreview.hidden = true;
 
@@ -383,11 +416,30 @@ const UIController = (() => {
     });
   }
 
+  function _wireFavoriteHint() {
+    const hint = document.getElementById('favorite-hint');
+    const close = document.getElementById('favorite-hint-close');
+    if (!hint) return;
+    // 既に閉じた事がある場合は最初から非表示
+    try {
+      if (localStorage.getItem('favorites_hint_dismissed') === '1') {
+        hint.hidden = true;
+      }
+    } catch (e) { /* storage 禁止時は無視 */ }
+    if (close && !close.__nsBound) {
+      close.__nsBound = true;
+      close.addEventListener('click', () => {
+        hint.hidden = true;
+        try { localStorage.setItem('favorites_hint_dismissed', '1'); } catch (e) {}
+      });
+    }
+  }
+
   function _refreshFavoriteBtn() {
     if (!elements.favoriteBtn || !currentResult || typeof Favorites === 'undefined') return;
     const saved = Favorites.has(Favorites.idFor(currentResult));
     elements.favoriteBtn.classList.toggle('favorite-btn--active', saved);
-    elements.favoriteBtn.textContent = saved ? '保存済み' : 'お気に入り';
+    elements.favoriteBtn.textContent = saved ? 'お気に入り登録済み' : 'お気に入りに追加';
   }
 
   /**

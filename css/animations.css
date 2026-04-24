@@ -338,6 +338,33 @@
 
 
 /* =======================================================================
+   SplitText — 見出し 1 文字ずつ blur-in
+   ======================================================================= */
+
+@keyframes blurIn {
+  from { opacity: 0; filter: blur(8px); transform: translateY(8px); }
+  to   { opacity: 1; filter: blur(0);   transform: translateY(0); }
+}
+
+.split-char {
+  display: inline-block;
+  opacity: 0;
+  will-change: opacity, filter, transform;
+}
+
+.split-text--ready .split-char {
+  animation: blurIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i) * 0.04s);
+}
+
+.split-text--reduced .split-char {
+  animation: none;
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+/* =======================================================================
    Reduced Motion — Accessibility
    ======================================================================= */
 
@@ -375,5 +402,12 @@
   .transition-transform,
   .transition-opacity {
     transition: none;
+  }
+
+  .split-char {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
   }
 }

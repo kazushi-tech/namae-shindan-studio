@@ -89,9 +89,7 @@
       <img src="assets/images/hero-baby.png" alt="" class="hero__illustration-img" loading="eager" width="500" height="333">
     </div>
     <div class="container hero__content">
-      <h1 class="hero-title animate-fade-in">
-        大切なお子さまに<br>最高の名前を
-      </h1>
+      <h1 class="hero-title" data-split-text>大切なお子さまに<br>最高の名前を</h1>
       <p class="hero-subtitle animate-fade-in" style="animation-delay: 0.2s">
         姓名判断で名前の画数を診断。<br>
         お子さまの幸せな未来への第一歩を、ここから。
@@ -150,17 +148,17 @@
     <div class="container">
       <h2 class="section-title">使い方はかんたん</h2>
       <div class="steps-grid">
-        <div class="step-card">
+        <div class="step-card" data-reveal="slide-up" data-reveal-delay="0">
           <div class="step-number">1</div>
           <h3 class="step-title">姓と名を入力</h3>
           <p class="step-text">漢字・ひらがな・カタカナで姓と名を入力してください。</p>
         </div>
-        <div class="step-card">
+        <div class="step-card" data-reveal="slide-up" data-reveal-delay="80">
           <div class="step-number">2</div>
           <h3 class="step-title">診断ボタンを押す</h3>
           <p class="step-text">「診断する」ボタンを押すと、すぐに結果が表示されます。</p>
         </div>
-        <div class="step-card">
+        <div class="step-card" data-reveal="slide-up" data-reveal-delay="160">
           <div class="step-number">3</div>
           <h3 class="step-title">五格の結果を確認</h3>
           <p class="step-text">天格・人格・地格・外格・総格それぞれの運勢を確認できます。</p>
@@ -176,7 +174,7 @@
   <!-- Disclaimer -->
   <section class="section disclaimer-section">
     <div class="container">
-      <div class="disclaimer-card">
+      <div class="disclaimer-card" data-reveal="fade">
         <p class="disclaimer-text">
           ※ 本サービスは姓名判断（占い）に基づく参考情報を提供するものです。
           診断結果は名前の画数による伝統的な占いの一つであり、科学的根拠に基づくものではありません。
@@ -224,6 +222,8 @@
   <script src="js/fortune-data.js?v=20260425a"></script>
   <script src="js/ui-controller.js?v=20260425a"></script>
   <script src="js/app.js?v=20260425a"></script>
+  <script src="js/core/scroll-reveal.js?v=20260425a" defer></script>
+  <script src="js/core/split-text.js?v=20260425a" defer></script>
 
 <!-- A/B Test: Hero CTA コピー — 初回訪問時にバリアントを固定 -->
 <script>
