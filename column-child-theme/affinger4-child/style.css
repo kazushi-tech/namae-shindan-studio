@@ -5,7 +5,7 @@ Description: column.namae-studio.com 専用 AFFINGER4 子テーマ。本体 nama
 Author: namae-studio
 Author URI: https://namae-studio.com/
 Template: affinger4
-Version: 1.0.1
+Version: 1.0.2
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: affinger4-child
@@ -107,8 +107,10 @@ body {
   color: var(--color-dark);
   background-color: var(--color-cream);
   background-image:
-    radial-gradient(circle at 10% 20%, rgba(232, 114, 92, 0.04) 0%, transparent 40%),
+    radial-gradient(rgba(232, 114, 92, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 10% 20%, rgba(232, 114, 92, 0.05) 0%, transparent 40%),
     radial-gradient(circle at 90% 80%, rgba(110, 196, 168, 0.04) 0%, transparent 40%);
+  background-size: 20px 20px, auto, auto;
   background-attachment: fixed;
   margin: 0;
 }
@@ -440,13 +442,35 @@ button {
    ======================================================================= */
 
 .breadcrumb {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin: 0 0 var(--space-6);
+  padding: 0;
+}
+
+.breadcrumb__list {
+  list-style: none;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: var(--space-2);
-  font-size: var(--text-sm);
-  color: var(--color-muted);
-  margin-bottom: var(--space-6);
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumb__item::before,
+.breadcrumb__item::marker {
+  content: none;
+  display: none;
 }
 
 .breadcrumb__link {
@@ -462,6 +486,7 @@ button {
 .breadcrumb__sep {
   color: var(--color-border);
   font-size: 12px;
+  margin: 0 var(--space-1);
 }
 
 .breadcrumb__current {
@@ -930,8 +955,9 @@ button {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(36, 25, 23, 0.82) 0%,
-    rgba(36, 25, 23, 0.40) 55%,
+    rgba(36, 25, 23, 0.92) 0%,
+    rgba(36, 25, 23, 0.65) 45%,
+    rgba(36, 25, 23, 0.20) 75%,
     transparent 100%
   );
 }
