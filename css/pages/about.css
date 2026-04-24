@@ -207,6 +207,7 @@
     justify-content: center;
   }
 
+  .example-table-wrapper,
   .example-table {
     max-width: none;
     flex: 1;
@@ -241,11 +242,24 @@
   margin: 0 var(--space-2);
 }
 
+.example-table-wrapper {
+  width: 100%;
+  max-width: 400px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .example-table {
   width: 100%;
   max-width: 400px;
   border-collapse: collapse;
   font-size: var(--text-sm);
+}
+
+@media (max-width: 479px) {
+  .example-table {
+    font-size: var(--text-xs);
+  }
 }
 
 .example-table th,

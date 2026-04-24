@@ -1,0 +1,402 @@
+[
+  {
+    "vp": "360",
+    "page": "index",
+    "overflow": {
+      "scrollWidth": 360,
+      "innerWidth": 360,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "360",
+    "page": "shindan-pre",
+    "overflow": {
+      "scrollWidth": 360,
+      "innerWidth": 360,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "360",
+    "page": "shindan-result",
+    "overflow": {
+      "scrollWidth": 360,
+      "innerWidth": 360,
+      "overflow": false
+    },
+    "dividers": 4,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "360",
+    "page": "about",
+    "overflow": {
+      "scrollWidth": 360,
+      "innerWidth": 360,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "360",
+    "page": "ranking-hub",
+    "overflow": {
+      "scrollWidth": 360,
+      "innerWidth": 360,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "360",
+    "page": "ranking-girls",
+    "overflow": {
+      "scrollWidth": 360,
+      "innerWidth": 360,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": [
+      "gold",
+      "silver",
+      "bronze"
+    ],
+    "errors": []
+  },
+  {
+    "vp": "360",
+    "page": "kanji-hub",
+    "overflow": {
+      "scrollWidth": 360,
+      "innerWidth": 360,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "360",
+    "page": "guide-hub",
+    "overflow": {
+      "scrollWidth": 360,
+      "innerWidth": 360,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "375",
+    "page": "index",
+    "overflow": {
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "375",
+    "page": "shindan-pre",
+    "overflow": {
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "375",
+    "page": "shindan-result",
+    "overflow": {
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "overflow": false
+    },
+    "dividers": 4,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "375",
+    "page": "about",
+    "overflow": {
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "375",
+    "page": "ranking-hub",
+    "overflow": {
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "375",
+    "page": "ranking-girls",
+    "overflow": {
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": [
+      "gold",
+      "silver",
+      "bronze"
+    ],
+    "errors": []
+  },
+  {
+    "vp": "375",
+    "page": "kanji-hub",
+    "overflow": {
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "375",
+    "page": "guide-hub",
+    "overflow": {
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "390",
+    "page": "index",
+    "overflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "390",
+    "page": "shindan-pre",
+    "overflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "390",
+    "page": "shindan-result",
+    "overflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "overflow": false
+    },
+    "dividers": 4,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "390",
+    "page": "about",
+    "overflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "390",
+    "page": "ranking-hub",
+    "overflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "390",
+    "page": "ranking-girls",
+    "overflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": [
+      "gold",
+      "silver",
+      "bronze"
+    ],
+    "errors": []
+  },
+  {
+    "vp": "390",
+    "page": "kanji-hub",
+    "overflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "390",
+    "page": "guide-hub",
+    "overflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "412",
+    "page": "index",
+    "overflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "412",
+    "page": "shindan-pre",
+    "overflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "412",
+    "page": "shindan-result",
+    "overflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "overflow": false
+    },
+    "dividers": 4,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "412",
+    "page": "about",
+    "overflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "412",
+    "page": "ranking-hub",
+    "overflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "412",
+    "page": "ranking-girls",
+    "overflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": [
+      "gold",
+      "silver",
+      "bronze"
+    ],
+    "errors": []
+  },
+  {
+    "vp": "412",
+    "page": "kanji-hub",
+    "overflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  },
+  {
+    "vp": "412",
+    "page": "guide-hub",
+    "overflow": {
+      "scrollWidth": 412,
+      "innerWidth": 412,
+      "overflow": false
+    },
+    "dividers": null,
+    "top3": null,
+    "errors": []
+  }
+]

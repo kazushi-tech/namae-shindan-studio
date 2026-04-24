@@ -194,6 +194,11 @@ body[data-page="ranking-hub"] .promo-card {
   border-width: 2px;
 }
 
+/* モバイル: DOM 順 (銀・金・銅) を視覚的に 金・銀・銅 に矯正 */
+.top3__card--gold   { order: 1; }
+.top3__card--silver { order: 2; }
+.top3__card--bronze { order: 3; }
+
 @media (min-width: 768px) {
   .top3__card--gold {
     transform: scale(1.03);
@@ -201,7 +206,7 @@ body[data-page="ranking-hub"] .promo-card {
   .top3__card--gold:hover {
     transform: translateY(-4px) scale(1.03);
   }
-  /* 順序: 銀→金→銅 をデスクトップ時は 2,1,3 視覚 (CSS grid で order) */
+  /* PC: 銀→金→銅 の視覚配置 (金が中央) */
   .top3__card--silver  { order: 1; }
   .top3__card--gold    { order: 2; }
   .top3__card--bronze  { order: 3; }
@@ -241,15 +246,17 @@ body[data-page="ranking-hub"] .promo-card {
 
 .top3__name {
   font-family: var(--font-heading);
-  font-size: 44px;
+  font-size: clamp(32px, 7vw, 44px);
   font-weight: var(--weight-black);
   line-height: 1.1;
   margin-bottom: var(--space-2);
   color: var(--color-dark);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 .top3__card--gold .top3__name {
-  font-size: 52px;
+  font-size: clamp(36px, 8vw, 52px);
   color: #bf8c23;
 }
 
@@ -361,6 +368,15 @@ body[data-page="ranking-hub"] .promo-card {
 
 @media (max-width: 560px) {
   .ranking-list__meta { display: none; }
+}
+
+@media (max-width: 479px) {
+  .ranking-list__row {
+    grid-template-columns: 32px 1fr auto;
+    gap: var(--space-2);
+    padding: var(--space-3);
+  }
+  .ranking-list__action { display: none; }
 }
 
 .ranking-list__strokes {

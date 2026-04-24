@@ -100,6 +100,14 @@ body[data-page="suggestion"] .promo-card {
   box-shadow: var(--shadow-md);
 }
 
+@media (max-width: 479px) {
+  .suggestion-form {
+    padding: var(--space-6) var(--space-4);
+    margin-left: var(--space-3);
+    margin-right: var(--space-3);
+  }
+}
+
 /* =======================================================================
    Suggestion Results Grid (Phase 2)
    ======================================================================= */

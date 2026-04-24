@@ -77,8 +77,10 @@
 
 @media (max-width: 767px) {
   .hero__illustration {
-    width: 65%;
-    opacity: 0.25;
+    width: 60%;
+    opacity: 0.18;
+    right: -10%;
+    bottom: -5%;
   }
 }
 
