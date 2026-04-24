@@ -1244,17 +1244,17 @@
 
 .cta-illustration {
   display: block;
-  width: 280px;
-  max-width: 60%;
-  margin: 0 auto var(--space-4);
-  opacity: 0.7;
+  width: 180px;
+  max-width: 40%;
+  margin: 0 auto var(--space-3);
+  opacity: 0.85;
   pointer-events: none;
 }
 
 @media (max-width: 767px) {
   .cta-illustration {
-    width: 200px;
-    opacity: 0.55;
+    width: 120px;
+    opacity: 0.75;
   }
 }
 
