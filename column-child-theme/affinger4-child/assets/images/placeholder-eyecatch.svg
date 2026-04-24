@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="アイキャッチ未設定">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8F0"/>
+      <stop offset="55%" stop-color="#FFE6D6"/>
+      <stop offset="100%" stop-color="#F6D2BE"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E8725C"/>
+      <stop offset="50%" stop-color="#F0B84D"/>
+      <stop offset="100%" stop-color="#6EC4A8"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <rect x="0" y="0" width="640" height="6" fill="url(#accent)"/>
+  <g opacity="0.18" fill="#E8725C">
+    <circle cx="120" cy="260" r="48"/>
+    <circle cx="520" cy="90" r="36"/>
+    <circle cx="540" cy="290" r="24"/>
+  </g>
+  <g font-family="'Zen Maru Gothic', serif" text-anchor="middle" fill="#3D3029">
+    <text x="320" y="178" font-size="34" font-weight="900">子供の名付け診断コラム</text>
+    <text x="320" y="220" font-size="16" font-weight="500" fill="#8A7D73">赤ちゃんの名付けを楽しく学ぶ</text>
+  </g>
+</svg>
