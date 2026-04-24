@@ -72,7 +72,7 @@
    ======================================================================= */
 
 .suggestion-about {
-  max-width: var(--container-form);
+  max-width: var(--container-max);
   margin: var(--space-10) auto 0;
   padding: var(--space-6);
 }
@@ -86,7 +86,7 @@
    ======================================================================= */
 
 .suggestion-form {
-  max-width: var(--container-form);
+  max-width: var(--container-max);
   margin: var(--space-8) auto;
   padding: var(--space-8);
   background-color: var(--color-white);
@@ -330,7 +330,7 @@
    ======================================================================= */
 
 .suggestion-empty {
-  max-width: var(--container-form);
+  max-width: var(--container-max);
   margin: 0 auto;
   padding: var(--space-10) var(--space-4);
   text-align: center;
@@ -384,7 +384,7 @@
 .coming-soon {
   text-align: center;
   padding: var(--space-16) var(--gutter);
-  max-width: var(--container-form);
+  max-width: var(--container-max);
   margin: 0 auto;
 }
 
