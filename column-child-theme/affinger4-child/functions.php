@@ -69,9 +69,11 @@ add_action( 'wp_head', function () {
  * 管理画面 → 外観 → メニュー → 「グローバルナビ（子テーマ）」を割り当てる。
  */
 add_action( 'after_setup_theme', function () {
+    // 親テーマ AFFINGER4 が `primary-menu` / `footer-menu` 等のスラッグを既に使っているため、
+    // 子テーマ固有の一意スラッグで登録する。
     register_nav_menus( array(
-        'primary-menu' => __( 'グローバルナビ（子テーマ）', 'affinger4-child' ),
-        'footer-menu'  => __( 'フッターナビ（子テーマ）', 'affinger4-child' ),
+        'child-primary' => __( 'グローバルナビ（子テーマ）', 'affinger4-child' ),
+        'child-footer'  => __( 'フッターナビ（子テーマ）', 'affinger4-child' ),
     ) );
 
     // テーマサポート
@@ -107,11 +109,11 @@ add_action( 'widgets_init', function () {
  * wp_nav_menu のリンクに .site-nav__link を付与（BEM 整合）
  */
 add_filter( 'nav_menu_link_attributes', function ( $atts, $item, $args ) {
-    if ( isset( $args->theme_location ) && 'primary-menu' === $args->theme_location ) {
+    if ( isset( $args->theme_location ) && 'child-primary' === $args->theme_location ) {
         $classes     = isset( $atts['class'] ) ? $atts['class'] . ' site-nav__link' : 'site-nav__link';
         $atts['class'] = trim( $classes );
     }
-    if ( isset( $args->theme_location ) && 'footer-menu' === $args->theme_location ) {
+    if ( isset( $args->theme_location ) && 'child-footer' === $args->theme_location ) {
         $classes     = isset( $atts['class'] ) ? $atts['class'] . ' site-footer__nav-link' : 'site-footer__nav-link';
         $atts['class'] = trim( $classes );
     }

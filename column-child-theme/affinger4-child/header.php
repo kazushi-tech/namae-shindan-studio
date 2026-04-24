@@ -45,9 +45,9 @@
 
     <nav class="site-nav" id="site-nav" aria-label="グローバルナビゲーション">
       <?php
-      if ( has_nav_menu( 'primary-menu' ) ) {
+      if ( has_nav_menu( 'child-primary' ) ) {
           wp_nav_menu( array(
-              'theme_location' => 'primary-menu',
+              'theme_location' => 'child-primary',
               'menu_class'     => 'site-nav__list',
               'container'      => false,
               'depth'          => 1,

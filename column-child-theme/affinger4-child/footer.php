@@ -16,10 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
     <p class="site-footer__brand"><?php bloginfo( 'name' ); ?></p>
     <p class="site-footer__tagline">赤ちゃんの名付けを楽しく学ぶコラム</p>
 
-    <?php if ( has_nav_menu( 'footer-menu' ) ) : ?>
+    <?php if ( has_nav_menu( 'child-footer' ) ) : ?>
       <?php
       wp_nav_menu( array(
-          'theme_location' => 'footer-menu',
+          'theme_location' => 'child-footer',
           'menu_class'     => 'site-footer__nav',
           'container'      => false,
           'depth'          => 1,
