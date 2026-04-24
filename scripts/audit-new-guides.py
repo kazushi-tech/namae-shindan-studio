@@ -61,12 +61,12 @@ with sync_playwright() as p:
         })"""
     )
     check("guide hub H1", hub["title"] == "名付けお役立ちガイド", hub["title"])
-    check("guide hub 5 tiles", hub["tile_count"] == 5, f"got {hub['tile_count']}")
+    check("guide hub 4 tiles", hub["tile_count"] == 4, f"got {hub['tile_count']}")
     check("no coming-soon", hub["coming_soon"] == 0, f"got {hub['coming_soon']}")
     check("skip-link present", hub["skip_link"])
     check("main id=main-content", hub["main_id"] == "main-content", hub["main_id"])
     check("ns-live region", hub["ns_live"])
-    check("data-reveal elements", hub["reveal_count"] >= 5, f"got {hub['reveal_count']}")
+    check("data-reveal elements", hub["reveal_count"] >= 4, f"got {hub['reveal_count']}")
 
     # reveal becomes visible on scroll
     page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
@@ -98,7 +98,7 @@ with sync_playwright() as p:
     check("8 section cards", ss["section_cards"] == 8, f"got {ss['section_cards']}")
     check("7 checklists", ss["checklists"] == 7, f"got {ss['checklists']}")
     check("many checkboxes", ss["checkboxes"] >= 50, f"got {ss['checkboxes']}")
-    check("3 product cards", ss["product_cards"] == 3, f"got {ss['product_cards']}")
+    check("0 product cards (PR removed)", ss["product_cards"] == 0, f"got {ss['product_cards']}")
     check("2 related guide cards", ss["related"] == 2, f"got {ss['related']}")
     check("skip-link", ss["skip_link"])
 
@@ -183,7 +183,7 @@ with sync_playwright() as p:
     check("miyamairi H1", "お宮参り" in (my["title"] or ""), my["title"])
     check("5 timeline markers", my["timeline_items"] == 5, f"got {my['timeline_items']}")
     check("4 rite cards", my["rite_cards"] == 4, f"got {my['rite_cards']}")
-    check("3 product cards", my["product_cards"] == 3, f"got {my['product_cards']}")
+    check("0 product cards (PR removed)", my["product_cards"] == 0, f"got {my['product_cards']}")
     check("6 FAQ items", my["faq"] == 6, f"got {my['faq']}")
     check("final CTA lead", my["cta_lead"])
     page.evaluate(
