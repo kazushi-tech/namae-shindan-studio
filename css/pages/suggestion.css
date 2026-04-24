@@ -81,6 +81,11 @@
   margin-top: var(--space-3);
 }
 
+/* Promo card (sponsored): suggestion ページのみ列幅をフォーム/about と揃える */
+body[data-page="suggestion"] .promo-card {
+  max-width: var(--container-max);
+}
+
 /* =======================================================================
    Suggestion Form (Phase 2)
    ======================================================================= */
