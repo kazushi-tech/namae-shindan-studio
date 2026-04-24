@@ -198,11 +198,13 @@ pre code {
   outline: 3px solid var(--color-terracotta-light);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
+  box-shadow: var(--focus-ring);
 }
 
 /* Remove outline for mouse users */
 :focus:not(:focus-visible) {
   outline: none;
+  box-shadow: none;
 }
 
 /* -----------------------------------------------------------------------
