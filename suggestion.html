@@ -18,13 +18,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/css/reset.css?v=20260425a">
-  <link rel="stylesheet" href="/css/variables.css?v=20260425a">
-  <link rel="stylesheet" href="/css/base.css?v=20260425a">
-  <link rel="stylesheet" href="/css/components.css?v=20260425a">
-  <link rel="stylesheet" href="/css/layout.css?v=20260425a">
-  <link rel="stylesheet" href="/css/animations.css?v=20260425a">
-  <link rel="stylesheet" href="/css/pages/suggestion.css?v=20260425a">
+  <link rel="stylesheet" href="/css/reset.css?v=20260426a">
+  <link rel="stylesheet" href="/css/variables.css?v=20260426a">
+  <link rel="stylesheet" href="/css/base.css?v=20260426a">
+  <link rel="stylesheet" href="/css/components.css?v=20260426a">
+  <link rel="stylesheet" href="/css/layout.css?v=20260426a">
+  <link rel="stylesheet" href="/css/animations.css?v=20260426a">
+  <link rel="stylesheet" href="/css/pages/suggestion.css?v=20260426a">
 
   <link rel="icon" type="image/png" href="/assets/images/favicon.png">
   <link rel="apple-touch-icon" href="/assets/images/logo-icon.png">
@@ -183,11 +183,18 @@
          rel="noopener noreferrer sponsored"
          data-af-program="kids-tokei"
          data-af-product="audition">
-        <span class="promo-card__pr" aria-label="広告">[PR]</span>
-        <span class="promo-card__icon" aria-hidden="true">⏰</span>
-        <h3 class="promo-card__title">お名前が決まったら、次はお子様の成長記録。</h3>
-        <p class="promo-card__desc">キッズ時計（外部サイト）で、毎日の可愛い瞬間を残しませんか？</p>
-        <span class="promo-card__cta">詳しく見る</span>
+        <div class="promo-card__visual" aria-hidden="true">
+          <span class="promo-card__emoji">📷</span>
+        </div>
+        <div class="promo-card__body">
+          <span class="promo-card__tag">Sponsored · 提携サービス</span>
+          <h3 class="promo-card__title">お名前が決まったら、次はお子様の成長記録。</h3>
+          <p class="promo-card__desc">キッズ時計 — 毎日の可愛い瞬間を残すオーディション型フォトサービス。</p>
+          <span class="promo-card__cta">
+            <span>詳しく見る</span>
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16"><path d="M2 8h12m-4-4l4 4-4 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
       </a>
     </div>
   </main>
@@ -216,21 +223,21 @@
   </footer>
 
   <!-- Core & fortune data for rating resolution -->
-  <script src="/js/core/storage.js?v=20260425a"></script>
-  <script src="/js/core/analytics.js?v=20260425a"></script>
-  <script src="/js/core/favorites.js?v=20260425a"></script>
-  <script src="/js/core/nav.js?v=20260425a"></script>
-  <script src="/js/core/boot.js?v=20260425a"></script>
-  <script src="/js/core/scroll-reveal.js?v=20260425a" defer></script>
-  <script src="/js/fortune-data.js?v=20260425a"></script>
-  <script src="/js/kanji-strokes.js?v=20260425a"></script>
-  <script src="/js/seimei-handan.js?v=20260425a"></script>
+  <script src="/js/core/storage.js?v=20260426a"></script>
+  <script src="/js/core/analytics.js?v=20260426a"></script>
+  <script src="/js/core/favorites.js?v=20260426a"></script>
+  <script src="/js/core/nav.js?v=20260426a"></script>
+  <script src="/js/core/boot.js?v=20260426a"></script>
+  <script src="/js/core/scroll-reveal.js?v=20260426a" defer></script>
+  <script src="/js/fortune-data.js?v=20260426a"></script>
+  <script src="/js/kanji-strokes.js?v=20260426a"></script>
+  <script src="/js/seimei-handan.js?v=20260426a"></script>
   <script>
     // FortuneData / KanjiStrokes を並列ロード（お気に入り登録で SeimeiHandan.calculate を使う）
     if (window.FortuneData && window.FortuneData.load) window.FortuneData.load();
     if (window.KanjiStrokes && window.KanjiStrokes.load) window.KanjiStrokes.load();
   </script>
-  <script src="/js/suggestion-page.js?v=20260425a"></script>
+  <script src="/js/suggestion-page.js?v=20260426a"></script>
   <div id="ns-live" class="sr-only" aria-live="polite" role="status"></div>
   <div id="ns-live-alert" class="sr-only" aria-live="assertive"></div>
 </body>

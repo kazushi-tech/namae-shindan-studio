@@ -1,9 +1,13 @@
 {
   "_meta": {
-    "version": "1.0",
-    "description": "Tier A 名前候補ジェネレーター用の人気名前データベース。各エントリは {name, reading, gender, strokes} を持つ。",
-    "updatedAt": "2026-04-23",
-    "count": 160
+    "version": "1.1",
+    "description": "Tier A 名前候補ジェネレーター用の人気名前データベース。各エントリは {name, reading, gender, strokes} を持つ。ひらがな名前は姓名判断（新字体派）準拠の画数一覧表で計算。",
+    "updatedAt": "2026-04-24",
+    "count": 158,
+    "hiraganaStrokes": {
+      "note": "ひらがな名前の画数は新字体派の伝統的一覧表準拠",
+      "table": "あ2 い2 う2 え3 お3 か3 き4 く2 け3 こ2 さ3 し1 す2 せ3 そ3 た4 ち3 つ1 て3 と2 な4 に3 ぬ4 ね4 の1 は3 ひ2 ふ4 へ1 ほ4 ま4 み3 む3 め2 も3 や3 ゆ3 よ3 ら2 り2 る2 れ3 ろ2 わ3 を4 ん1"
+    }
   },
   "names": [
     { "name": "紬",   "reading": "つむぎ",   "gender": "girls", "strokes": 11 },
@@ -41,11 +45,11 @@
     { "name": "心愛", "reading": "ここあ",   "gender": "girls", "strokes": 17 },
     { "name": "琴",   "reading": "こと",     "gender": "girls", "strokes": 12 },
     { "name": "蓮華", "reading": "れんげ",   "gender": "girls", "strokes": 23 },
-    { "name": "ひまり", "reading": "ひまり", "gender": "girls", "strokes": 0 },
-    { "name": "あかり", "reading": "あかり", "gender": "girls", "strokes": 0 },
-    { "name": "さくら", "reading": "さくら", "gender": "girls", "strokes": 0 },
+    { "name": "ひまり", "reading": "ひまり", "gender": "girls", "strokes": 8 },
+    { "name": "あかり", "reading": "あかり", "gender": "girls", "strokes": 7 },
+    { "name": "さくら", "reading": "さくら", "gender": "girls", "strokes": 7 },
     { "name": "新奈", "reading": "にいな",   "gender": "girls", "strokes": 21 },
-    { "name": "ことね", "reading": "ことね", "gender": "girls", "strokes": 0 },
+    { "name": "ことね", "reading": "ことね", "gender": "girls", "strokes": 8 },
     { "name": "愛",   "reading": "あい",     "gender": "girls", "strokes": 13 },
     { "name": "優花", "reading": "ゆうか",   "gender": "girls", "strokes": 24 },
     { "name": "美結", "reading": "みゆ",     "gender": "girls", "strokes": 21 },

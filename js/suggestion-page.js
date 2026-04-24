@@ -69,9 +69,11 @@
       }
       if (filters.fortune && filters.fortune !== 'any') {
         const f = getSoukakuFortune(n.strokes);
-        if (!f) return false;
-        if (filters.fortune === 'daikichi' && f.rating !== '大吉') return false;
-        if (filters.fortune === 'kichi' && !['大吉', '吉'].includes(f.rating)) return false;
+        // 画数が取れない／strokes=0 等は通過（件数確保）
+        if (f) {
+          if (filters.fortune === 'daikichi' && f.rating !== '大吉') return false;
+          if (filters.fortune === 'kichi' && !['大吉', '吉'].includes(f.rating)) return false;
+        }
       }
       if (filters.targetSoukaku && Number(n.strokes) !== Number(filters.targetSoukaku)) {
         return false;
@@ -84,7 +86,83 @@
     return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   }
 
-  function renderResults(results, seiInput) {
+  // 0 件時、どの条件を緩めると何件になるかを提示
+  const RELAX_LABELS = {
+    headGroup: '頭文字',
+    chars: '文字数',
+    fortune: '運勢',
+    includeKanji: '含める漢字'
+  };
+
+  function renderFallbackSuggestions(host, filters, allEntries) {
+    if (!host || !Array.isArray(allEntries)) return;
+    // 既存ノード差し替え
+    host.innerHTML = `
+      <div class="suggestion-empty__icon" aria-hidden="true">🌱</div>
+      <p class="suggestion-empty__lead">条件に合う名前が見つかりませんでした。</p>
+      <p class="suggestion-empty__sub">以下の条件を緩めてみるとどうじゃ？</p>
+      <ul class="suggestion-empty__relax-list" role="list"></ul>
+    `;
+    const list = host.querySelector('.suggestion-empty__relax-list');
+    if (!list) return;
+
+    const relaxKeys = ['headGroup', 'chars', 'fortune', 'includeKanji'];
+    const suggestions = [];
+    relaxKeys.forEach(key => {
+      const value = filters[key];
+      const isActive =
+        (key === 'chars' && Array.isArray(value) && value.length > 0) ||
+        (key === 'fortune' && value && value !== 'any') ||
+        (key === 'headGroup' && value) ||
+        (key === 'includeKanji' && value && String(value).trim());
+      if (!isActive) return;
+      const relaxed = { ...filters };
+      if (key === 'chars') relaxed.chars = [];
+      else if (key === 'fortune') relaxed.fortune = 'any';
+      else relaxed[key] = '';
+      const count = filterNames(allEntries, relaxed).length;
+      suggestions.push({ key, count });
+    });
+
+    if (suggestions.length === 0) {
+      const li = document.createElement('li');
+      li.className = 'suggestion-empty__relax-item';
+      li.textContent = '「姓」以外の条件が設定されていません。';
+      list.appendChild(li);
+      return;
+    }
+
+    suggestions.forEach(s => {
+      const li = document.createElement('li');
+      li.className = 'suggestion-empty__relax-item';
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn--outline btn--sm';
+      btn.dataset.relaxKey = s.key;
+      btn.textContent = `${RELAX_LABELS[s.key] || s.key} をはずす（${s.count}件）`;
+      btn.addEventListener('click', () => applyRelax(s.key));
+      li.appendChild(btn);
+      list.appendChild(li);
+    });
+  }
+
+  function applyRelax(key) {
+    const form = document.getElementById('suggestion-form');
+    if (!form) return;
+    if (key === 'chars') {
+      form.querySelectorAll('input[name="chars"]:checked').forEach(el => { el.checked = false; });
+    } else if (key === 'fortune') {
+      const any = form.querySelector('input[name="fortune"][value="any"]');
+      if (any) any.checked = true;
+    } else if (key === 'headGroup') {
+      form.querySelectorAll('input[name="headGroup"]:checked').forEach(el => { el.checked = false; });
+    } else if (key === 'includeKanji' && form.elements['includeKanji']) {
+      form.elements['includeKanji'].value = '';
+    }
+    form.dispatchEvent(new Event('submit', { cancelable: true }));
+  }
+
+  function renderResults(results, seiInput, filters, allEntries) {
     const host = document.getElementById('suggestion-results-grid');
     const count = document.getElementById('suggestion-result-count');
     const empty = document.getElementById('suggestion-empty');
@@ -94,7 +172,10 @@
     if (count) count.textContent = `${results.length} 件の候補が見つかりました`;
 
     if (results.length === 0) {
-      if (empty) empty.hidden = false;
+      if (empty) {
+        empty.hidden = false;
+        renderFallbackSuggestions(empty, filters, allEntries);
+      }
       if (count) count.hidden = true;
       return;
     }
@@ -233,7 +314,7 @@
     const filters = getFormFilters(form);
     const data = await loadData();
     const results = filterNames(data.names, filters);
-    renderResults(results, seiInput);
+    renderResults(results, seiInput, filters, data.names);
     renderSoukakuBadge(filters.targetSoukaku);
     const resultsSection = document.querySelector('.suggestion-results');
     if (resultsSection) {

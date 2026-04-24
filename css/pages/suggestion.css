@@ -68,14 +68,8 @@
 
 /* =======================================================================
    Page-level column width alignment (suggestion page)
-   ページヘッダ / フォーム / 「このツールについて」の列幅を揃える
+   フォーム / 「このツールについて」は form 幅、ページヘッダは wide 維持
    ======================================================================= */
-
-body[data-page="suggestion"] .page-header {
-  max-width: var(--container-form);
-  margin-left: auto;
-  margin-right: auto;
-}
 
 .suggestion-about {
   max-width: var(--container-form);
@@ -336,6 +330,8 @@ body[data-page="suggestion"] .page-header {
    ======================================================================= */
 
 .suggestion-empty {
+  max-width: var(--container-form);
+  margin: 0 auto;
   padding: var(--space-10) var(--space-4);
   text-align: center;
   color: var(--color-muted);
@@ -345,6 +341,34 @@ body[data-page="suggestion"] .page-header {
   font-size: 2.5rem;
   opacity: 0.6;
   margin-bottom: var(--space-3);
+}
+
+.suggestion-empty__lead {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+  margin: 0 0 var(--space-2);
+}
+
+.suggestion-empty__sub {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin: 0 0 var(--space-4);
+}
+
+.suggestion-empty__relax-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.suggestion-empty__relax-item {
+  margin: 0;
 }
 
 .suggestion-count {
