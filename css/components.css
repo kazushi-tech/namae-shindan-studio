@@ -1244,8 +1244,8 @@
 
 .cta-illustration {
   display: block;
-  width: 180px;
-  max-width: 40%;
+  width: 320px;
+  max-width: 60%;
   margin: 0 auto var(--space-3);
   opacity: 0.85;
   pointer-events: none;
@@ -1253,7 +1253,7 @@
 
 @media (max-width: 767px) {
   .cta-illustration {
-    width: 120px;
+    width: 200px;
     opacity: 0.75;
   }
 }
