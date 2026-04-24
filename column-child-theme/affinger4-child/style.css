@@ -5,7 +5,7 @@ Description: column.namae-studio.com 専用 AFFINGER4 子テーマ。本体 nama
 Author: namae-studio
 Author URI: https://namae-studio.com/
 Template: affinger4
-Version: 1.0.7
+Version: 1.0.8
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: affinger4-child
@@ -345,18 +345,31 @@ button {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 960px) {
   .site-header__toggle {
     display: none;
   }
   .site-nav {
     display: block;
   }
+  .site-nav__link,
+  .site-nav__list > li > a {
+    padding: var(--space-2) 10px;
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .site-nav__link,
+  .site-nav__list > li > a {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+  }
 }
 
 /* ---- Mobile drawer ---- */
 
-@media (max-width: 767px) {
+@media (max-width: 959px) {
   .site-nav {
     display: none;
     position: absolute;
