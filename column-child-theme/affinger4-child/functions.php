@@ -204,3 +204,85 @@ add_action( 'wp_enqueue_scripts', function () {
     // 親テーマの古いスタイルが競合したらここでデキュー
     // wp_dequeue_style( 'some-affinger-style' );
 }, 100 );
+
+/**
+ * 下書きプレビューモード
+ *
+ * 管理者がログインした状態で URL に `?preview_drafts` を付けると、
+ * 一覧ページ（ホーム / アーカイブ / カテゴリ / 検索）で下書き投稿も
+ * 表示される。記事公開前にカードグリッドの見た目を確認する用途。
+ *
+ * 非ログインの読者には一切影響しない。
+ */
+add_action( 'pre_get_posts', function ( $query ) {
+    if ( is_admin() || ! $query->is_main_query() ) {
+        return;
+    }
+    if ( ! is_user_logged_in() || ! current_user_can( 'edit_posts' ) ) {
+        return;
+    }
+    if ( ! isset( $_GET['preview_drafts'] ) ) {
+        return;
+    }
+    if ( $query->is_home() || $query->is_archive() || $query->is_search() ) {
+        $query->set( 'post_status', array( 'publish', 'draft', 'pending', 'future', 'private' ) );
+    }
+} );
+
+/**
+ * 管理バーに「下書きを含めて一覧プレビュー」ショートカットを追加
+ */
+add_action( 'admin_bar_menu', function ( $admin_bar ) {
+    if ( is_admin() || ! current_user_can( 'edit_posts' ) ) {
+        return;
+    }
+    $current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . strtok( $_SERVER['REQUEST_URI'], '?' );
+    $preview_url = add_query_arg( 'preview_drafts', '1', $current_url );
+    $clean_url   = remove_query_arg( 'preview_drafts', ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+
+    if ( isset( $_GET['preview_drafts'] ) ) {
+        $admin_bar->add_node( array(
+            'id'    => 'affinger4-child-drafts-off',
+            'title' => '下書き表示を解除',
+            'href'  => esc_url( $clean_url ),
+            'meta'  => array( 'title' => '通常の公開記事のみを表示' ),
+        ) );
+    } else {
+        $admin_bar->add_node( array(
+            'id'    => 'affinger4-child-drafts-on',
+            'title' => '下書きも一覧に表示',
+            'href'  => esc_url( $preview_url ),
+            'meta'  => array( 'title' => 'カードグリッドのレイアウト確認用' ),
+        ) );
+    }
+}, 200 );
+
+/**
+ * 下書きプレビュー中であることをフロントで可視化
+ */
+add_action( 'wp_head', function () {
+    if ( ! is_user_logged_in() || ! current_user_can( 'edit_posts' ) || ! isset( $_GET['preview_drafts'] ) ) {
+        return;
+    }
+    ?>
+    <style>
+      body::after {
+        content: "📝 下書きプレビュー中（あなた以外には見えません）";
+        position: fixed;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 8px 16px;
+        background: #3D3029;
+        color: #FFF8F0;
+        font-family: "Noto Sans JP", sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        border-radius: 9999px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        z-index: 9999;
+        pointer-events: none;
+      }
+    </style>
+    <?php
+}, 20 );
