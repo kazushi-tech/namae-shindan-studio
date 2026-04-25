@@ -1,0 +1,47 @@
+{
+  "page": "suggestion",
+  "path": "/suggestion",
+  "templatePath": "suggestion.hbs",
+  "navActive": "/suggestion",
+  "pageCss": "suggestion",
+  "meta": {
+    "title": "名前候補ジェネレーター — 姓と条件から名前を提案 | 赤ちゃん名前診断",
+    "description": "姓と希望条件（性別・画数・読み頭文字・含みたい漢字）を入力して、人気の名前候補を一覧提案。全ての候補は五格の運勢つきで詳しく診断できます。",
+    "og": {
+      "title": "名前候補ジェネレーター — 赤ちゃん名前診断",
+      "description": "姓と条件から人気の名前候補を提案。画数と運勢つきで比較できます。",
+      "type": "website",
+      "image": "/assets/images/og-image.png"
+    }
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "名前候補ジェネレーター",
+    "description": "姓と条件から赤ちゃんの名前候補を提案する無料ツール",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://namae-studio.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "名前候補ジェネレーター"
+        }
+      ]
+    }
+  },
+  "extraInlineScript": "// FortuneData / KanjiStrokes を並列ロード（お気に入り登録で SeimeiHandan.calculate を使う）\r\n    if (window.FortuneData && window.FortuneData.load) window.FortuneData.load();\r\n    if (window.KanjiStrokes && window.KanjiStrokes.load) window.KanjiStrokes.load();"
+}

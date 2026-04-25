@@ -1,0 +1,50 @@
+{
+  "page": "guide-shussan",
+  "path": "/guide/shussan-list",
+  "templatePath": "guide/shussan-list.hbs",
+  "navActive": "/guide/shussan-list",
+  "pageCss": "guide",
+  "meta": {
+    "title": "出産準備リスト完全版 2026 | 赤ちゃん名前診断",
+    "description": "入院バッグから新生児期の肌着・ミルク用品・沐浴セット・ねんね環境・お出かけグッズ・ママの回復期ケアまで。出産準備に必要なアイテムをチェックリストで完全網羅。",
+    "og": {
+      "title": "出産準備リスト完全版 2026",
+      "description": "入院バッグから新生児期・ママの回復期ケアまで、出産準備に必要なアイテムを完全チェックリスト化。",
+      "type": "article",
+      "image": "/assets/images/og-image.png"
+    }
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "出産準備リスト完全版 2026",
+    "description": "入院バッグから新生児期・ママの回復期ケアまでの出産準備アイテムを網羅",
+    "author": {
+      "@type": "Organization",
+      "name": "赤ちゃん名前診断"
+    },
+    "datePublished": "2026-04-25",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://namae-studio.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ガイド",
+          "item": "https://namae-studio.com/guide/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "出産準備リスト完全版 2026"
+        }
+      ]
+    }
+  }
+}

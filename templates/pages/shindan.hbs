@@ -1,0 +1,175 @@
+<div class="container">
+
+      <!-- Page Header -->
+      <div class="page-header" data-reveal="fade">
+        <img src="/assets/images/shindan-header.png" alt="" class="page-header__illustration" loading="lazy" width="300" height="150">
+        <h1 class="page-title">姓名判断</h1>
+        <p class="page-subtitle">姓と名を入力して五格の運勢を診断しましょう</p>
+      </div>
+
+      <!-- Shindan Form -->
+      <form id="shindan-form" class="shindan-form card" data-reveal="slide-up" data-reveal-delay="80" novalidate>
+        <div class="name-input-group">
+          <div class="input-group">
+            <label for="sei-input" class="input-label">姓（みょうじ）</label>
+            <input
+              type="text"
+              id="sei-input"
+              class="input-field"
+              placeholder="山田"
+              autocomplete="off"
+              inputmode="text"
+              maxlength="10"
+              required
+            >
+            <div id="sei-stroke-preview" class="stroke-preview"></div>
+          </div>
+          <div class="input-group">
+            <label for="mei-input" class="input-label">名（なまえ）</label>
+            <input
+              type="text"
+              id="mei-input"
+              class="input-field"
+              placeholder="太郎"
+              autocomplete="off"
+              inputmode="text"
+              maxlength="10"
+              required
+            >
+            <div id="mei-stroke-preview" class="stroke-preview"></div>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error-message" class="error-message" aria-live="assertive"></div>
+
+        <!-- Submit -->
+        <button type="submit" id="submit-btn" class="btn btn--primary btn--lg btn--block">
+          診断する
+        </button>
+      </form>
+
+      <!-- Results Section (hidden by default — 診断後に hidden=false で表示) -->
+      <section id="result-section" class="result-section" aria-label="診断結果" data-reveal="fade" hidden>
+        <div class="result-header">
+          <h2 class="result-title">診断結果</h2>
+          <p class="result-name-display">
+            <span id="result-name" class="result-name-text"></span>
+            さんの五格
+          </p>
+        </div>
+
+        <!-- Gokaku Grid -->
+        <div id="gokaku-grid" class="gokaku-grid"></div>
+
+        <!-- Ad Slot A4: 結果グリッド下（最高RPM位置） — AdSense 承認後に有効化 -->
+        <aside class="ad-slot ad-slot--rect" data-ns-ad="shindan_result_rect" aria-label="広告" hidden>
+          <span class="ad-slot__label">広告</span>
+          <div class="ad-slot__inner">
+            <!-- AdSense unit will be injected here when enabled via site.config.json -->
+          </div>
+        </aside>
+
+        <!-- Share -->
+        <div class="share-section">
+          <p class="share-section__label">診断結果をシェア</p>
+          <div class="share-section__buttons">
+            <a id="share-x" class="share-btn share-btn--x" href="#" target="_blank" rel="noopener noreferrer">
+              <svg class="share-btn__icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span class="share-btn__text">X</span>
+            </a>
+            <a id="share-line" class="share-btn share-btn--line" href="#" target="_blank" rel="noopener noreferrer">
+              <svg class="share-btn__icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.271.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+              <span class="share-btn__text">LINE</span>
+            </a>
+            <a id="share-facebook" class="share-btn share-btn--facebook" href="#" target="_blank" rel="noopener noreferrer">
+              <svg class="share-btn__icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              <span class="share-btn__text">Facebook</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- お気に入り機能のヒント（onboarding） -->
+        <div class="favorite-hint" id="favorite-hint" role="note">
+          <span class="favorite-hint__icon" aria-hidden="true">⭐</span>
+          <p class="favorite-hint__text">
+            気になる結果は<strong>お気に入り登録</strong>で、後からいつでも見返せます。<br>
+            <small>ブラウザ内に保存されるので、他人には見えません。</small>
+          </p>
+          <button type="button" class="favorite-hint__close" id="favorite-hint-close" aria-label="ヒントを閉じる">✕</button>
+        </div>
+
+        <!-- Result Actions: ⭐お気に入り + OG画像ダウンロード -->
+        <div class="result-actions" style="flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-top: var(--space-6)">
+          <button id="favorite-btn" class="favorite-btn favorite-btn--large" type="button">お気に入りに追加</button>
+          <button id="og-download-btn" class="og-download-btn" type="button">OG画像をダウンロード</button>
+        </div>
+
+        <!-- OG Preview (初期は非表示、生成後に表示) -->
+        <div id="og-preview" class="og-preview" hidden>
+          <p style="font-size: var(--text-sm); color: var(--color-muted); margin-bottom: var(--space-2)">生成したOG画像のプレビュー（右クリックで保存）</p>
+          <img id="og-preview-img" alt="OG画像プレビュー" src="/data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%2F%3E">
+        </div>
+
+        <!-- Retry -->
+        <div class="result-actions">
+          <button id="retry-btn" class="btn btn--secondary">
+            もう一度診断する
+          </button>
+          <a href="/about" class="btn btn--outline">
+            五格について詳しく
+          </a>
+          <a href="/favorites" class="btn btn--ghost">
+            ⭐ お気に入り一覧
+          </a>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="result-disclaimer">
+          <p>※ 姓名判断は古くから伝わる占いの一種です。科学的根拠に基づくものではなく、あくまで参考情報としてお楽しみください。</p>
+        </div>
+      </section>
+
+      <!-- Related Pages — 「もっと詳しく知る」(診断前は汎用リンク、診断後は UIController が上書き) -->
+      <section class="related-pages" aria-labelledby="related-pages-heading" data-reveal="fade" data-reveal-delay="160">
+        <h2 class="related-pages__heading" id="related-pages-heading">📚 もっと詳しく知る</h2>
+        <ul class="related-pages__link-list" id="related-pages-links">
+          <li>
+            <a class="related-pages__row" href="/kanji/">
+              <span class="related-pages__row-icon" aria-hidden="true">📖</span>
+              <span class="related-pages__row-text">漢字辞典 — 名前に使える漢字の画数・意味</span>
+              <span class="related-pages__row-arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a class="related-pages__row" href="/ranking/">
+              <span class="related-pages__row-icon" aria-hidden="true">🏆</span>
+              <span class="related-pages__row-text">2026年 赤ちゃんの名前ランキング</span>
+              <span class="related-pages__row-arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a class="related-pages__row" href="/guide/">
+              <span class="related-pages__row-icon" aria-hidden="true">📚</span>
+              <span class="related-pages__row-text">名付けお役立ちガイド</span>
+              <span class="related-pages__row-arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a class="related-pages__row" href="https://column.namae-studio.com/" rel="noopener">
+              <span class="related-pages__row-icon" aria-hidden="true">📝</span>
+              <span class="related-pages__row-text">赤ちゃん名前診断コラム</span>
+              <span class="related-pages__row-arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+          <li>
+            <a class="related-pages__row" href="/about">
+              <span class="related-pages__row-icon" aria-hidden="true">✨</span>
+              <span class="related-pages__row-text">五格（天格・地格など）の読み解き方</span>
+              <span class="related-pages__row-arrow" aria-hidden="true">›</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+    </div>

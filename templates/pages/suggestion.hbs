@@ -1,0 +1,120 @@
+<div class="container">
+
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item"><a href="/" class="breadcrumb__link">ホーム</a></li>
+          <li class="breadcrumb__item"><span class="breadcrumb__current">名前候補</span></li>
+        </ol>
+      </nav>
+
+      <div class="page-header">
+        <img src="/assets/images/suggestion-header.png" alt="" class="page-header__illustration" width="600" height="300" loading="eager" decoding="async">
+        <h1 class="page-title">名前候補ジェネレーター</h1>
+        <p class="page-subtitle">ご希望の条件に合わせて、人気の名前を候補としてご提案します</p>
+      </div>
+
+      <!-- Form -->
+      <form id="suggestion-form" class="suggestion-form card" novalidate>
+
+        <div class="suggestion-field">
+          <label class="suggestion-field__label" for="sei-input">姓（お父様・お母様の姓）</label>
+          <input type="text" id="sei-input" name="sei" class="input-field" placeholder="例: 山田" autocomplete="off" maxlength="10">
+          <p class="input-group__hint" style="margin-top: var(--space-1)">姓を入れると、姓名判断の結果画面へワンクリックで引き継げます。</p>
+        </div>
+
+        <div class="suggestion-field">
+          <label class="suggestion-field__label">性別</label>
+          <div class="suggestion-radios">
+            <span><input type="radio" id="g-any"   name="gender" value="any"   checked><label for="g-any">こだわらない</label></span>
+            <span><input type="radio" id="g-boys"  name="gender" value="boys"><label for="g-boys">男の子</label></span>
+            <span><input type="radio" id="g-girls" name="gender" value="girls"><label for="g-girls">女の子</label></span>
+          </div>
+        </div>
+
+        <div class="suggestion-field">
+          <label class="suggestion-field__label">文字数（複数選択可）</label>
+          <div class="suggestion-radios">
+            <span><input type="checkbox" id="c-1" name="chars" value="1"><label for="c-1">1文字</label></span>
+            <span><input type="checkbox" id="c-2" name="chars" value="2"><label for="c-2">2文字</label></span>
+            <span><input type="checkbox" id="c-3" name="chars" value="3"><label for="c-3">3文字</label></span>
+            <span><input type="checkbox" id="c-4" name="chars" value="4"><label for="c-4">4文字以上</label></span>
+          </div>
+        </div>
+
+        <div class="suggestion-field">
+          <label class="suggestion-field__label">読みの頭文字</label>
+          <div class="suggestion-radios">
+            <span><input type="radio" id="h-any" name="headGroup" value="" checked><label for="h-any">指定なし</label></span>
+            <span><input type="radio" id="h-a"  name="headGroup" value="a"><label for="h-a">あ行</label></span>
+            <span><input type="radio" id="h-ka" name="headGroup" value="ka"><label for="h-ka">か行</label></span>
+            <span><input type="radio" id="h-sa" name="headGroup" value="sa"><label for="h-sa">さ行</label></span>
+            <span><input type="radio" id="h-ta" name="headGroup" value="ta"><label for="h-ta">た行</label></span>
+            <span><input type="radio" id="h-na" name="headGroup" value="na"><label for="h-na">な行</label></span>
+            <span><input type="radio" id="h-ha" name="headGroup" value="ha"><label for="h-ha">は行</label></span>
+            <span><input type="radio" id="h-ma" name="headGroup" value="ma"><label for="h-ma">ま行</label></span>
+            <span><input type="radio" id="h-ya" name="headGroup" value="ya"><label for="h-ya">や行</label></span>
+            <span><input type="radio" id="h-ra" name="headGroup" value="ra"><label for="h-ra">ら行</label></span>
+            <span><input type="radio" id="h-wa" name="headGroup" value="wa"><label for="h-wa">わ行</label></span>
+          </div>
+        </div>
+
+        <div class="suggestion-field">
+          <label class="suggestion-field__label">運勢</label>
+          <div class="suggestion-radios">
+            <span><input type="radio" id="f-any"      name="fortune" value="any" checked><label for="f-any">こだわらない</label></span>
+            <span><input type="radio" id="f-kichi"    name="fortune" value="kichi"><label for="f-kichi">吉以上</label></span>
+            <span><input type="radio" id="f-daikichi" name="fortune" value="daikichi"><label for="f-daikichi">大吉のみ</label></span>
+          </div>
+        </div>
+
+        <div class="suggestion-field">
+          <label class="suggestion-field__label" for="include-kanji">含みたい漢字（任意）</label>
+          <input type="text" id="include-kanji" name="includeKanji" class="input-field" placeholder="例: 蓮 結 凛" autocomplete="off" maxlength="20">
+          <p class="input-group__hint" style="margin-top: var(--space-1)">複数指定可。入力した漢字すべてを含む名前のみを表示します。</p>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--lg btn--block suggestion-submit">候補を見る</button>
+      </form>
+
+      <!-- Results -->
+      <section class="suggestion-results" aria-live="polite">
+        <h2 class="section-title" style="text-align: left; margin-top: var(--space-8)">🌱 おすすめの名前候補</h2>
+        <p id="suggestion-result-count" class="suggestion-count" hidden></p>
+
+        <div id="suggestion-empty" class="suggestion-empty" hidden>
+          <div class="suggestion-empty__icon">🌱</div>
+          <p>条件に合う名前が見つかりませんでした。条件を緩めてもう一度お試しください。</p>
+        </div>
+
+        <div id="suggestion-results-grid" class="suggestion-results__grid"></div>
+      </section>
+
+      <section class="card suggestion-about">
+        <h2 class="card__title">このツールについて</h2>
+        <div class="card__body">
+          <p>本ツールは、人気の名前データベース（約160件）から条件に合う名前を絞り込んで提示する <strong>Tier A エンジン</strong> です。完全にブラウザ内で動作し、入力情報は外部に送信されません。</p>
+          <p>姓を入れておくと、お気に入りの候補を見つけた際に「詳しく診断」ボタンから姓名判断画面へそのまま引き継げます。</p>
+        </div>
+      </section>
+
+      <!-- Promo: キッズ時計 LP -->
+      <a class="promo-card promo-card--kids-tokei"
+         href="https://www.kids-tokei.com/"
+         target="_blank"
+         rel="noopener noreferrer sponsored"
+         data-af-program="kids-tokei"
+         data-af-product="audition">
+        <div class="promo-card__visual" aria-hidden="true">
+          <span class="promo-card__emoji">📷</span>
+        </div>
+        <div class="promo-card__body">
+          <span class="promo-card__tag">Sponsored · 提携サービス</span>
+          <h3 class="promo-card__title">お名前が決まったら、次はお子様の成長記録。</h3>
+          <p class="promo-card__desc">キッズ時計 — 毎日の可愛い瞬間を残すオーディション型フォトサービス。</p>
+          <span class="promo-card__cta">
+            <span>詳しく見る</span>
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16"><path d="M2 8h12m-4-4l4 4-4 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>

@@ -1,0 +1,93 @@
+{
+  "page": "guide-faq",
+  "path": "/guide/faq",
+  "templatePath": "guide/faq.hbs",
+  "navActive": "/guide/faq",
+  "pageCss": "guide",
+  "meta": {
+    "title": "名付けFAQ・用語集 — よくあるご質問 | 赤ちゃん名前診断",
+    "description": "赤ちゃんの名付けに関するよくある質問と、姓名判断の専門用語をわかりやすく解説。五格・旧字体・読み方など、名付け前に知っておきたい基礎知識を集めました。",
+    "og": {
+      "title": "名付けFAQ・用語集 — よくあるご質問",
+      "description": "赤ちゃんの名付けと姓名判断に関するよくある質問・専門用語をやさしく解説。",
+      "type": "article",
+      "image": "/assets/images/og-image.png"
+    }
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "姓名判断の五格（ごかく）とは何ですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "姓名判断で使う「天格・人格・地格・外格・総格」の5つの数値のことです。姓の画数合計が天格、姓末字と名頭字の和が人格、名の画数合計が地格、総格から人格を引いた数が外格、全部の画数合計が総格となります。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "旧字体と新字体で画数が変わるのですが、どちらを使えばよいですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "一般的には「新字体（現代の表記）」で画数を数える流派と、伝統に従い「旧字体（康煕字典体）」で数える流派があります。本サイトでは新字体をデフォルトに採用しています。名付けでは、戸籍に登録できる表記で一貫して判定するのが実用的です。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "画数が悪いと運勢も悪くなりますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "姓名判断は長い歴史のある占術ですが、科学的根拠はありません。五格のうち1つが凶でも、他の格が吉であれば全体のバランスが取れることも多いので、一つの参考情報としてご活用ください。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "1文字の名前（例: 蓮）だとどう計算されますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "1文字の姓・名は「仮数1」を加えて計算するのが伝統的なルールです。例えば「蓮」は13画なので、地格は13+1=14画と計算します。これは五格全体のバランスを取るためです。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "ひらがな・カタカナだけの名前も姓名判断できますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。ひらがな・カタカナも各文字に画数が割り当てられており、計算可能です。本サイトでは漢字・ひらがな・カタカナのいずれも対応しています。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "同じ画数でも意味が違うのはなぜですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "姓名判断は「画数の数値」だけでなく、天地人外総の「どこに配置されるか」「他の格との組み合わせ」も評価します。そのため同じ画数でも、姓と名の組み合わせによって意味が変わります。"
+        }
+      }
+    ],
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://namae-studio.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ガイド",
+          "item": "https://namae-studio.com/guide/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "FAQ・用語集"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{{!-- partials/core-scripts.hbs — js/core/* と page-specific JS のロード一括 --}}
+  <!-- Core JS -->
+  <script src="/js/core/storage.js?v={{buildVersion}}"></script>
+  <script src="/js/core/analytics.js?v={{buildVersion}}"></script>
+  <script src="/js/core/share.js?v={{buildVersion}}"></script>
+  <script src="/js/core/favorites.js?v={{buildVersion}}"></script>
+  <script src="/js/core/og-generator.js?v={{buildVersion}}"></script>
+  <script src="/js/core/router.js?v={{buildVersion}}"></script>
+  <script src="/js/core/ab-test.js?v={{buildVersion}}"></script>
+  <script src="/js/core/nav.js?v={{buildVersion}}"></script>
+  <script src="/js/core/boot.js?v={{buildVersion}}"></script>
+
+  <!-- Page JS -->
+  <script src="/js/kanji-strokes.js?v={{buildVersion}}"></script>
+  <script src="/js/seimei-handan.js?v={{buildVersion}}"></script>
+  <script src="/js/fortune-data.js?v={{buildVersion}}"></script>
+  <script src="/js/ui-controller.js?v={{buildVersion}}"></script>
+  <script src="/js/app.js?v={{buildVersion}}"></script>
+  <script src="/js/core/scroll-reveal.js?v={{buildVersion}}" defer></script>
+  <script src="/js/core/split-text.js?v={{buildVersion}}" defer></script>
+
+  {{#if extraScripts}}
+  {{#each extraScripts}}
+  <script src="{{this}}?v={{../buildVersion}}"></script>
+  {{/each}}
+  {{/if}}

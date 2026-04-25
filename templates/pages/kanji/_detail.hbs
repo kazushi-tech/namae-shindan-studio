@@ -1,0 +1,112 @@
+    <div class="container">
+
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item"><a href="/" class="breadcrumb__link">ホーム</a></li>
+          <li class="breadcrumb__item"><a href="/kanji/" class="breadcrumb__link">漢字辞典</a></li>
+          <li class="breadcrumb__item"><span class="breadcrumb__current">{{kanji}}</span></li>
+        </ol>
+      </nav>
+
+      <img src="/assets/images/kanji-hero.png" alt="" class="kanji-hero__illust" width="600" height="300" loading="eager" decoding="async">
+
+      <section class="kanji-hero">
+        <div class="kanji-hero__badge-wrap">
+          <div class="kanji-hero__big" aria-hidden="true">{{kanji}}</div>
+          <span class="kanji-hero__strokes-badge">{{detail.strokes}}画</span>
+        </div>
+        <div class="kanji-hero__content">
+          <h1 class="kanji-hero__title">名前に使う「{{kanji}}」の意味・読み・人気の組み合わせ</h1>
+          <p class="kanji-hero__summary">{{detail.summary}}</p>
+        </div>
+      </section>
+
+      <div class="kanji-layout">
+        <div>
+          <section class="kanji-section">
+            <h2 class="kanji-section__heading">📖 「{{kanji}}」の意味</h2>
+            <div class="kanji-section__body">
+{{#each detail.meanings}}
+              <p>{{this}}</p>
+{{/each}}
+            </div>
+          </section>
+
+          <section class="kanji-section">
+            <h2 class="kanji-section__heading">💖 名前に込められる願い</h2>
+            <ul class="kanji-section__list">
+{{#each detail.wishes}}
+              <li>{{this}}</li>
+{{/each}}
+            </ul>
+          </section>
+
+          <section class="kanji-section">
+            <h2 class="kanji-section__heading">✨ 画数占いでの評価（{{detail.strokes}}画）</h2>
+            <div class="kanji-section__body"><p>{{detail.fortuneNote}}</p></div>
+          </section>
+
+          <section class="kanji-section">
+            <h2 class="kanji-section__heading">🌸 人気の名前リスト</h2>
+            <div class="kanji-tabs" role="tablist">
+              <button class="kanji-tab kanji-tab--active" data-tab="boys" role="tab" aria-selected="true">男の子</button>
+              <button class="kanji-tab" data-tab="girls" role="tab" aria-selected="false">女の子</button>
+            </div>
+            <div class="kanji-names-grid" data-pane="boys">
+{{#if detail.popularNames.boys.length}}
+{{#each detail.popularNames.boys}}
+              <a class="kanji-name-card" href="/shindan?mei={{encodeURI this.name}}">
+                <span class="kanji-name-card__name">{{this.name}}</span>
+                <span class="kanji-name-card__reading">{{this.reading}}</span>
+              </a>
+{{/each}}
+{{else}}
+              <p style="color: var(--color-muted); font-size: var(--text-sm)">該当する人気の名前はありません。</p>
+{{/if}}
+            </div>
+            <div class="kanji-names-grid" data-pane="girls" hidden>
+{{#if detail.popularNames.girls.length}}
+{{#each detail.popularNames.girls}}
+              <a class="kanji-name-card" href="/shindan?mei={{encodeURI this.name}}">
+                <span class="kanji-name-card__name">{{this.name}}</span>
+                <span class="kanji-name-card__reading">{{this.reading}}</span>
+              </a>
+{{/each}}
+{{else}}
+              <p style="color: var(--color-muted); font-size: var(--text-sm)">該当する人気の名前はありません。</p>
+{{/if}}
+            </div>
+          </section>
+
+          <section class="kanji-section">
+            <h2 class="kanji-section__heading">🔗 関連する漢字</h2>
+            <div class="kanji-chips">
+{{#each detail.relatedKanji}}
+              <a class="kanji-chip" href="/kanji/{{encodeURI this}}">{{this}}</a>
+{{/each}}
+            </div>
+          </section>
+
+          <div class="shindan-embed">
+            <h3 class="shindan-embed__title">「{{kanji}}」を使った名前を診断</h3>
+            <p class="shindan-embed__sub">お子さまの姓と名を入れて五格の運勢をその場でチェック</p>
+            <form class="shindan-embed__form" action="/shindan" method="get">
+              <input type="text" class="shindan-embed__input" name="sei" placeholder="姓（例: 山田）" maxlength="10" required>
+              <input type="text" class="shindan-embed__input" name="mei" value="{{kanji}}" maxlength="10" required>
+              <button type="submit" class="btn btn--primary">診断する</button>
+            </form>
+          </div>
+        </div>
+
+        <aside>
+          <div class="kanji-meta">
+            <h3 class="kanji-meta__heading">{{kanji}} の基本情報</h3>
+            <div class="kanji-meta__row"><span class="kanji-meta__label">画数</span><span class="kanji-meta__value">{{detail.strokes}}画</span></div>
+            <div class="kanji-meta__row"><span class="kanji-meta__label">部首</span><span class="kanji-meta__value">{{#if detail.radical}}{{detail.radical}}{{else}}—{{/if}}</span></div>
+            <div class="kanji-meta__row"><span class="kanji-meta__label">音読み</span><span class="kanji-meta__value">{{#if detail.onyomi.length}}{{#each detail.onyomi}}{{this}}{{#unless @last}}・{{/unless}}{{/each}}{{else}}—{{/if}}</span></div>
+            <div class="kanji-meta__row"><span class="kanji-meta__label">訓読み</span><span class="kanji-meta__value">{{#if detail.kunyomi.length}}{{#each detail.kunyomi}}{{this}}{{#unless @last}}・{{/unless}}{{/each}}{{else}}—{{/if}}</span></div>
+            <div class="kanji-meta__row"><span class="kanji-meta__label">名のり</span><span class="kanji-meta__value">{{#if detail.nanori.length}}{{#each detail.nanori}}{{this}}{{#unless @last}}・{{/unless}}{{/each}}{{else}}—{{/if}}</span></div>
+          </div>
+        </aside>
+      </div>
+    </div>

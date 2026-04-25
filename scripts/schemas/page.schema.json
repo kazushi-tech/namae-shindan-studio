@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PageContent",
+  "description": "templates/pages/*.hbs に渡すコンテンツ JSON のスキーマ",
+  "type": "object",
+  "required": ["page", "path", "meta"],
+  "properties": {
+    "page": {
+      "type": "string",
+      "description": "ページ識別子 (body data-page と build-verify の対応キー)"
+    },
+    "path": {
+      "type": "string",
+      "description": "公開 URL パス。canonical/og:url の生成に使用"
+    },
+    "outputPath": {
+      "type": "string",
+      "description": "dist/ 内の出力先パス。省略時は path から導出"
+    },
+    "templatePath": {
+      "type": "string",
+      "description": "templates/pages 配下の hbs テンプレートパス (拡張子省略可)"
+    },
+    "layout": {
+      "enum": ["base", "kanji", "guide", "ranking", "minimal-404"],
+      "default": "base"
+    },
+    "pageCss": {
+      "type": "string",
+      "description": "css/pages/ 配下の CSS ファイル名 (拡張子なし)"
+    },
+    "bodyClass": { "type": "string" },
+    "navActive": { "type": "string" },
+    "skipExtraScripts": {
+      "type": "boolean",
+      "description": "true で coreScripts partial をスキップ (404 など)"
+    },
+    "meta": {
+      "type": "object",
+      "required": ["title", "description"],
+      "properties": {
+        "title":       { "type": "string" },
+        "description": { "type": "string" },
+        "robots":      { "type": "string" },
+        "og": {
+          "type": "object",
+          "properties": {
+            "title":       { "type": "string" },
+            "description": { "type": "string" },
+            "type":        { "type": "string", "default": "website" },
+            "image":       { "type": "string" }
+          }
+        }
+      }
+    },
+    "jsonLd": {
+      "type": ["array", "object", "null"],
+      "description": "ページ個別の Schema.org JSON-LD (オブジェクト or 配列)"
+    },
+    "extraScripts": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "page-specific JS のロード順 (path)"
+    },
+    "extraInlineScript": {
+      "type": "string",
+      "description": "ページ専用のインラインスクリプト (A/B テスト初期化など)"
+    },
+    "sections": {
+      "type": "array",
+      "description": "後方互換用 section 配列 (任意のフィールドを許容)"
+    },
+    "bodyHtml": {
+      "type": "string",
+      "description": "page-specific HTML を直接 base.hbs の body slot に注入する場合に使用 (Handlebars が処理しない素 HTML)"
+    }
+  },
+  "additionalProperties": true
+}

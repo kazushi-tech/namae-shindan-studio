@@ -1,0 +1,19 @@
+{
+  "page": "404",
+  "path": "/404.html",
+  "templatePath": "404.hbs",
+  "outputPath": "404.html",
+  "navActive": "/404.html",
+  "meta": {
+    "title": "ページが見つかりません — 赤ちゃん名前診断",
+    "description": "",
+    "robots": "noindex",
+    "og": {
+      "title": "ページが見つかりません — 赤ちゃん名前診断",
+      "description": "",
+      "type": "website",
+      "image": ""
+    }
+  },
+  "skipExtraScripts": true
+}

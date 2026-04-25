@@ -1,26 +1,38 @@
 {{!-- partials/head-meta.hbs — 共通の <head> 内メタ・OG・リンク --}}
+{{#if site.analytics.gtm.enabled}}
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','{{site.analytics.gtm.containerId}}');</script>
+  <!-- End Google Tag Manager -->
+{{/if}}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{meta.title}}</title>
   <meta name="description" content="{{meta.description}}">
+{{#if meta.robots}}
+  <meta name="robots" content="{{meta.robots}}">
+{{/if}}
 
   <!-- OG Tags -->
-  <meta property="og:title" content="{{meta.og.title}}">
-  <meta property="og:description" content="{{meta.og.description}}">
-  <meta property="og:type" content="{{meta.og.type}}">
+  <meta property="og:title" content="{{#if meta.og.title}}{{meta.og.title}}{{else}}{{meta.title}}{{/if}}">
+  <meta property="og:description" content="{{#if meta.og.description}}{{meta.og.description}}{{else}}{{meta.description}}{{/if}}">
+  <meta property="og:type" content="{{#if meta.og.type}}{{meta.og.type}}{{else}}website{{/if}}">
   <meta property="og:locale" content="{{site.locale.og}}">
-  <meta property="og:image" content="{{site.domain.url}}{{meta.og.image}}">
+  <meta property="og:image" content="{{site.domain.url}}{{#if meta.og.image}}{{meta.og.image}}{{else}}/assets/images/og-image.png{{/if}}">
   <meta property="og:url" content="{{site.domain.url}}{{path}}">
   <link rel="canonical" href="{{site.domain.url}}{{path}}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{meta.og.title}}">
-  <meta name="twitter:description" content="{{meta.og.description}}">
-  <meta name="twitter:image" content="{{site.domain.url}}{{meta.og.image}}">
+  <meta name="twitter:title" content="{{#if meta.og.title}}{{meta.og.title}}{{else}}{{meta.title}}{{/if}}">
+  <meta name="twitter:description" content="{{#if meta.og.description}}{{meta.og.description}}{{else}}{{meta.description}}{{/if}}">
+  <meta name="twitter:image" content="{{site.domain.url}}{{#if meta.og.image}}{{meta.og.image}}{{else}}/assets/images/og-image.png{{/if}}">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="{{site.fonts.googleFontsUrl}}" rel="stylesheet">
+  <link href="{{{site.fonts.googleFontsUrl}}}" rel="stylesheet">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/css/reset.css?v={{buildVersion}}">
@@ -53,5 +65,4 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{site.analytics.adsense.client}}" crossorigin="anonymous"></script>
   {{/if}}
 
-  {{!-- ページ個別の JSON-LD は {{> jsonLd}} で注入 --}}
   {{> jsonLd}}

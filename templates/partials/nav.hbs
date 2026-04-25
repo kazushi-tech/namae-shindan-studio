@@ -5,11 +5,13 @@
       <img src="/assets/images/logo-icon.png" alt="{{site.brand.shortName}}ロゴ" class="nav__logo">
       <span class="nav__title">{{site.brand.shortName}}</span>
     </a>
+    <button class="nav__toggle" aria-label="メニュー" aria-expanded="false"><span></span><span></span><span></span></button>
     <ul class="nav__links">
       {{#each site.nav}}
       <li>
         <a href="{{this.href}}"
-           class="nav__link{{#if this.active}} nav__link--active{{/if}}"
+           class="nav__link{{#if (isActive this.match ../navActive ../path)}} nav__link--active{{/if}}"
+           {{#if (isActive this.match ../navActive ../path)}}aria-current="page"{{/if}}
            {{#if this.external}}rel="noopener"{{/if}}
         >{{this.label}}</a>
       </li>

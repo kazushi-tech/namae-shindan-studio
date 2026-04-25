@@ -1,0 +1,51 @@
+{
+  "page": "guide-meimei-hikaku",
+  "path": "/guide/meimei-hikaku",
+  "templatePath": "guide/meimei-hikaku.hbs",
+  "navActive": "/guide/meimei-hikaku",
+  "pageCss": "guide",
+  "meta": {
+    "title": "命名書サービス徹底比較 2026 | 赤ちゃん名前診断",
+    "description": "書家直筆型・デザイン命名紙型・アプリ連携型、人気の命名書サービスを価格・納期・書体・額装で徹底比較。口コミ・FAQ・編集部まとめまで完全網羅。",
+    "robots": "noindex,nofollow",
+    "og": {
+      "title": "命名書サービス徹底比較 2026",
+      "description": "書家直筆・デザイン・アプリ連携の3タイプを価格・納期・書体で徹底比較。一生の贈り物を選ぶための決定版ガイド。",
+      "type": "article",
+      "image": "/assets/images/og-image.png"
+    }
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "命名書サービス徹底比較 2026",
+    "description": "書家直筆・デザイン・アプリ連携の3タイプの命名書サービスを徹底比較",
+    "author": {
+      "@type": "Organization",
+      "name": "赤ちゃん名前診断"
+    },
+    "datePublished": "2026-04-25",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://namae-studio.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ガイド",
+          "item": "https://namae-studio.com/guide/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "命名書サービス徹底比較 2026"
+        }
+      ]
+    }
+  }
+}

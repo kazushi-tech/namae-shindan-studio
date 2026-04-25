@@ -1,6 +1,10 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./templates ./content ./scripts ./site.config.json ./DESIGN.md ./data ./css ./js ./assets ./package.json ./package-lock.json ./vercel.json",
   "headers": [
     {
       "source": "/(.*).html",

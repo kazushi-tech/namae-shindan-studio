@@ -1,0 +1,43 @@
+{
+  "page": "kanji-index",
+  "path": "/kanji/",
+  "templatePath": "kanji/index.hbs",
+  "bodyClass": "kanji-bg",
+  "navActive": "/kanji/",
+  "pageCss": "kanji",
+  "meta": {
+    "title": "漢字辞典 — 赤ちゃんの名付けで人気の漢字を検索 | 赤ちゃん名前診断",
+    "description": "名付けで人気の漢字を意味・読み・画数・運勢つきで紹介する漢字辞典。蓮・結・凛・陽など、赤ちゃんの名付けに使いたい漢字を深く知ることができます。",
+    "og": {
+      "title": "漢字辞典 — 名付けに使いたい漢字を検索",
+      "description": "名付けで人気の漢字を意味・読み・画数・運勢つきで紹介する漢字辞典。",
+      "type": "website",
+      "image": "/assets/images/og-image.png"
+    }
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "name": "赤ちゃん名前診断 漢字辞典",
+    "description": "赤ちゃんの名付けで人気の漢字を意味・読み・運勢つきで解説",
+    "url": "https://namae-studio.com/kanji/",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://namae-studio.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "漢字辞典",
+          "item": "https://namae-studio.com/kanji/"
+        }
+      ]
+    }
+  },
+  "extraInlineScript": "// 簡易フィルタ（入力に含まれる文字で絞り込み）\r\n    (function () {\r\n      const input = document.getElementById('kanji-filter-input');\r\n      const items = Array.from(document.querySelectorAll('.kanji-grid__item'));\r\n      if (!input) return;\r\n      input.addEventListener('input', () => {\r\n        const q = input.value.trim();\r\n        items.forEach(item => {\r\n          const char = item.querySelector('.kanji-grid__char').textContent;\r\n          item.style.display = !q || char.includes(q) ? '' : 'none';\r\n        });\r\n      });\r\n    })();"
+}

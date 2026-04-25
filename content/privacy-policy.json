@@ -1,0 +1,23 @@
+{
+  "page": "privacy-policy",
+  "path": "/privacy-policy",
+  "templatePath": "privacy-policy.hbs",
+  "navActive": "/privacy-policy",
+  "pageCss": "about",
+  "meta": {
+    "title": "プライバシーポリシー — 赤ちゃん名前診断",
+    "description": "赤ちゃん名前診断のプライバシーポリシー。個人情報の取り扱いについてご説明します。",
+    "og": {
+      "title": "プライバシーポリシー — 赤ちゃん名前診断",
+      "description": "赤ちゃん名前診断のプライバシーポリシー。個人情報の取り扱いについてご説明します。",
+      "type": "website",
+      "image": "/assets/images/og-image.png"
+    }
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "プライバシーポリシー — 赤ちゃん名前診断",
+    "description": "赤ちゃん名前診断のプライバシーポリシー"
+  }
+}

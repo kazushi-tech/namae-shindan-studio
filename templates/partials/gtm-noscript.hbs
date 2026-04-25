@@ -1,0 +1,7 @@
+{{!-- partials/gtm-noscript.hbs — <body> 直後の GTM noscript iframe --}}
+{{#if site.analytics.gtm.enabled}}
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{site.analytics.gtm.containerId}}"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+{{/if}}

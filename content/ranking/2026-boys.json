@@ -1,0 +1,52 @@
+{
+  "page": "ranking-boys",
+  "path": "/ranking/2026-boys",
+  "templatePath": "ranking/2026-boys.hbs",
+  "bodyClass": "ranking-bg",
+  "navActive": "/ranking/2026-boys",
+  "pageCss": "ranking",
+  "meta": {
+    "title": "2026年 男の子 人気名前ランキング TOP30 — 赤ちゃん名前診断",
+    "description": "2026年の男の子の人気名前 TOP30を当サイト独自集計でご紹介。蓮・陽翔・碧など、画数・運勢つきで詳しく解説します。",
+    "og": {
+      "title": "2026年 男の子 人気名前ランキング TOP30",
+      "description": "2026年の男の子人気名前 TOP30を当サイト独自集計で。画数・運勢つき。",
+      "type": "article",
+      "image": "/assets/images/og-image.png"
+    }
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "2026年 男の子 人気名前ランキング TOP30",
+    "description": "2026年の男の子人気名前 TOP30を画数・運勢つきでご紹介",
+    "author": {
+      "@type": "Organization",
+      "name": "赤ちゃん名前診断"
+    },
+    "datePublished": "2026-04-23",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://namae-studio.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "名前ランキング",
+          "item": "https://namae-studio.com/ranking/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "2026年 男の子"
+        }
+      ]
+    }
+  },
+  "extraInlineScript": "document.addEventListener('DOMContentLoaded', () => RankingPage.render('/data/rankings/2026-boys.json'));"
+}

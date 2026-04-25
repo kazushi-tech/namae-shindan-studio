@@ -1,0 +1,50 @@
+{
+  "page": "guide-miyamairi",
+  "path": "/guide/miyamairi",
+  "templatePath": "guide/miyamairi.hbs",
+  "navActive": "/guide/miyamairi",
+  "pageCss": "guide",
+  "meta": {
+    "title": "お宮参り・お七夜の完全ガイド | 赤ちゃん名前診断",
+    "description": "お七夜・お宮参り・お食い初め・初節句・初誕生まで、新生児の儀礼をカレンダーで網羅。時期・伝統的な意味・現代のアレンジ・準備チェックリストを完全解説。",
+    "og": {
+      "title": "お宮参り・お七夜の完全ガイド",
+      "description": "新生児の儀礼カレンダーと、各行事の時期・伝統・現代のアレンジ・準備チェックリストをまとめた決定版ガイド。",
+      "type": "article",
+      "image": "/assets/images/og-image.png"
+    }
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "お宮参り・お七夜の完全ガイド",
+    "description": "新生児儀礼カレンダーと各行事の時期・伝統・現代のアレンジ",
+    "author": {
+      "@type": "Organization",
+      "name": "赤ちゃん名前診断"
+    },
+    "datePublished": "2026-04-25",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://namae-studio.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ガイド",
+          "item": "https://namae-studio.com/guide/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "お宮参り・お七夜の完全ガイド"
+        }
+      ]
+    }
+  }
+}

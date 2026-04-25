@@ -1,0 +1,50 @@
+{
+  "page": "guide-meimei-tools",
+  "path": "/guide/meimei-tools",
+  "templatePath": "guide/meimei-tools.hbs",
+  "navActive": "/guide/meimei-tools",
+  "pageCss": "guide",
+  "meta": {
+    "title": "名付けの記念アイテム入門 | 赤ちゃん名前診断",
+    "description": "命名書・赤ちゃん筆・記念写真など、赤ちゃんの名付けを彩る記念アイテムの基本を解説。一生の贈り物となる温かみある品々をまとめました。",
+    "og": {
+      "title": "名付けの記念アイテム入門",
+      "description": "命名書・赤ちゃん筆・記念写真など、赤ちゃんの名付けを彩る温かみある記念アイテムの基本解説。",
+      "type": "article",
+      "image": "/assets/images/og-image.png"
+    }
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "名付けの記念アイテム入門",
+    "description": "命名書・赤ちゃん筆・記念写真など、赤ちゃんの名付けを彩る温かみある記念アイテムの基本を解説",
+    "author": {
+      "@type": "Organization",
+      "name": "赤ちゃん名前診断"
+    },
+    "datePublished": "2026-04-23",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://namae-studio.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ガイド",
+          "item": "https://namae-studio.com/guide/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "名付けの記念アイテム入門"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "page": "ranking-index",
+  "path": "/ranking/",
+  "templatePath": "ranking/index.hbs",
+  "bodyClass": "ranking-bg",
+  "navActive": "/ranking/",
+  "pageCss": "ranking",
+  "meta": {
+    "title": "名前ランキング — 赤ちゃん名前診断",
+    "description": "2026年 男の子・女の子の人気名前ランキング。当サイト独自集計で画数・運勢とともにご紹介します。",
+    "og": {
+      "title": "名前ランキング — 赤ちゃん名前診断",
+      "description": "2026年 男の子・女の子の人気名前ランキング。画数・運勢とともに。",
+      "type": "website",
+      "image": "/assets/images/og-image.png"
+    }
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "名前ランキング",
+    "description": "2026年 赤ちゃん人気名前ランキング — 男女別・画数・運勢つき",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://namae-studio.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "名前ランキング",
+          "item": "https://namae-studio.com/ranking/"
+        }
+      ]
+    }
+  }
+}

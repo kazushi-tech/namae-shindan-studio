@@ -1,0 +1,18 @@
+{
+  "page": "favorites",
+  "path": "/favorites",
+  "templatePath": "favorites.hbs",
+  "navActive": "/favorites",
+  "pageCss": "favorites",
+  "meta": {
+    "title": "お気に入り — 赤ちゃん名前診断",
+    "description": "過去に診断した姓名判断の結果をお気に入り保存。候補の名前を並べて比較できます。",
+    "robots": "noindex,follow",
+    "og": {
+      "title": "お気に入り — 赤ちゃん名前診断",
+      "description": "過去に診断した姓名判断の結果をお気に入り保存。候補の名前を並べて比較できます。",
+      "type": "website",
+      "image": "/assets/images/og-image.png"
+    }
+  }
+}

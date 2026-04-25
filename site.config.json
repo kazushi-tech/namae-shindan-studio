@@ -39,6 +39,10 @@
   "analytics": {
     "ga4MeasurementId": null,
     "searchConsoleVerifyId": null,
+    "gtm": {
+      "containerId": "GTM-TKF64R7Q",
+      "enabled": true
+    },
     "adsense": {
       "client": null,
       "enabled": false
@@ -54,15 +58,13 @@
   "nav": [
     { "label": "ホーム", "href": "/", "match": ["/", "/index.html"] },
     { "label": "姓名判断", "href": "/shindan", "match": ["/shindan", "/shindan.html"] },
-    { "label": "お気に入り", "href": "/favorites", "match": ["/favorites", "/favorites.html"] },
-    { "label": "五格について", "href": "/about", "match": ["/about", "/about.html"] },
+    { "label": "名前候補", "href": "/suggestion", "match": ["/suggestion", "/suggestion.html"] },
+    { "label": "ランキング", "href": "/ranking/", "match": ["/ranking/", "/ranking"] },
+    { "label": "漢字辞典", "href": "/kanji/", "match": ["/kanji/", "/kanji"] },
+    { "label": "ガイド", "href": "/guide/", "match": ["/guide/", "/guide"] },
+    { "label": "五格", "href": "/about", "match": ["/about", "/about.html"] },
+    { "label": "⭐お気に入り", "href": "/favorites", "match": ["/favorites", "/favorites.html"] },
     { "label": "コラム", "href": "https://column.namae-studio.com/", "external": true }
-  ],
-  "navFuture": [
-    { "label": "名前候補", "href": "/suggestion", "match": ["/suggestion"], "note": "Phase 3で公開予定" },
-    { "label": "ランキング", "href": "/ranking/", "match": ["/ranking"], "note": "Phase 3で公開予定" },
-    { "label": "漢字辞典", "href": "/kanji/", "match": ["/kanji"], "note": "Phase 3で公開予定" },
-    { "label": "ガイド", "href": "/guide/", "match": ["/guide"], "note": "Phase 3で公開予定" }
   ],
   "footer": {
     "copyright": "© 2026 赤ちゃん名前診断",

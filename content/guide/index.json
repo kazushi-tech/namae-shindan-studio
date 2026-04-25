@@ -1,0 +1,40 @@
+{
+  "page": "guide-index",
+  "path": "/guide/",
+  "templatePath": "guide/index.hbs",
+  "navActive": "/guide/",
+  "pageCss": "guide",
+  "meta": {
+    "title": "名付けお役立ちガイド | 赤ちゃん名前診断",
+    "description": "赤ちゃんの名付けに関する完全ガイド。命名書・赤ちゃん筆・記念撮影・出産準備・お宮参りなど、名付け前後のお役立ち情報をまとめました。",
+    "og": {
+      "title": "名付けお役立ちガイド | 赤ちゃん名前診断",
+      "description": "命名書・赤ちゃん筆・出産準備・お宮参りなど、赤ちゃんの名付けに役立つ記事を揃えました。",
+      "type": "website",
+      "image": "/assets/images/og-image.png"
+    }
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "名付けお役立ちガイド",
+    "description": "赤ちゃんの名付けに役立つ記事群",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://namae-studio.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ガイド",
+          "item": "https://namae-studio.com/guide/"
+        }
+      ]
+    }
+  }
+}
