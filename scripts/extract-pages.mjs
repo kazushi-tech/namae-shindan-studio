@@ -5,6 +5,13 @@
  * 一回限りのマイグレーションスクリプト。実行後はもう使わない (ハンドメンテに移行)。
  */
 
+if (!process.env.ALLOW_DESTRUCTIVE_EXTRACT) {
+  console.error('extract-pages.mjs は一回限りのマイグレーションスクリプトです。');
+  console.error('   再実行すると content/*.json と templates/pages/*.hbs が全上書きされます。');
+  console.error('   本当に再実行する場合: ALLOW_DESTRUCTIVE_EXTRACT=1 node scripts/extract-pages.mjs');
+  process.exit(1);
+}
+
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

@@ -1,9 +1,9 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "buildCommand": "npm run build",
+  "buildCommand": "npm run build && npm run build:verify",
   "outputDirectory": "dist",
-  "installCommand": "npm install",
+  "installCommand": "npm ci",
   "ignoreCommand": "git diff --quiet HEAD^ HEAD ./templates ./content ./scripts ./site.config.json ./DESIGN.md ./data ./css ./js ./assets ./package.json ./vercel.json",
   "headers": [
     {

@@ -41,7 +41,15 @@
   <link rel="stylesheet" href="/css/components.css?v={{buildVersion}}">
   <link rel="stylesheet" href="/css/layout.css?v={{buildVersion}}">
   <link rel="stylesheet" href="/css/animations.css?v={{buildVersion}}">
-  {{#if pageCss}}<link rel="stylesheet" href="/css/pages/{{pageCss}}.css?v={{buildVersion}}">{{/if}}
+  {{#if pageCss}}
+    {{#if (isArray pageCss)}}
+      {{#each pageCss}}
+  <link rel="stylesheet" href="/css/pages/{{this}}.css?v={{../buildVersion}}">
+      {{/each}}
+    {{else}}
+  <link rel="stylesheet" href="/css/pages/{{pageCss}}.css?v={{buildVersion}}">
+    {{/if}}
+  {{/if}}
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/assets/images/favicon.png">
@@ -63,6 +71,10 @@
   {{#if site.analytics.adsense.enabled}}
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{site.analytics.adsense.client}}" crossorigin="anonymous"></script>
+  {{/if}}
+
+  {{#if injectKanjiWhitelist}}
+  <script>window.__KANJI_PAGES__ = {{{json site.kanjiPages}}};</script>
   {{/if}}
 
   {{> jsonLd}}

@@ -133,6 +133,58 @@ function checkPair({ src, dist }) {
   if (swMatches.length > 1) {
     errors.push(`[${dist}] service-worker unregister duplicated (${swMatches.length} occurrences)`);
   }
+
+  checkInlineScriptPreservation(a, b, src);
+  checkCssLinks(a, b, src);
+  checkMainClass(a, b, src);
+}
+
+function checkInlineScriptPreservation(srcHtml, distHtml, fileName) {
+  const re = /<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi;
+  const srcInlines = [...srcHtml.matchAll(re)].map(m => m[1].trim()).filter(Boolean);
+  const distInlines = [...distHtml.matchAll(re)].map(m => m[1].trim()).filter(Boolean);
+
+  // 自動生成系・トラッキング系はスキップ
+  const skipPatterns = [
+    /gtm\.start/,           // GTM
+    /googletagmanager/,     // GTM
+    /adsbygoogle/,          // AdSense
+    /\(adsbygoogle\s*=/,    // AdSense init
+    /fbq\(/,                // Facebook Pixel
+    /gtag\(/,               // GA4 direct (head-meta partial が出力)
+    /window\.dataLayer\s*=/,// dataLayer init
+  ];
+
+  for (const src of srcInlines) {
+    if (skipPatterns.some(p => p.test(src))) continue;
+    // 主要識別子（変数名・関数名）を抽出
+    const ident =
+      src.match(/(?:window\.)?(__[A-Z_][A-Z0-9_]*__)/)?.[1] ??
+      src.match(/(?:window\.)?([A-Za-z_]\w+)\s*=/)?.[1] ??
+      src.match(/function\s+([A-Za-z_]\w+)/)?.[1];
+    if (!ident) continue;
+    const found = distInlines.some(d => d.includes(ident));
+    if (!found) {
+      errors.push(`[${fileName}] inline script with identifier "${ident}" lost in dist`);
+    }
+  }
+}
+
+function checkCssLinks(srcHtml, distHtml, fileName) {
+  const srcCss = [...srcHtml.matchAll(/href="\/?css\/([^"?]+)/gi)].map(m => m[1]);
+  const distCss = [...distHtml.matchAll(/href="\/?css\/([^"?]+)/gi)].map(m => m[1]);
+  const missing = srcCss.filter(c => !distCss.includes(c));
+  if (missing.length) {
+    errors.push(`[${fileName}] CSS missing in dist: ${missing.join(', ')}`);
+  }
+}
+
+function checkMainClass(srcHtml, distHtml, fileName) {
+  const sm = srcHtml.match(/<main[^>]*\bclass="([^"]+)"/i);
+  const dm = distHtml.match(/<main[^>]*\bclass="([^"]+)"/i);
+  if (sm && (!dm || sm[1] !== dm[1])) {
+    errors.push(`[${fileName}] main class mismatch: src="${sm[1]}" dist="${dm?.[1] ?? '(none)'}"`);
+  }
 }
 
 function checkKanji() {

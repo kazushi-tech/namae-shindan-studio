@@ -3,7 +3,9 @@
   "path": "/shindan",
   "templatePath": "shindan.hbs",
   "navActive": "/shindan",
-  "pageCss": "shindan",
+  "pageCss": ["shindan", "favorites"],
+  "mainClass": "section shindan-main",
+  "injectKanjiWhitelist": true,
   "meta": {
     "title": "姓名判断 — 赤ちゃん名前診断",
     "description": "姓と名を入力するだけで五格（天格・人格・地格・外格・総格）を瞬時に診断。赤ちゃんの名付けに役立つ無料の姓名判断ツールです。",

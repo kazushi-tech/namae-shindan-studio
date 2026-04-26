@@ -64,6 +64,7 @@ function registerPartials() {
 function registerHelpers() {
   Handlebars.registerHelper('eq', (a, b) => a === b);
   Handlebars.registerHelper('neq', (a, b) => a !== b);
+  Handlebars.registerHelper('isArray', (v) => Array.isArray(v));
   Handlebars.registerHelper('and', function () {
     return Array.prototype.slice.call(arguments, 0, -1).every(Boolean);
   });
@@ -110,10 +111,19 @@ function loadDesignFrontmatter() {
   }
 }
 
+function loadKanjiWhitelist() {
+  if (!fs.existsSync(KANJI_DATA_PATH)) return {};
+  const data = readJson(KANJI_DATA_PATH);
+  const map = {};
+  for (const k of Object.keys(data.kanji || {})) map[k] = 1;
+  return map;
+}
+
 function buildSiteContext() {
   const config = readJson(CONFIG_PATH);
   const design = loadDesignFrontmatter();
-  return { ...config, design };
+  const kanjiPages = loadKanjiWhitelist();
+  return { ...config, design, kanjiPages };
 }
 
 function compileLayout() {
@@ -225,13 +235,13 @@ function buildKanjiDetailPages(ctxBase, layoutFn) {
         inDefinedTermSet: {
           '@type': 'DefinedTermSet',
           name: '赤ちゃん名前診断 漢字辞典',
-          url: 'https://namae-studio.com/kanji/',
+          url: 'https://namae-studio.com/kanji',
         },
         breadcrumb: {
           '@type': 'BreadcrumbList',
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://namae-studio.com/' },
-            { '@type': 'ListItem', position: 2, name: '漢字辞典', item: 'https://namae-studio.com/kanji/' },
+            { '@type': 'ListItem', position: 2, name: '漢字辞典', item: 'https://namae-studio.com/kanji' },
             { '@type': 'ListItem', position: 3, name: kanji },
           ],
         },
