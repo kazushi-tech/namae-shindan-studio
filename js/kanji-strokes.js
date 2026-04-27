@@ -19,7 +19,7 @@ const KanjiStrokes = (() => {
     if (loaded) return;
 
     try {
-      const response = await fetch('./data/kanji-strokes.json?v=2');
+      const response = await fetch('/data/kanji-strokes.json?v=2');
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       if (typeof data !== 'object' || data === null || Object.keys(data).length === 0) {

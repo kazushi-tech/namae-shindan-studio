@@ -9,22 +9,28 @@ const App = (() => {
    * アプリ全体の初期化
    */
   async function init() {
-    // データ読み込み（並列）
-    await Promise.all([
-      KanjiStrokes.load(),
-      FortuneData.load()
-    ]);
+    const page = document.body.dataset.page;
+    // 画数・運勢データを実際に使うページのみロードする
+    // （ガイド・コラム・お気に入り等の静的ページでは fetch 失敗→赤バナーが出ていた）
+    const needsData = page === 'shindan' || page === 'home' || (page && page.startsWith('kanji'));
 
-    // データ読み込み失敗チェック
-    const errors = [];
-    if (KanjiStrokes.getLoadError()) errors.push('画数データ');
-    if (FortuneData.getLoadError()) errors.push('運勢データ');
-    if (errors.length > 0) {
-      showDataLoadError(errors);
+    if (needsData) {
+      // データ読み込み（並列）
+      await Promise.all([
+        KanjiStrokes.load(),
+        FortuneData.load()
+      ]);
+
+      // データ読み込み失敗チェック
+      const errors = [];
+      if (KanjiStrokes.getLoadError()) errors.push('画数データ');
+      if (FortuneData.getLoadError()) errors.push('運勢データ');
+      if (errors.length > 0) {
+        showDataLoadError(errors);
+      }
     }
 
     // ページ判定して初期化
-    const page = document.body.dataset.page;
     switch (page) {
       case 'shindan':
         initShindanPage();
