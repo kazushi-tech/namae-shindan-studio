@@ -270,6 +270,7 @@ function copyStaticAssets() {
     'robots.txt',
     'sitemap.xml',
     'sw.js',
+    'site.config.json',
   ];
   for (const item of items) {
     const src = path.join(ROOT, item);

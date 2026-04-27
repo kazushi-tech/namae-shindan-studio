@@ -135,8 +135,24 @@ function checkPair({ src, dist }) {
   }
 
   checkInlineScriptPreservation(a, b, src);
+  checkExternalScripts(a, b, src);
   checkCssLinks(a, b, src);
   checkMainClass(a, b, src);
+}
+
+function checkExternalScripts(srcHtml, distHtml, fileName) {
+  // <script src="..."> を抽出（クエリ文字列 ?v=... は無視して比較）
+  const re = /<script[^>]*\bsrc="([^"]+)"/gi;
+  const stripQuery = (s) => s.split('?')[0];
+  const srcSet = [...srcHtml.matchAll(re)].map((m) => stripQuery(m[1]));
+  const distSet = new Set([...distHtml.matchAll(re)].map((m) => stripQuery(m[1])));
+  for (const s of srcSet) {
+    // ローカル JS（/js/...）のみ検証対象。外部 CDN / GTM 等はスキップ
+    if (!s.startsWith('/js/')) continue;
+    if (!distSet.has(s)) {
+      errors.push(`[${fileName}] external <script src="${s}"> present in src but missing in dist`);
+    }
+  }
 }
 
 function checkInlineScriptPreservation(srcHtml, distHtml, fileName) {
@@ -204,7 +220,7 @@ function checkKanji() {
 }
 
 function checkStaticAssets() {
-  const items = ['css', 'js', 'assets', 'data', 'tool', 'manifest.json', 'robots.txt', 'sitemap.xml', 'sw.js'];
+  const items = ['css', 'js', 'assets', 'data', 'tool', 'manifest.json', 'robots.txt', 'sitemap.xml', 'sw.js', 'site.config.json'];
   for (const item of items) {
     const p = path.join(DIST, item);
     if (!fs.existsSync(p)) {

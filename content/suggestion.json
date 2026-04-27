@@ -43,5 +43,6 @@
       ]
     }
   },
-  "extraInlineScript": "// FortuneData / KanjiStrokes を並列ロード（お気に入り登録で SeimeiHandan.calculate を使う）\r\n    if (window.FortuneData && window.FortuneData.load) window.FortuneData.load();\r\n    if (window.KanjiStrokes && window.KanjiStrokes.load) window.KanjiStrokes.load();"
+  "extraInlineScript": "// FortuneData / KanjiStrokes を並列ロード（お気に入り登録で SeimeiHandan.calculate を使う）\r\n    if (window.FortuneData && window.FortuneData.load) window.FortuneData.load();\r\n    if (window.KanjiStrokes && window.KanjiStrokes.load) window.KanjiStrokes.load();",
+  "extraScripts": ["/js/suggestion-page.js"]
 }

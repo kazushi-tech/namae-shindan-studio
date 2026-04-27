@@ -4,6 +4,7 @@
 Desktop 1280 / Mobile 375 の2幅でスクショを取る。
 """
 from __future__ import annotations
+import os
 import sys
 
 try:
@@ -13,7 +14,7 @@ except Exception:
 
 from playwright.sync_api import sync_playwright
 
-BASE = "https://namae-studio.com"
+BASE = os.getenv("BASE_URL", "https://namae-studio.com")
 
 PAGES = [
     "/",

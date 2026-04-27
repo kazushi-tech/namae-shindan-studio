@@ -48,5 +48,6 @@
       ]
     }
   },
-  "extraInlineScript": "document.addEventListener('DOMContentLoaded', () => RankingPage.render('/data/rankings/2026-boys.json'));"
+  "extraInlineScript": "document.addEventListener('DOMContentLoaded', () => RankingPage.render('/data/rankings/2026-boys.json'));",
+  "extraScripts": ["/js/ranking-page.js"]
 }
