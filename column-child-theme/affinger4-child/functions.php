@@ -50,6 +50,15 @@ add_action( 'wp_enqueue_scripts', function () {
         $child_css_ver
     );
 
+    // 親テーマ AFFINGER4 が `wp_enqueue_style('style-css', get_stylesheet_uri())`
+    // を版指定なしで投げてくる結果、子テーマ style.css が ?ver=<WP-version> という
+    // 動かない URL で重複ロードされ、ブラウザがそこに古い内容をキャッシュし続ける。
+    // 親側の登録版数も filemtime に揃えて、URL の不変性を解消する。
+    global $wp_styles;
+    if ( isset( $wp_styles->registered['style-css'] ) ) {
+        $wp_styles->registered['style-css']->ver = $child_css_ver;
+    }
+
     // ナビゲーション用 JS
     $child_nav_path = get_stylesheet_directory() . '/assets/js/nav.js';
     $child_nav_ver  = file_exists( $child_nav_path ) ? filemtime( $child_nav_path ) : wp_get_theme()->get( 'Version' );
@@ -86,6 +95,85 @@ add_action( 'send_headers', function () {
         header( 'Cache-Control: no-cache, must-revalidate, max-age=0', true );
     }
 }, 1 );
+
+/**
+ * 記事ページ hero の critical CSS を HTML 内にインライン出力。
+ *
+ * 外部 style.css はブラウザが max-age 7 日でキャッシュ保持するため、CSS 設計を
+ * 変更しても旧端末で旧レイアウトが残る事故が起きやすい。これを回避するために、
+ * hero の決定的なレイアウトルールだけ wp_head から `<style>` で出力し、`!important`
+ * で外部 CSS のキャッシュ状態に依存しない最終決定権を持たせる。
+ *
+ * HTML 自体は send_headers 側で no-cache を出しているため、このインライン CSS は
+ * 毎リクエストで最新が届く。functions.php を更新すれば即座に全ユーザに反映される。
+ */
+add_action( 'wp_head', function () {
+    if ( ! is_singular( 'post' ) ) {
+        return;
+    }
+    ?>
+    <style id="article-hero-critical">
+    /* hero card layout — overrides any cached external CSS */
+    .article-hero {
+        position: relative !important;
+        max-width: 1200px !important;
+        margin: 0 auto 24px !important;
+        padding: 0 24px !important;
+        background: transparent !important;
+        width: auto !important;
+        min-height: 0 !important;
+        aspect-ratio: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        display: block !important;
+    }
+    .article-hero__media {
+        position: relative !important;
+        inset: auto !important;
+        width: 100% !important;
+        aspect-ratio: 16 / 9 !important;
+        max-height: 480px !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+        background-color: #FFF0E1 !important;
+        border-radius: 20px !important;
+        box-shadow: 0 2px 16px rgba(36, 25, 23, 0.06) !important;
+    }
+    .article-hero__image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+        object-position: center !important;
+    }
+    .article-hero__overlay {
+        display: none !important;
+    }
+    .article-hero__inner {
+        position: relative !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 16px 0 4px !important;
+        display: block !important;
+        min-height: 0 !important;
+    }
+    .article-hero__content {
+        max-width: 720px !important;
+        color: inherit !important;
+    }
+    .article-hero__date {
+        color: #5C4F44 !important;
+    }
+    .article-hero__title {
+        color: #3D3D29 !important;
+        text-shadow: none !important;
+        font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", serif !important;
+    }
+    @media (min-width: 768px) {
+        .article-hero__inner { padding: 20px 0 8px !important; }
+    }
+    </style>
+    <?php
+}, 99 );
 
 /**
  * メニュー位置の登録（グローバルナビ 6 項目）
