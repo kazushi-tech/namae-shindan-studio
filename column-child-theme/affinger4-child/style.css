@@ -5,7 +5,7 @@ Description: column.namae-studio.com 専用 AFFINGER4 子テーマ。本体 nama
 Author: namae-studio
 Author URI: https://namae-studio.com/
 Template: affinger4
-Version: 1.0.9
+Version: 1.1.0
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: affinger4-child
@@ -946,16 +946,16 @@ button {
 .article-hero {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: 70vh;
-  overflow: hidden;
   background-color: var(--color-cream-warm);
   margin-bottom: var(--space-8);
 }
 
 .article-hero__media {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 60vh;
+  overflow: hidden;
   background-color: var(--color-cream-warm);
 }
 
@@ -967,31 +967,18 @@ button {
 }
 
 .article-hero__overlay {
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 55%;
-  background: linear-gradient(
-    to top,
-    rgba(36, 25, 23, 0.92) 0%,
-    rgba(36, 25, 23, 0.65) 45%,
-    rgba(36, 25, 23, 0.20) 75%,
-    transparent 100%
-  );
+  display: none;
 }
 
 .article-hero__inner {
   position: relative;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--space-10) var(--gutter) var(--space-8);
-  display: flex;
-  align-items: flex-end;
-  min-height: 240px;
+  padding: var(--space-6) var(--gutter) var(--space-4);
 }
 
 .article-hero__content {
   max-width: 720px;
-  color: var(--color-white);
 }
 
 .article-hero__meta {
@@ -1018,7 +1005,7 @@ button {
 .article-hero__date {
   font-family: var(--font-body);
   font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--color-medium);
 }
 
 .article-hero__title {
@@ -1026,15 +1013,14 @@ button {
   font-size: clamp(24px, 5vw, 36px);
   font-weight: var(--weight-black);
   line-height: 1.3;
-  color: var(--color-white);
+  color: var(--color-dark);
   margin: 0;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  text-shadow: none;
 }
 
 @media (min-width: 768px) {
   .article-hero__inner {
-    min-height: 400px;
-    padding: var(--space-16) var(--gutter) var(--space-12);
+    padding: var(--space-8) var(--gutter) var(--space-6);
   }
 }
 
