@@ -14,21 +14,27 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 # CSS that mirrors the edits in column-child-theme/affinger4-child/style.css
 OVERRIDE_CSS = """
 .article-hero {
+  position: relative !important;
+  display: block !important;
+  max-width: 1200px !important;
+  margin: 16px auto 32px !important;
+  padding: 0 16px !important;
+  background: transparent !important;
   aspect-ratio: auto !important;
   max-height: none !important;
   min-height: 0 !important;
   overflow: visible !important;
-  background-color: #FFF8F0 !important;
-  display: block !important;
 }
 .article-hero__media {
   position: relative !important;
   inset: auto !important;
   width: 100% !important;
   aspect-ratio: 16 / 9 !important;
-  max-height: 60vh !important;
+  max-height: 480px !important;
   overflow: hidden !important;
   background-color: #FFF8F0 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 2px 16px rgba(36,25,23,0.06) !important;
 }
 .article-hero__image {
   width: 100% !important;
@@ -36,30 +42,18 @@ OVERRIDE_CSS = """
   object-fit: contain !important;
   object-position: center !important;
 }
-.article-hero__overlay {
-  display: none !important;
-}
+.article-hero__overlay { display: none !important; }
 .article-hero__inner {
   position: relative !important;
-  max-width: 1200px !important;
-  margin: 0 auto !important;
-  padding: 24px 16px 16px !important;
+  padding: 24px 0 8px !important;
   display: block !important;
   min-height: 0 !important;
 }
-.article-hero__content {
-  color: inherit !important;
-}
-.article-hero__date {
-  color: #5C4F44 !important;
-}
-.article-hero__title {
-  color: #3D3D29 !important;
-  text-shadow: none !important;
-}
+.article-hero__content { max-width: 720px !important; color: inherit !important; }
+.article-hero__date { color: #5C4F44 !important; }
+.article-hero__title { color: #3D3D29 !important; text-shadow: none !important; }
 @media (min-width: 768px) {
-  .article-hero { min-height: 0 !important; }
-  .article-hero__inner { padding: 32px 24px 24px !important; min-height: 0 !important; }
+  .article-hero__inner { padding: 32px 0 16px !important; }
 }
 """
 
