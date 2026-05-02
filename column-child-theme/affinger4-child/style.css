@@ -946,8 +946,10 @@ button {
 .article-hero {
   position: relative;
   width: 100%;
-  min-height: 240px;
+  aspect-ratio: 16 / 9;
+  max-height: 70vh;
   overflow: hidden;
+  background-color: var(--color-cream-warm);
   margin-bottom: var(--space-8);
 }
 
@@ -960,12 +962,14 @@ button {
 .article-hero__image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 .article-hero__overlay {
   position: absolute;
-  inset: 0;
+  inset: auto 0 0 0;
+  height: 55%;
   background: linear-gradient(
     to top,
     rgba(36, 25, 23, 0.92) 0%,
@@ -1028,9 +1032,6 @@ button {
 }
 
 @media (min-width: 768px) {
-  .article-hero {
-    min-height: 400px;
-  }
   .article-hero__inner {
     min-height: 400px;
     padding: var(--space-16) var(--gutter) var(--space-12);
