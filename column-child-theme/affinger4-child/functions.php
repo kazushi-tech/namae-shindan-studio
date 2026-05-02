@@ -38,19 +38,26 @@ add_action( 'wp_enqueue_scripts', function () {
     );
 
     // 子テーマ（親とフォントに依存）
+    // バージョン文字列にファイル mtime を採用 — ファイル更新時に必ず ?ver= が変わり、
+    // ブラウザキャッシュを自動的にバストする。Theme Header の Version は人間用の名札として
+    // 残すが、enqueue 側はファイル実体の更新時刻に追従させる。
+    $child_css_path = get_stylesheet_directory() . '/style.css';
+    $child_css_ver  = file_exists( $child_css_path ) ? filemtime( $child_css_path ) : wp_get_theme()->get( 'Version' );
     wp_enqueue_style(
         'affinger4-child',
         get_stylesheet_directory_uri() . '/style.css',
         array( 'affinger4-parent' ),
-        wp_get_theme()->get( 'Version' )
+        $child_css_ver
     );
 
     // ナビゲーション用 JS
+    $child_nav_path = get_stylesheet_directory() . '/assets/js/nav.js';
+    $child_nav_ver  = file_exists( $child_nav_path ) ? filemtime( $child_nav_path ) : wp_get_theme()->get( 'Version' );
     wp_enqueue_script(
         'affinger4-child-nav',
         get_stylesheet_directory_uri() . '/assets/js/nav.js',
         array(),
-        wp_get_theme()->get( 'Version' ),
+        $child_nav_ver,
         true
     );
 }, 20 );
@@ -61,6 +68,23 @@ add_action( 'wp_enqueue_scripts', function () {
 add_action( 'wp_head', function () {
     echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
     echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+}, 1 );
+
+/**
+ * フロント HTML のキャッシュ設定 — テーマ更新が確実にユーザに届くよう、
+ * HTML は毎回再検証させる（ETag による 304 は通る）。
+ * CSS/JS は filemtime ベースの ?ver= でバストする運用。
+ */
+add_action( 'send_headers', function () {
+    if ( is_admin() ) {
+        return;
+    }
+    if ( is_user_logged_in() ) {
+        return; // 管理者の編集中プレビュー等を阻害しないよう既存挙動を維持
+    }
+    if ( ! headers_sent() ) {
+        header( 'Cache-Control: no-cache, must-revalidate, max-age=0', true );
+    }
 }, 1 );
 
 /**
