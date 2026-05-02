@@ -17,7 +17,7 @@ OVERRIDE_CSS = """
   position: relative !important;
   display: block !important;
   max-width: 1200px !important;
-  margin: 16px auto 32px !important;
+  margin: 0 auto 24px !important;
   padding: 0 16px !important;
   background: transparent !important;
   aspect-ratio: auto !important;
@@ -45,7 +45,7 @@ OVERRIDE_CSS = """
 .article-hero__overlay { display: none !important; }
 .article-hero__inner {
   position: relative !important;
-  padding: 24px 0 8px !important;
+  padding: 16px 0 4px !important;
   display: block !important;
   min-height: 0 !important;
 }
@@ -53,7 +53,7 @@ OVERRIDE_CSS = """
 .article-hero__date { color: #5C4F44 !important; }
 .article-hero__title { color: #3D3D29 !important; text-shadow: none !important; }
 @media (min-width: 768px) {
-  .article-hero__inner { padding: 32px 0 16px !important; }
+  .article-hero__inner { padding: 20px 0 8px !important; }
 }
 """
 
