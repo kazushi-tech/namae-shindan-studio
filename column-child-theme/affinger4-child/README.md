@@ -13,6 +13,7 @@ affinger4-child/
 ├── sidebar.php        — dynamic_sidebar('sidebar-1') を描画
 ├── footer.php         — CTA + コピーライト
 ├── home.php           — コラムトップ（検索 + カテゴリカード + 新着記事）
+├── category.php       — 親テーマのカテゴリテンプレートを上書きする入口
 ├── archive.php        — カテゴリ / タグ / 日付別一覧
 ├── search.php         — 記事検索結果
 ├── index.php          — 記事一覧フォールバック
