@@ -12,8 +12,15 @@ affinger4-child/
 ├── header.php         — グローバルナビ 6 項目（運営者情報なし）
 ├── sidebar.php        — dynamic_sidebar('sidebar-1') を描画
 ├── footer.php         — CTA + コピーライト
-├── index.php          — 記事一覧（Loop + paginate_links）
+├── home.php           — コラムトップ（検索 + カテゴリカード + 新着記事）
+├── archive.php        — カテゴリ / タグ / 日付別一覧
+├── search.php         — 記事検索結果
+├── index.php          — 記事一覧フォールバック
 ├── single.php         — 記事詳細（hero + 本文 + 関連記事 + シェア）
+├── template-parts/
+│   ├── column-discovery.php — 検索・カテゴリ探索UI
+│   ├── article-card.php     — 一覧共通の記事カード
+│   └── pagination.php       — 一覧共通のページネーション
 ├── README.md          — このファイル
 └── assets/
     ├── js/nav.js      — ハンバーガー / ESC / URL コピー / reveal
@@ -36,8 +43,13 @@ affinger4-child/
 
 ## ローカル検証
 
-- PHP 文法: リポジトリルートで `bash scripts/verify-column-child.sh`（または各 PHP に対して `php -l`）。
-- PowerShell の場合: `pwsh -Command "Get-ChildItem column-child-theme/affinger4-child -Recurse -Filter *.php | ForEach-Object { php -l $_.FullName }"`。
+- PHP CLI が使える環境では、リポジトリルートから次を実行:
+  ```powershell
+  Get-ChildItem column-child-theme/affinger4-child -Recurse -Filter *.php |
+    ForEach-Object { php -l $_.FullName }
+  ```
+- 差分の空白エラー: `git diff --check -- column-child-theme/affinger4-child`
+- 実表示は WordPress 環境へ反映後、375px / 768px / 1280px でトップ・カテゴリ・検索結果を確認する。
 
 ## デザイン主要ポイント
 
@@ -48,6 +60,8 @@ affinger4-child/
 | 主要色 | テラコッタ #E8725C / セージ #6EC4A8 / ゴールド #F0B84D |
 | 背景 | クリーム #FFF8F0 + 淡いラジアルグラデ |
 | カード装飾 | 上部に 3px グラデライン（テラコッタ→ゴールド→セージ） |
+| コラムトップ | 検索 → 大きなカテゴリカード → 新着記事の順で探索 |
+| 記事一覧 | サイドバーを外した2列。先頭記事のみ横長の注目カード |
 | CTA | `.btn--primary` テラコッタグラデ + ホバーで translateY(-2px) |
 | モバイル | ≤767px でハンバーガー → 全幅ドロワー |
 

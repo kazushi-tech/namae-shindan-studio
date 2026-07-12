@@ -310,6 +310,20 @@ function affinger4_child_placeholder_image_url() {
 }
 
 /**
+ * コラム内の検索結果を投稿記事だけに限定する。
+ *
+ * 一覧上部の専用検索フォームだけでなく、記事詳細のサイドバーにある
+ * WordPress 標準検索フォームから検索した場合も同じ結果になるよう統一する。
+ */
+add_action( 'pre_get_posts', function ( $query ) {
+    if ( is_admin() || ! $query->is_main_query() || ! $query->is_search() ) {
+        return;
+    }
+
+    $query->set( 'post_type', 'post' );
+}, 9 );
+
+/**
  * 親テーマの不要な出力を抑える（必要に応じて追加）
  */
 add_action( 'wp_enqueue_scripts', function () {
