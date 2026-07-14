@@ -28,10 +28,136 @@
   line-height: var(--leading-snug);
 }
 
+.guide-hero__title-segment {
+  white-space: nowrap;
+}
+
 .guide-hero__desc {
   font-size: var(--text-base);
   color: var(--color-medium);
   line-height: var(--leading-relaxed);
+}
+
+/* Article trust signals ------------------------------------------------ */
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-4);
+  max-width: var(--container-form);
+  margin: var(--space-4) auto 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted-aa, var(--color-medium));
+}
+
+.article-meta__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.article-meta__label {
+  font-weight: var(--weight-bold);
+  color: var(--color-dark);
+}
+
+.article-meta a {
+  color: var(--color-terracotta-dark);
+  text-underline-offset: 0.2em;
+}
+
+.guide-notice,
+.guide-sources {
+  max-width: var(--container-form);
+  margin: var(--space-6) auto;
+  padding: var(--space-5);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-dark);
+}
+
+.guide-notice {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(110, 196, 168, 0.14), transparent 36%),
+    var(--color-white);
+  border-left: 4px solid var(--color-sage);
+  box-shadow: var(--shadow-xs);
+}
+
+.guide-notice__title,
+.guide-sources__title {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+  color: var(--color-dark);
+}
+
+.guide-notice__title-segment {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.guide-notice__title-segment + .guide-notice__title-segment {
+  margin-left: 0.35em;
+}
+
+.guide-notice p,
+.guide-sources p {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.guide-notice__list,
+.guide-sources__list {
+  margin: var(--space-3) 0;
+  padding-left: var(--space-5);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.guide-notice__list li + li,
+.guide-sources__list li + li {
+  margin-top: var(--space-2);
+}
+
+.guide-notice__note,
+.guide-sources__note {
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--color-divider);
+  color: var(--color-text-muted-aa, var(--color-medium));
+}
+
+.guide-sources {
+  background-color: var(--color-cream);
+}
+
+.guide-sources__intro {
+  color: var(--color-text-muted-aa, var(--color-medium));
+}
+
+.guide-sources__list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.guide-sources__list li {
+  display: grid;
+  gap: 2px;
+}
+
+.guide-sources__list a {
+  width: fit-content;
+  color: var(--color-terracotta-dark);
+  font-weight: var(--weight-bold);
+  text-underline-offset: 0.2em;
+}
+
+.guide-sources__list span {
+  color: var(--color-text-muted-aa, var(--color-medium));
+  font-size: var(--text-xs);
 }
 
 .guide-hero__illust {
@@ -472,6 +598,42 @@
   color: var(--color-text-muted-aa, var(--color-medium));
   line-height: var(--leading-relaxed);
   margin: 0 0 var(--space-3);
+}
+
+.section-card__safety {
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3) var(--space-4);
+  background-color: #FFF8DF;
+  border-left: 3px solid var(--color-gold);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  color: var(--color-text-on-cream, var(--color-dark));
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.decision-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.decision-list__item {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-on-cream, var(--color-dark));
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.decision-list__item strong {
+  color: var(--color-terracotta-dark);
+  font-family: var(--font-heading);
 }
 
 .section-card-grid {
@@ -1278,4 +1440,3 @@
     display: none !important;
   }
 }
-

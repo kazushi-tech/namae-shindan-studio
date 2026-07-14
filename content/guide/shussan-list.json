@@ -6,25 +6,44 @@
   "pageCss": "guide",
   "meta": {
     "title": "出産準備リスト完全版 2026 | 赤ちゃん名前診断",
-    "description": "入院バッグから新生児期の肌着・ミルク用品・沐浴セット・ねんね環境・お出かけグッズ・ママの回復期ケアまで。出産準備に必要なアイテムをチェックリストで完全網羅。",
+    "description": "出産準備を、入院バッグ・肌着・授乳・おむつ・安全な寝床・外出・産後ケアに分けて確認できるリスト。産院の案内を優先し、買いすぎを防ぐ仕分けと乳児の睡眠・チャイルドシートの注意点も解説。",
     "og": {
       "title": "出産準備リスト完全版 2026",
-      "description": "入院バッグから新生児期・ママの回復期ケアまで、出産準備に必要なアイテムを完全チェックリスト化。",
+      "description": "産院の案内を優先して使える出産準備リスト。安全な寝床、チャイルドシート、買いすぎを防ぐ仕分けまで一次情報とともに解説。",
       "type": "article",
       "image": "/assets/images/og-image.png"
     }
   },
-  "jsonLd": {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "出産準備リスト完全版 2026",
-    "description": "入院バッグから新生児期・ママの回復期ケアまでの出産準備アイテムを網羅",
-    "author": {
-      "@type": "Organization",
-      "name": "赤ちゃん名前診断"
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://namae-studio.com/guide/shussan-list"
+      },
+      "headline": "出産準備リスト完全版 2026",
+      "description": "産院の案内を優先し、安全な寝床やチャイルドシートの注意点も確認できる出産準備リスト",
+      "image": "https://namae-studio.com/assets/images/guide-tile-shussan.png",
+      "author": {
+        "@type": "Organization",
+        "name": "赤ちゃん名前診断編集部",
+        "url": "https://namae-studio.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "赤ちゃん名前診断",
+        "url": "https://namae-studio.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://namae-studio.com/assets/images/logo-icon.png"
+        }
+      },
+      "datePublished": "2026-04-25",
+      "dateModified": "2026-07-14"
     },
-    "datePublished": "2026-04-25",
-    "breadcrumb": {
+    {
+      "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
         {
@@ -46,5 +65,5 @@
         }
       ]
     }
-  }
+  ]
 }

@@ -6,25 +6,44 @@
   "pageCss": "guide",
   "meta": {
     "title": "お宮参り・お七夜の完全ガイド | 赤ちゃん名前診断",
-    "description": "お七夜・お宮参り・お食い初め・初節句・初誕生まで、新生児の儀礼をカレンダーで網羅。時期・伝統的な意味・現代のアレンジ・準備チェックリストを完全解説。",
+    "description": "お七夜・お宮参り・お食い初めなど、赤ちゃんの行事の時期と準備を解説。神社本庁の案内をもとに、地域差や予約・初穂料の確認、親子の体調を優先した日程の決め方までまとめました。",
     "og": {
       "title": "お宮参り・お七夜の完全ガイド",
-      "description": "新生児の儀礼カレンダーと、各行事の時期・伝統・現代のアレンジ・準備チェックリストをまとめた決定版ガイド。",
+      "description": "お宮参りなど赤ちゃんの行事について、時期の地域差、神社への確認事項、体調を優先した日程の決め方を一次情報とともに解説。",
       "type": "article",
       "image": "/assets/images/og-image.png"
     }
   },
-  "jsonLd": {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "お宮参り・お七夜の完全ガイド",
-    "description": "新生児儀礼カレンダーと各行事の時期・伝統・現代のアレンジ",
-    "author": {
-      "@type": "Organization",
-      "name": "赤ちゃん名前診断"
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://namae-studio.com/guide/miyamairi"
+      },
+      "headline": "お宮参り・お七夜の完全ガイド",
+      "description": "お宮参りなど赤ちゃんの行事の時期・準備・地域差を一次情報とともに解説",
+      "image": "https://namae-studio.com/assets/images/guide-tile-miyamairi.png",
+      "author": {
+        "@type": "Organization",
+        "name": "赤ちゃん名前診断編集部",
+        "url": "https://namae-studio.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "赤ちゃん名前診断",
+        "url": "https://namae-studio.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://namae-studio.com/assets/images/logo-icon.png"
+        }
+      },
+      "datePublished": "2026-04-25",
+      "dateModified": "2026-07-14"
     },
-    "datePublished": "2026-04-25",
-    "breadcrumb": {
+    {
+      "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
         {
@@ -46,5 +65,5 @@
         }
       ]
     }
-  }
+  ]
 }
