@@ -81,8 +81,12 @@
           <section class="kanji-section">
             <h2 class="kanji-section__heading">🔗 関連する漢字</h2>
             <div class="kanji-chips">
-{{#each detail.relatedKanji}}
-              <a class="kanji-chip" href="/kanji/{{encodeURI this}}">{{this}}</a>
+{{#each detail.relatedKanjiItems}}
+{{#if this.hasPage}}
+              <a class="kanji-chip" href="/kanji/{{encodeURI this.character}}">{{this.character}}</a>
+{{else}}
+              <span class="kanji-chip kanji-chip--unavailable" aria-disabled="true" title="詳細ページは準備中です">{{this.character}}<span class="sr-only">（詳細ページ準備中）</span></span>
+{{/if}}
 {{/each}}
             </div>
           </section>

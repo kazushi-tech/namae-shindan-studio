@@ -396,10 +396,15 @@
   transition: all var(--transition-default);
 }
 
-.kanji-chip:hover {
+.kanji-chip:not(.kanji-chip--unavailable):hover {
   background-color: var(--color-terracotta);
   color: var(--color-white);
   border-color: var(--color-terracotta);
+}
+
+.kanji-chip--unavailable {
+  opacity: 0.62;
+  cursor: default;
 }
 
 /* --- 「漢字辞典について」カード -------------------------------- */

@@ -297,8 +297,16 @@ function buildKanjiDetailPages(ctxBase, layoutFn) {
   }
   const tplFn = Handlebars.compile(fs.readFileSync(tplPath, 'utf8'), { noEscape: false });
   const data = readJson(KANJI_DATA_PATH);
+  const kanjiEntries = Object.entries(data.kanji || {});
+  const generatedKanji = new Set(kanjiEntries.map(([kanji]) => kanji));
   let count = 0;
-  for (const [kanji, d] of Object.entries(data.kanji || {})) {
+  for (const [kanji, d] of kanjiEntries) {
+    const relatedKanjiItems = (Array.isArray(d.relatedKanji) ? d.relatedKanji : []).map(
+      (character) => ({
+        character,
+        hasPage: generatedKanji.has(character),
+      })
+    );
     const content = {
       page: 'kanji-detail',
       bodyClass: 'kanji-bg',
@@ -330,7 +338,7 @@ function buildKanjiDetailPages(ctxBase, layoutFn) {
         },
       },
       kanji,
-      detail: d,
+      detail: { ...d, relatedKanjiItems },
     };
     const ctx = { ...ctxBase, ...content };
     const body = tplFn(ctx);

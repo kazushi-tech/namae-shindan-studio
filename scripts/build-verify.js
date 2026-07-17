@@ -43,6 +43,64 @@ const errors = [];
 
 function readFile(p) { return fs.readFileSync(p, 'utf8'); }
 
+function isFile(p) {
+  try {
+    return fs.statSync(p).isFile();
+  } catch {
+    return false;
+  }
+}
+
+function listHtmlFiles(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) return listHtmlFiles(fullPath);
+    return entry.isFile() && entry.name.endsWith('.html') ? [fullPath] : [];
+  });
+}
+
+function decodeHtmlAttribute(value) {
+  return value
+    .replace(/&amp;/gi, '&')
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(Number.parseInt(hex, 16)))
+    .replace(/&#([0-9]+);/g, (_, decimal) => String.fromCodePoint(Number.parseInt(decimal, 10)));
+}
+
+function internalTargetCandidates(href) {
+  const decodedHref = decodeHtmlAttribute(href.trim());
+  if (!decodedHref || decodedHref.startsWith('#')) return [];
+  if (/^(?:mailto|tel|javascript|data):/i.test(decodedHref)) return [];
+
+  let url;
+  try {
+    url = new URL(decodedHref, 'https://namae-studio.com');
+  } catch {
+    return [];
+  }
+  if (url.hostname !== 'namae-studio.com') return [];
+
+  let pathname;
+  try {
+    pathname = decodeURIComponent(url.pathname);
+  } catch {
+    pathname = url.pathname;
+  }
+  const relPath = pathname.replace(/^\/+/, '');
+  if (!relPath) return [path.join(DIST, 'index.html')];
+
+  const candidates = pathname.endsWith('/')
+    ? [path.join(DIST, relPath, 'index.html')]
+    : [
+        path.join(DIST, relPath),
+        path.join(DIST, `${relPath}.html`),
+        path.join(DIST, relPath, 'index.html'),
+      ];
+  return candidates.filter((candidate) => {
+    const relative = path.relative(DIST, candidate);
+    return relative !== '..' && !relative.startsWith(`..${path.sep}`) && !path.isAbsolute(relative);
+  });
+}
+
 function pickTitle(html) {
   const m = html.match(/<title>([^<]*)<\/title>/i);
   return m ? m[1].trim() : '';
@@ -224,6 +282,23 @@ function checkKanji() {
   }
 }
 
+function checkInternalLinks() {
+  for (const htmlPath of listHtmlFiles(DIST)) {
+    const html = readFile(htmlPath);
+    const relPath = path.relative(DIST, htmlPath).split(path.sep).join('/');
+    const seenHrefs = new Set();
+    for (const match of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/gi)) {
+      const href = match[1];
+      if (seenHrefs.has(href)) continue;
+      seenHrefs.add(href);
+      const candidates = internalTargetCandidates(href);
+      if (candidates.length > 0 && !candidates.some((candidate) => isFile(candidate))) {
+        errors.push(`[${relPath}] broken internal link: ${decodeHtmlAttribute(href)}`);
+      }
+    }
+  }
+}
+
 function checkStaticAssets() {
   const items = ['css', 'js', 'assets', 'data', 'tool', 'manifest.json', 'robots.txt', 'sitemap.xml', 'sw.js', 'site.config.json'];
   for (const item of items) {
@@ -298,11 +373,12 @@ function main() {
   }
   for (const pair of PAIRS) checkPair(pair);
   checkKanji();
+  checkInternalLinks();
   checkStaticAssets();
   checkSeoContent();
 
   if (errors.length === 0) {
-    console.log(`[verify] PASS — ${PAIRS.length} pairs + kanji loop + static assets all match`);
+    console.log(`[verify] PASS — ${PAIRS.length} pairs + kanji loop + internal links + static assets all match`);
     process.exit(0);
   } else {
     console.error(`[verify] FAIL — ${errors.length} issues:`);
