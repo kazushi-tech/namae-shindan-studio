@@ -80,16 +80,14 @@ add_action( 'wp_head', function () {
 }, 1 );
 
 /**
- * 主要 SEO プラグインが canonical を管理しているか判定する。
+ * 主要 SEO プラグインが有効か判定する。
  *
- * canonical の二重出力を避けるため、既知プラグインの定数・クラス・
- * 有効化済みプラグイン名のいずれかが確認できた場合は子テーマから出力しない。
- * 未知の構成では `affinger4_child_front_page_canonical_managed` フィルタで
- * true を返すことで停止できる。
+ * 既知プラグインの定数・クラス・有効化済みプラグイン名の
+ * いずれかが確認できた場合は、子テーマ側のSEO補完を停止する。
  *
  * @return bool
  */
-function affinger4_child_front_page_canonical_is_managed() {
+function affinger4_child_known_seo_plugin_is_active() {
     $known_constants = array(
         'WPSEO_VERSION',
         'RANK_MATH_VERSION',
@@ -139,7 +137,30 @@ function affinger4_child_front_page_canonical_is_managed() {
         }
     }
 
-    return (bool) apply_filters( 'affinger4_child_front_page_canonical_managed', false );
+    return false;
+}
+
+/**
+ * 外部実装が canonical を管理しているか判定する。
+ *
+ * @return bool
+ */
+function affinger4_child_front_page_canonical_is_managed() {
+    return affinger4_child_known_seo_plugin_is_active()
+        || (bool) apply_filters( 'affinger4_child_front_page_canonical_managed', false );
+}
+
+/**
+ * 外部実装が meta description を管理しているか判定する。
+ *
+ * 未知のSEOプラグインや独自実装を導入した場合は、
+ * `affinger4_child_meta_description_managed` で true を返すことで停止できる。
+ *
+ * @return bool
+ */
+function affinger4_child_meta_description_is_managed() {
+    return affinger4_child_known_seo_plugin_is_active()
+        || (bool) apply_filters( 'affinger4_child_meta_description_managed', false );
 }
 
 /**
@@ -159,6 +180,82 @@ add_action( 'wp_head', function () {
 
     echo '<link rel="canonical" href="' . esc_url( home_url( '/' ) ) . '">' . "\n";
 }, 5 );
+
+/**
+ * SEO プラグイン未導入時だけ、検索結果向けの meta description を補完する。
+ *
+ * 投稿は抜粋を優先し、未設定なら本文冒頭を利用する。ページ送りには
+ * description を出さず、同じ説明文が複数ページへ広がるのを避ける。
+ */
+add_action( 'wp_head', function () {
+    if ( is_admin() || is_feed() || is_paged() || affinger4_child_meta_description_is_managed() ) {
+        return;
+    }
+
+    $description = '';
+
+    if ( is_singular( 'post' ) ) {
+        $post = get_queried_object();
+
+        if ( $post instanceof WP_Post ) {
+            $description = get_the_excerpt( $post );
+
+            if ( ! $description ) {
+                $description = strip_shortcodes( $post->post_content );
+            }
+        }
+    } elseif ( is_front_page() ) {
+        $description = get_bloginfo( 'description', 'display' );
+    } elseif ( is_category() || is_tag() || is_tax() ) {
+        $description = term_description();
+    }
+
+    $description = html_entity_decode(
+        wp_strip_all_tags( (string) $description, true ),
+        ENT_QUOTES,
+        get_bloginfo( 'charset' )
+    );
+    $description = preg_replace( '/\s+/u', ' ', trim( $description ) );
+
+    if ( ! $description ) {
+        return;
+    }
+
+    $description = wp_html_excerpt( $description, 120, '…' );
+    echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
+}, 6 );
+
+/**
+ * 2ページ目以降の一覧は検索インデックスへ含めず、記事リンクの巡回は許可する。
+ */
+add_filter( 'wp_robots', function ( $robots ) {
+    if ( ! is_paged() || ( ! is_home() && ! is_archive() ) ) {
+        return $robots;
+    }
+
+    unset( $robots['index'], $robots['nofollow'] );
+    $robots['noindex'] = true;
+    $robots['follow']  = true;
+
+    return $robots;
+}, 99 );
+
+/**
+ * robots_txt フィルター内の Sitemap 宣言は検索エンジン向け XML だけに絞る。
+ *
+ * do_robots アクションから後置される行には届かないため、Google XML
+ * Sitemaps 側でも「HTML 形式のサイトマップを含める」を無効にする。
+ */
+add_filter( 'robots_txt', function ( $output ) {
+    $output = preg_replace(
+        '#^\s*Sitemap:\s*https?://[^\r\n]+/sitemap\.html\s*$#mi',
+        '',
+        (string) $output
+    );
+    $output = preg_replace( "/\n{3,}/", "\n\n", $output );
+
+    return rtrim( $output ) . "\n";
+}, 999 );
 
 /**
  * 完全重複している旧スラッグを正規 URL へ恒久転送する。

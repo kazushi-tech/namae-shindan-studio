@@ -89,12 +89,16 @@ affinger4-child/
 - 本体サイトへのリンクは `.html` を付けず、公開 canonical と同じクリーン URL を使う。
 - `/akachan-yobousesshu-schedule-2/` は公開 GET/HEAD のみ正規記事へ 301 転送する。管理画面・プレビューには干渉しない。
 - フロントページが投稿一覧の場合だけ自己 canonical を補完する。主要 SEO プラグイン稼働時と固定フロントページでは子テーマから出力しない。
+- 主要 SEO プラグイン未導入時は、投稿の抜粋または本文冒頭から meta description を補完する。
+- 投稿一覧の2ページ目以降は `noindex,follow` とし、記事リンクの巡回だけを許可する。
+- Google XML Sitemaps の「HTML 形式のサイトマップを含める」を無効にし、`robots.txt` の Sitemap 宣言を XML 版だけに絞る。子テーマのフィルターは、`robots_txt` フィルター内に残る HTML 版の行も補助的に除去する。
 - 記事 hero に WordPress の実在著者・公開日・更新日を表示する。医療監修者など、投稿データに存在しない肩書きは表示しない。
 - 記事末尾の導線は `affinger4_child_article_contextual_cta()` のスラッグ別配列へ追加できる。さらに `affinger4_child_article_contextual_cta` フィルタで投稿 ID ごとに上書き可能。
 - CTA リンクには `data-column-cta` が付くため、GTM のクリックトリガーで遷移先別に計測できる。
 
 ## 変更履歴
 
+- `1.5.3`: ページ送りを `noindex,follow` 化し、SEOプラグイン未導入時の meta description と XML-only の Sitemap 宣言を補完。Google XML Sitemaps の HTML 形式出力は管理画面で無効化する。
 - `1.5.2`: クリーン URL、重複記事 301、フロント canonical、著者・公開/更新日、記事末尾の文脈 CTA を追加。親テーマ互換の `#footer` を復元し、公開日以前の更新日は表示しない。
 
 ## 関連プラン
