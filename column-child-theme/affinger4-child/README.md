@@ -8,7 +8,7 @@
 ```
 affinger4-child/
 ├── style.css          — テーマメタ + デザイントークン + 全コンポーネント
-├── functions.php      — 親 enqueue / メニュー / ウィジェット登録 / ヘルパ
+├── functions.php      — enqueue / canonical・重複転送 / メニュー / CTA ヘルパ
 ├── header.php         — グローバルナビ 6 項目（運営者情報なし）
 ├── sidebar.php        — dynamic_sidebar('sidebar-1') を描画
 ├── footer.php         — CTA + コピーライト
@@ -17,7 +17,7 @@ affinger4-child/
 ├── archive.php        — カテゴリ / タグ / 日付別一覧
 ├── search.php         — 記事検索結果
 ├── index.php          — 記事一覧フォールバック
-├── single.php         — 記事詳細（hero + 本文 + 関連記事 + シェア）
+├── single.php         — 記事詳細（著者・日付 + 本文 + 文脈 CTA + 関連記事）
 ├── template-parts/
 │   ├── column-discovery.php — 検索・カテゴリ探索UI
 │   ├── article-card.php     — 一覧共通の記事カード
@@ -74,7 +74,7 @@ affinger4-child/
    ```html
    <div class="widget--cta">
      <p>姓と名を入れるだけで五格の運勢がすぐわかります。</p>
-     <a class="btn btn--primary btn--block" href="https://namae-studio.com/shindan.html">診断ページへ →</a>
+     <a class="btn btn--primary btn--block" href="https://namae-studio.com/shindan">診断ページへ →</a>
    </div>
    ```
 
@@ -83,6 +83,19 @@ affinger4-child/
 子テーマで重大な崩れが出た場合:
 1. FTP で `style.css` の `Theme Name:` を一時改名（例: `AFFINGER4 Child (DISABLED)`）。
 2. 管理画面 → 外観 → テーマで親 AFFINGER4 に戻す。
+
+## SEO・内部導線
+
+- 本体サイトへのリンクは `.html` を付けず、公開 canonical と同じクリーン URL を使う。
+- `/akachan-yobousesshu-schedule-2/` は公開 GET/HEAD のみ正規記事へ 301 転送する。管理画面・プレビューには干渉しない。
+- フロントページが投稿一覧の場合だけ自己 canonical を補完する。主要 SEO プラグイン稼働時と固定フロントページでは子テーマから出力しない。
+- 記事 hero に WordPress の実在著者・公開日・更新日を表示する。医療監修者など、投稿データに存在しない肩書きは表示しない。
+- 記事末尾の導線は `affinger4_child_article_contextual_cta()` のスラッグ別配列へ追加できる。さらに `affinger4_child_article_contextual_cta` フィルタで投稿 ID ごとに上書き可能。
+- CTA リンクには `data-column-cta` が付くため、GTM のクリックトリガーで遷移先別に計測できる。
+
+## 変更履歴
+
+- `1.5.2`: クリーン URL、重複記事 301、フロント canonical、著者・公開/更新日、記事末尾の文脈 CTA を追加。
 
 ## 関連プラン
 

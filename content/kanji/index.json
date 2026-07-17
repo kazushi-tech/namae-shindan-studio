@@ -1,9 +1,10 @@
 {
   "page": "kanji-index",
-  "path": "/kanji/",
+  "path": "/kanji",
+  "outputPath": "kanji/index.html",
   "templatePath": "kanji/index.hbs",
   "bodyClass": "kanji-bg",
-  "navActive": "/kanji/",
+  "navActive": "/kanji",
   "pageCss": "kanji",
   "meta": {
     "title": "漢字辞典 — 赤ちゃんの名付けで人気の漢字を検索 | 赤ちゃん名前診断",
@@ -20,7 +21,7 @@
     "@type": "DefinedTermSet",
     "name": "赤ちゃん名前診断 漢字辞典",
     "description": "赤ちゃんの名付けで人気の漢字を意味・読み・運勢つきで解説",
-    "url": "https://namae-studio.com/kanji/",
+    "url": "https://namae-studio.com/kanji",
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
@@ -34,7 +35,7 @@
           "@type": "ListItem",
           "position": 2,
           "name": "漢字辞典",
-          "item": "https://namae-studio.com/kanji/"
+          "item": "https://namae-studio.com/kanji"
         }
       ]
     }

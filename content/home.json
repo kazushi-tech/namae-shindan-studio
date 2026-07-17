@@ -6,27 +6,22 @@
   "pageCss": "home",
   "mainClass": "",
   "meta": {
-    "title": "赤ちゃん名前診断 — 姓名判断で最高の名前を",
-    "description": "無料の姓名判断サービス。赤ちゃんの名前の画数から五格（天格・人格・地格・外格・総格）を診断。お子さまにぴったりの名前探しをお手伝いします。",
+    "title": "赤ちゃんの名付け支援｜姓名判断・名前候補・漢字辞典 — 赤ちゃん名前診断",
+    "description": "赤ちゃんの名付けを、無料の姓名判断・名前候補検索・名前に使う漢字辞典で支援します。画数だけに偏らず、意味や響きも含めて名前を考えられます。",
     "og": {
-      "title": "赤ちゃん名前診断 — 姓名判断で最高の名前を",
-      "description": "無料の姓名判断サービス。画数から五格を診断して、お子さまにぴったりの名前を見つけましょう。",
+      "title": "赤ちゃんの名付け支援 — 赤ちゃん名前診断",
+      "description": "姓名判断・名前候補検索・漢字辞典を使って、赤ちゃんの名前を多角的に考えられる無料サービスです。",
       "type": "website",
       "image": "/assets/images/og-image.png"
     }
   },
   "jsonLd": {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebSite",
+    "url": "https://namae-studio.com/",
     "name": "赤ちゃん名前診断",
-    "description": "無料の姓名判断サービス。赤ちゃんの名前の画数から五格を診断します。",
-    "applicationCategory": "LifestyleApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "JPY"
-    }
+    "description": "姓名判断・名前候補検索・漢字辞典で赤ちゃんの名付けを支援する無料サイト",
+    "inLanguage": "ja"
   },
   "extraInlineScript": "(function () {\r\n    function applyHeroCTA() {\r\n      if (typeof ABTest === 'undefined') return;\r\n      var btn = document.getElementById('hero-cta-btn');\r\n      if (!btn) return;\r\n      var variant = ABTest.assign('hero-cta-copy', ['A', 'B']);\r\n      if (variant === 'B') btn.textContent = '名前を診断してみる';\r\n      btn.dataset.abVariant = variant;\r\n      if (typeof Analytics !== 'undefined') {\r\n        btn.addEventListener('click', function () {\r\n          Analytics.ctaClicked('hero-cta-' + variant, 'home-hero');\r\n        }, { once: true });\r\n      }\r\n    }\r\n    if (document.readyState !== 'loading') applyHeroCTA();\r\n    else document.addEventListener('DOMContentLoaded', applyHeroCTA);\r\n  })();"
 }

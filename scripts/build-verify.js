@@ -129,6 +129,11 @@ function checkPair({ src, dist }) {
     errors.push(`[${dist}] skip-link missing`);
   }
 
+  const currentPageMarkers = b.match(/\baria-current="page"/gi) || [];
+  if (currentPageMarkers.length > 1) {
+    errors.push(`[${dist}] multiple current-page navigation markers (${currentPageMarkers.length})`);
+  }
+
   const swMatches = b.match(/getRegistrations/g) || [];
   if (swMatches.length > 1) {
     errors.push(`[${dist}] service-worker unregister duplicated (${swMatches.length} occurrences)`);
@@ -229,6 +234,63 @@ function checkStaticAssets() {
   }
 }
 
+function checkSeoContent() {
+  const home = readFile(path.join(DIST, 'index.html'));
+  const shindan = readFile(path.join(DIST, 'shindan.html'));
+  const hubCanonicals = [
+    ['ranking/index.html', 'https://namae-studio.com/ranking'],
+    ['kanji/index.html', 'https://namae-studio.com/kanji'],
+    ['guide/index.html', 'https://namae-studio.com/guide'],
+  ];
+
+  if (!home.includes('<title>赤ちゃんの名付け支援｜')) {
+    errors.push('[index.html] differentiated home title missing');
+  }
+  for (const href of ['/shindan', '/suggestion', '/kanji']) {
+    if (!home.includes(`href="${href}"`)) {
+      errors.push(`[index.html] naming path link missing: ${href}`);
+    }
+  }
+
+  if (!shindan.includes('赤ちゃんの姓名判断・名前の画数診断')) {
+    errors.push('[shindan.html] intent-specific heading missing');
+  }
+  if (!shindan.includes('class="shindan-guide"')) {
+    errors.push('[shindan.html] static explanation section missing');
+  }
+  if (!shindan.includes('"@type": "FAQPage"')) {
+    errors.push('[shindan.html] FAQPage JSON-LD missing');
+  }
+
+  for (const rel of ['ranking/2026-boys.html', 'ranking/2026-girls.html']) {
+    const html = readFile(path.join(DIST, rel));
+    const renderedEntries = (html.match(/\bdata-ranking-entry\b/g) || []).length;
+    if (renderedEntries !== 30) {
+      errors.push(`[${rel}] expected 30 static ranking entries, got ${renderedEntries}`);
+    }
+    if (!html.includes('"@type": "ItemList"')) {
+      errors.push(`[${rel}] ItemList JSON-LD missing`);
+    }
+    if (html.includes('当サイト独自集計') || html.includes('人気名前ランキング')) {
+      errors.push(`[${rel}] unsupported popularity claim remains`);
+    }
+    if (html.includes('RankingPage.render(')) {
+      errors.push(`[${rel}] runtime ranking renderer remains`);
+    }
+  }
+
+  if (home.includes('googletagmanager.com/gtag/js')) {
+    errors.push('[index.html] direct gtag.js must not load while GTM is enabled');
+  }
+
+  for (const [relPath, canonical] of hubCanonicals) {
+    const html = readFile(path.join(DIST, ...relPath.split('/')));
+    if (!html.includes(`<link rel="canonical" href="${canonical}">`)) {
+      errors.push(`[${relPath}] canonical must match the non-trailing-slash production URL`);
+    }
+  }
+}
+
 function main() {
   if (!fs.existsSync(DIST)) {
     console.error('[verify] dist/ not found — did you run npm run build?');
@@ -237,6 +299,7 @@ function main() {
   for (const pair of PAIRS) checkPair(pair);
   checkKanji();
   checkStaticAssets();
+  checkSeoContent();
 
   if (errors.length === 0) {
     console.log(`[verify] PASS — ${PAIRS.length} pairs + kanji loop + static assets all match`);

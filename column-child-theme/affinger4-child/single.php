@@ -23,6 +23,7 @@ get_header();
     $categories  = get_the_category();
     $primary_cat = ! empty( $categories ) ? $categories[0] : null;
     $hero_url    = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+    $author_name = get_the_author();
     ?>
 
     <header class="article-hero">
@@ -40,8 +41,16 @@ get_header();
                 <?php echo esc_html( $primary_cat->name ); ?>
               </a>
             <?php endif; ?>
+            <?php if ( $author_name ) : ?>
+              <span class="article-hero__author">
+                <span class="article-hero__meta-label">執筆：</span><?php echo esc_html( $author_name ); ?>
+              </span>
+            <?php endif; ?>
             <time class="article-hero__date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
-              <?php echo esc_html( get_the_date( 'Y.m.d' ) ); ?>
+              <span class="article-hero__meta-label">公開：</span><?php echo esc_html( get_the_date( 'Y.m.d' ) ); ?>
+            </time>
+            <time class="article-hero__date" datetime="<?php echo esc_attr( get_the_modified_date( 'c' ) ); ?>">
+              <span class="article-hero__meta-label">更新：</span><?php echo esc_html( get_the_modified_date( 'Y.m.d' ) ); ?>
             </time>
           </div>
           <h1 class="article-hero__title"><?php the_title(); ?></h1>
@@ -64,6 +73,38 @@ get_header();
           ) );
           ?>
         </article>
+
+        <?php
+        $contextual_cta = affinger4_child_article_contextual_cta( get_the_ID() );
+        if ( ! empty( $contextual_cta ) ) :
+            $contextual_cta_title_id = 'article-next-step-title-' . get_the_ID();
+        ?>
+          <aside class="article-next-step" aria-labelledby="<?php echo esc_attr( $contextual_cta_title_id ); ?>">
+            <?php if ( $contextual_cta['eyebrow'] ) : ?>
+              <p class="article-next-step__eyebrow"><?php echo esc_html( $contextual_cta['eyebrow'] ); ?></p>
+            <?php endif; ?>
+            <?php if ( $contextual_cta['title'] ) : ?>
+              <h2 class="article-next-step__title" id="<?php echo esc_attr( $contextual_cta_title_id ); ?>">
+                <?php echo esc_html( $contextual_cta['title'] ); ?>
+              </h2>
+            <?php endif; ?>
+            <?php if ( $contextual_cta['description'] ) : ?>
+              <p class="article-next-step__description"><?php echo esc_html( $contextual_cta['description'] ); ?></p>
+            <?php endif; ?>
+            <div class="article-next-step__actions">
+              <?php foreach ( $contextual_cta['links'] as $contextual_link ) : ?>
+                <a
+                  class="btn btn--<?php echo esc_attr( $contextual_link['variant'] ); ?> article-next-step__link"
+                  href="<?php echo esc_url( $contextual_link['url'] ); ?>"
+                  data-column-cta="<?php echo esc_attr( $contextual_link['analytics_target'] ); ?>"
+                >
+                  <?php echo esc_html( $contextual_link['label'] ); ?>
+                  <span class="btn__arrow" aria-hidden="true">→</span>
+                </a>
+              <?php endforeach; ?>
+            </div>
+          </aside>
+        <?php endif; ?>
 
         <?php
         $permalink = get_permalink();

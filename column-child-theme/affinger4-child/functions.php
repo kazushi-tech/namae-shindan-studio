@@ -80,6 +80,130 @@ add_action( 'wp_head', function () {
 }, 1 );
 
 /**
+ * 主要 SEO プラグインが canonical を管理しているか判定する。
+ *
+ * canonical の二重出力を避けるため、既知プラグインの定数・クラス・
+ * 有効化済みプラグイン名のいずれかが確認できた場合は子テーマから出力しない。
+ * 未知の構成では `affinger4_child_front_page_canonical_managed` フィルタで
+ * true を返すことで停止できる。
+ *
+ * @return bool
+ */
+function affinger4_child_front_page_canonical_is_managed() {
+    $known_constants = array(
+        'WPSEO_VERSION',
+        'RANK_MATH_VERSION',
+        'AIOSEO_VERSION',
+        'SEOPRESS_VERSION',
+    );
+
+    foreach ( $known_constants as $constant ) {
+        if ( defined( $constant ) ) {
+            return true;
+        }
+    }
+
+    $known_classes = array(
+        'WPSEO_Frontend',
+        'RankMath',
+        'AIOSEO\\Plugin\\AIOSEO',
+        'SEOPress\\Core\\Kernel',
+    );
+
+    foreach ( $known_classes as $class_name ) {
+        if ( class_exists( $class_name ) ) {
+            return true;
+        }
+    }
+
+    $known_plugin_paths = array(
+        'wordpress-seo/',
+        'seo-by-rank-math/',
+        'all-in-one-seo-pack/',
+        'wp-seopress/',
+    );
+    $active_plugins     = (array) get_option( 'active_plugins', array() );
+
+    if ( is_multisite() ) {
+        $active_plugins = array_merge(
+            $active_plugins,
+            array_keys( (array) get_site_option( 'active_sitewide_plugins', array() ) )
+        );
+    }
+
+    foreach ( $active_plugins as $plugin_path ) {
+        foreach ( $known_plugin_paths as $known_path ) {
+            if ( 0 === strpos( $plugin_path, $known_path ) ) {
+                return true;
+            }
+        }
+    }
+
+    return (bool) apply_filters( 'affinger4_child_front_page_canonical_managed', false );
+}
+
+/**
+ * 投稿一覧をフロントページにしている場合だけ自己 canonical を補完する。
+ *
+ * 固定ページをフロントにしている場合は WordPress コアの rel_canonical() が
+ * 処理するため対象外。ページ送りにもトップ URL を canonical として付けない。
+ */
+add_action( 'wp_head', function () {
+    if ( ! is_front_page() || is_singular() || is_paged() ) {
+        return;
+    }
+
+    if ( affinger4_child_front_page_canonical_is_managed() ) {
+        return;
+    }
+
+    echo '<link rel="canonical" href="' . esc_url( home_url( '/' ) ) . '">' . "\n";
+}, 5 );
+
+/**
+ * 完全重複している旧スラッグを正規 URL へ恒久転送する。
+ *
+ * 管理画面、Ajax、プレビュー、GET/HEAD 以外には干渉しない。
+ */
+add_action( 'template_redirect', function () {
+    if ( is_admin() || is_preview() ) {
+        return;
+    }
+
+    if ( function_exists( 'wp_doing_ajax' ) && wp_doing_ajax() ) {
+        return;
+    }
+
+    if ( isset( $_GET['preview'] ) || isset( $_GET['preview_id'] ) || isset( $_GET['preview_nonce'] ) ) {
+        return;
+    }
+
+    $request_method = isset( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) ) : 'GET';
+    if ( ! in_array( $request_method, array( 'GET', 'HEAD' ), true ) ) {
+        return;
+    }
+
+    $request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+    $request_path = trim( (string) wp_parse_url( $request_uri, PHP_URL_PATH ), '/' );
+    $home_path    = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+
+    if ( $home_path && 0 === strpos( $request_path, $home_path . '/' ) ) {
+        $request_path = substr( $request_path, strlen( $home_path ) + 1 );
+    }
+
+    if ( 'akachan-yobousesshu-schedule-2' !== $request_path ) {
+        return;
+    }
+
+    wp_safe_redirect(
+        home_url( '/akachan-yobousesshu-schedule/' ),
+        301,
+        'AFFINGER4 Child duplicate slug redirect'
+    );
+    exit;
+}, 1 );
+
+/**
  * フロント HTML のキャッシュ設定 — テーマ更新が確実にユーザに届くよう、
  * HTML は毎回再検証させる（ETag による 304 は通る）。
  * CSS/JS は filemtime ベースの ?ver= でバストする運用。
@@ -300,6 +424,100 @@ function affinger4_child_related_posts( $post_id, $count = 3 ) {
     );
 
     return get_posts( $args );
+}
+
+/**
+ * 記事末尾に表示する、内容に応じた次の導線を返す。
+ *
+ * 投稿スラッグ別の個別導線をここへ追加できる。戻り値はすべてプレーンテキストと
+ * URL に正規化し、テンプレート側でもエスケープして表示する。
+ * `affinger4_child_article_contextual_cta` フィルタで投稿ごとの上書きも可能。
+ *
+ * @param int $post_id 投稿 ID
+ * @return array<string, mixed>
+ */
+function affinger4_child_article_contextual_cta( $post_id ) {
+    $post = get_post( $post_id );
+    if ( ! $post || 'post' !== $post->post_type ) {
+        return array();
+    }
+
+    $slug_specific_ctas = array(
+        'shussan-nyuin-mochimono-list' => array(
+            'eyebrow'     => '出産準備の次の一歩',
+            'title'       => '入院・出産の持ち物を一覧で確認',
+            'description' => '準備状況を確認しやすいチェックリストで、必要な持ち物をまとめて見直せます。',
+            'links'       => array(
+                array(
+                    'url'              => 'https://namae-studio.com/guide/shussan-list',
+                    'label'            => '出産準備チェックリストを見る',
+                    'variant'          => 'primary',
+                    'analytics_target' => 'guide_shussan_list',
+                ),
+            ),
+        ),
+    );
+
+    $cta = isset( $slug_specific_ctas[ $post->post_name ] )
+        ? $slug_specific_ctas[ $post->post_name ]
+        : array(
+            'eyebrow'     => '名付けを考えている方へ',
+            'title'       => '赤ちゃんの名前を一歩ずつ考える',
+            'description' => '苗字との画数を確かめたり、条件に合う名前候補を探したりできます。',
+            'links'       => array(
+                array(
+                    'url'              => 'https://namae-studio.com/shindan',
+                    'label'            => '姓名判断で画数を確認',
+                    'variant'          => 'primary',
+                    'analytics_target' => 'shindan',
+                ),
+                array(
+                    'url'              => 'https://namae-studio.com/suggestion',
+                    'label'            => '名前候補を探す',
+                    'variant'          => 'outline',
+                    'analytics_target' => 'suggestion',
+                ),
+            ),
+        );
+
+    $cta = apply_filters( 'affinger4_child_article_contextual_cta', $cta, $post_id );
+    if ( ! is_array( $cta ) || empty( $cta['links'] ) || ! is_array( $cta['links'] ) ) {
+        return array();
+    }
+
+    $links = array();
+    foreach ( $cta['links'] as $link ) {
+        if ( ! is_array( $link ) || empty( $link['url'] ) || empty( $link['label'] ) ) {
+            continue;
+        }
+
+        $url = esc_url_raw( $link['url'] );
+        if ( ! $url ) {
+            continue;
+        }
+
+        $variant = isset( $link['variant'] ) && in_array( $link['variant'], array( 'primary', 'outline' ), true )
+            ? $link['variant']
+            : 'outline';
+
+        $links[] = array(
+            'url'              => $url,
+            'label'            => sanitize_text_field( $link['label'] ),
+            'variant'          => $variant,
+            'analytics_target' => isset( $link['analytics_target'] ) ? sanitize_key( $link['analytics_target'] ) : 'related',
+        );
+    }
+
+    if ( empty( $links ) ) {
+        return array();
+    }
+
+    return array(
+        'eyebrow'     => isset( $cta['eyebrow'] ) ? sanitize_text_field( $cta['eyebrow'] ) : '',
+        'title'       => isset( $cta['title'] ) ? sanitize_text_field( $cta['title'] ) : '',
+        'description' => isset( $cta['description'] ) ? sanitize_text_field( $cta['description'] ) : '',
+        'links'       => $links,
+    );
 }
 
 /**

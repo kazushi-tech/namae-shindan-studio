@@ -928,3 +928,200 @@
   }
 }
 
+/* =======================================================================
+   Static Guide / FAQ — 診断ページの検索意図を補足する説明コンテンツ
+   ======================================================================= */
+
+.shindan-guide {
+  max-width: 920px;
+  margin: var(--space-12) auto 0;
+  padding: var(--space-10);
+  background:
+    radial-gradient(circle at 100% 0%, rgb(240 184 77 / 12%), transparent 34%),
+    linear-gradient(145deg, var(--color-white), var(--color-cream));
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+}
+
+.shindan-guide__intro {
+  max-width: 720px;
+  margin: 0 auto var(--space-8);
+  text-align: center;
+}
+
+.shindan-guide__eyebrow {
+  margin-bottom: var(--space-2);
+  color: var(--color-terracotta);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+}
+
+.shindan-guide__title,
+.shindan-faq__title {
+  color: var(--color-dark);
+  font-family: var(--font-heading);
+  font-weight: var(--weight-black);
+  line-height: var(--leading-tight);
+}
+
+.shindan-guide__title {
+  margin-bottom: var(--space-4);
+  font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+}
+
+.shindan-guide__lead {
+  color: var(--color-medium);
+  line-height: var(--leading-relaxed);
+}
+
+.shindan-guide__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.shindan-guide__card {
+  padding: var(--space-6);
+  background: rgb(255 255 255 / 82%);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+}
+
+.shindan-guide__card-title {
+  margin-bottom: var(--space-4);
+  color: var(--color-dark);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+}
+
+.shindan-guide__card p {
+  color: var(--color-medium);
+  line-height: var(--leading-relaxed);
+}
+
+.shindan-guide__card p + p {
+  margin-top: var(--space-3);
+}
+
+.shindan-guide__definitions {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-5);
+}
+
+.shindan-guide__definitions > div {
+  display: grid;
+  grid-template-columns: 4em minmax(0, 1fr);
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px dashed var(--color-card-border);
+}
+
+.shindan-guide__definitions dt {
+  color: var(--color-terracotta);
+  font-family: var(--font-heading);
+  font-weight: var(--weight-bold);
+}
+
+.shindan-guide__definitions dd {
+  color: var(--color-medium);
+}
+
+.shindan-guide__link {
+  display: inline-flex;
+  margin-top: var(--space-5);
+  color: var(--color-terracotta-dark);
+  font-weight: var(--weight-bold);
+  text-underline-offset: 0.2em;
+}
+
+.shindan-faq {
+  margin-top: var(--space-10);
+}
+
+.shindan-faq__title {
+  margin-bottom: var(--space-5);
+  font-size: var(--text-2xl);
+  text-align: center;
+}
+
+.shindan-faq__item {
+  background: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+}
+
+.shindan-faq__item + .shindan-faq__item {
+  margin-top: var(--space-3);
+}
+
+.shindan-faq__item summary {
+  padding: var(--space-4) var(--space-5);
+  color: var(--color-dark);
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: var(--weight-bold);
+}
+
+.shindan-faq__item p {
+  padding: 0 var(--space-5) var(--space-5);
+  color: var(--color-medium);
+  line-height: var(--leading-relaxed);
+}
+
+.shindan-faq__cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+  padding: var(--space-5);
+  background: var(--color-cream-warm);
+  border-radius: var(--radius-lg);
+}
+
+.shindan-faq__cta p {
+  color: var(--color-medium);
+}
+
+@media (max-width: 767px) {
+  .shindan-guide {
+    margin-top: var(--space-8);
+    padding: var(--space-7) var(--space-5);
+  }
+
+  .shindan-guide__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .shindan-faq__cta {
+    align-items: stretch;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 479px) {
+  .shindan-guide {
+    margin-right: var(--space-3);
+    margin-left: var(--space-3);
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .shindan-guide__card {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .shindan-faq__item summary {
+    padding: var(--space-4);
+  }
+
+  .shindan-faq__item p {
+    padding: 0 var(--space-4) var(--space-4);
+  }
+}
+

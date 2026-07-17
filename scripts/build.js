@@ -31,6 +31,13 @@ const DIST_DIR = path.join(ROOT, 'dist');
 const CONFIG_PATH = path.join(ROOT, 'site.config.json');
 const DESIGN_PATH = path.join(ROOT, 'DESIGN.md');
 const KANJI_DATA_PATH = path.join(ROOT, 'data', 'kanji-meanings.json');
+const FORTUNE_CLASS = {
+  大吉: 'daikichi',
+  吉: 'kichi',
+  半吉: 'hankichi',
+  凶: 'kyo',
+  大凶: 'daikyo',
+};
 
 function readJson(p) {
   return JSON.parse(fs.readFileSync(p, 'utf8'));
@@ -92,7 +99,12 @@ function registerHelpers() {
     const arr = Array.isArray(matchArr) ? matchArr : [matchArr];
     if (navActive && arr.some((m) => m === navActive)) return true;
     if (currentPath && arr.some((m) => m === currentPath)) return true;
-    if (currentPath && arr.some((m) => m.endsWith('/') && currentPath.startsWith(m))) return true;
+    if (
+      currentPath
+      && arr.some((m) => typeof m === 'string' && m !== '/' && m.endsWith('/') && currentPath.startsWith(m))
+    ) {
+      return true;
+    }
     return false;
   });
 
@@ -148,18 +160,88 @@ function findPageTemplate(content) {
   return null;
 }
 
+function rankingHref(name, autoFavorite = false) {
+  const params = new URLSearchParams({ mei: name });
+  if (autoFavorite) params.set('autofav', '1');
+  return `/shindan?${params.toString()}`;
+}
+
+function enrichRankingContent(content, ctxBase) {
+  if (!content.rankingDataPath) return content;
+
+  const dataPath = path.resolve(ROOT, content.rankingDataPath);
+  if (dataPath !== ROOT && !dataPath.startsWith(`${ROOT}${path.sep}`)) {
+    throw new Error(`rankingDataPath must stay inside project root: ${content.rankingDataPath}`);
+  }
+  if (!fs.existsSync(dataPath)) {
+    throw new Error(`Ranking data not found: ${content.rankingDataPath}`);
+  }
+
+  const rankingData = readJson(dataPath);
+  if (!Array.isArray(rankingData.entries) || rankingData.entries.length === 0) {
+    throw new Error(`Ranking entries are empty: ${content.rankingDataPath}`);
+  }
+
+  const medalByRank = { 1: 'gold', 2: 'silver', 3: 'bronze' };
+  const entries = rankingData.entries
+    .map((entry) => ({
+      ...entry,
+      fortuneClass: FORTUNE_CLASS[entry.fortune] || 'kichi',
+      shindanUrl: rankingHref(entry.name),
+      favoriteUrl: rankingHref(entry.name, true),
+    }))
+    .sort((a, b) => Number(a.rank) - Number(b.rank));
+  const top3 = entries.slice(0, 3).map((entry, index) => ({
+    ...entry,
+    medalClass: medalByRank[entry.rank] || 'bronze',
+    buttonClass: entry.rank === 1 ? 'primary' : 'outline',
+    buttonLabel: entry.rank === 1 ? '詳細診断' : '診断する',
+    animationDelay: `${index * 0.1}s`,
+  }));
+  const remainingEntries = entries.slice(3);
+  const siteUrl = ctxBase.site.domain.url.replace(/\/$/, '');
+  const itemList = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: rankingData.title,
+    description: rankingData.methodology,
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    numberOfItems: entries.length,
+    itemListElement: entries.map((entry) => ({
+      '@type': 'ListItem',
+      position: entry.rank,
+      name: entry.name,
+      url: `${siteUrl}${entry.shindanUrl}`,
+    })),
+  };
+  const jsonLd = content.jsonLd
+    ? [...(Array.isArray(content.jsonLd) ? content.jsonLd : [content.jsonLd]), itemList]
+    : itemList;
+
+  return {
+    ...content,
+    jsonLd,
+    rankingData: { ...rankingData, entries },
+    top3,
+    remainingEntries,
+  };
+}
+
 function renderPage(content, ctxBase, layoutFn) {
-  const ctx = { ...ctxBase, ...content };
+  const enrichedContent = enrichRankingContent(content, ctxBase);
+  const ctx = { ...ctxBase, ...enrichedContent };
   let body = '';
-  const tplPath = findPageTemplate(content);
+  const tplPath = findPageTemplate(enrichedContent);
   if (tplPath) {
     const tplSrc = fs.readFileSync(tplPath, 'utf8');
     const tplFn = Handlebars.compile(tplSrc, { noEscape: false });
     body = tplFn(ctx);
-  } else if (typeof content.bodyHtml === 'string') {
-    body = content.bodyHtml;
+  } else if (typeof enrichedContent.bodyHtml === 'string') {
+    body = enrichedContent.bodyHtml;
   } else {
-    throw new Error(`No template or bodyHtml for page: ${content.page} (${content.path})`);
+    throw new Error(
+      `No template or bodyHtml for page: ${enrichedContent.page} (${enrichedContent.path})`
+    );
   }
   return layoutFn({ ...ctx, body });
 }
@@ -175,8 +257,9 @@ function outputPathFor(content) {
 
 function writeDist(relPath, html) {
   const out = path.join(DIST_DIR, relPath);
+  const normalizedHtml = html.replace(/^[\t ]+$/gm, '');
   fse.ensureDirSync(path.dirname(out));
-  fs.writeFileSync(out, html, 'utf8');
+  fs.writeFileSync(out, normalizedHtml, 'utf8');
 }
 
 function buildContentPages(ctxBase, layoutFn) {

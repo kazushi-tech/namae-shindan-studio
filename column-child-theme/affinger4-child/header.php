@@ -46,12 +46,12 @@
     <nav class="site-nav" id="site-nav" aria-label="グローバルナビゲーション">
       <ul class="site-nav__list">
         <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/">ホーム</a></li>
-        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/shindan.html">姓名判断</a></li>
-        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/suggestion.html">名前提案</a></li>
-        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/ranking/">人気ランキング</a></li>
-        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/kanji/">漢字図鑑</a></li>
-        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/about.html">五格</a></li>
-        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/favorites.html">お気に入り</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/shindan">姓名判断</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/suggestion">名前提案</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/ranking">名前30選</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/kanji">漢字図鑑</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/about">五格</a></li>
+        <li class="site-nav__item"><a class="site-nav__link" href="https://namae-studio.com/favorites">お気に入り</a></li>
         <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-current="page">コラム</a></li>
       </ul>
     </nav>

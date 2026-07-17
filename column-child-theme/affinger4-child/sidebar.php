@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <section class="widget widget--cta">
       <h3 class="widget__title">無料で姓名判断を試す</h3>
       <p>姓と名を入れるだけで五格の運勢がすぐわかります。</p>
-      <a class="btn btn--primary btn--block" href="https://namae-studio.com/shindan.html">
+      <a class="btn btn--primary btn--block" href="https://namae-studio.com/shindan">
         診断ページへ <span class="btn__arrow" aria-hidden="true">→</span>
       </a>
     </section>

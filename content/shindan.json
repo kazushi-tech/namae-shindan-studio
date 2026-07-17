@@ -7,26 +7,77 @@
   "mainClass": "section shindan-main",
   "injectKanjiWhitelist": true,
   "meta": {
-    "title": "姓名判断 — 赤ちゃん名前診断",
-    "description": "姓と名を入力するだけで五格（天格・人格・地格・外格・総格）を瞬時に診断。赤ちゃんの名付けに役立つ無料の姓名判断ツールです。",
+    "title": "赤ちゃんの姓名判断・名前の画数診断【無料】— 赤ちゃん名前診断",
+    "description": "姓と名を入力するだけで、天格・人格・地格・外格・総格を無料診断。赤ちゃんの名付けで画数を確認したい方に、計算方法や結果の見方も分かりやすく解説します。",
     "og": {
-      "title": "姓名判断 — 赤ちゃん名前診断",
-      "description": "姓と名を入力するだけで五格を瞬時に診断。無料の姓名判断ツール。",
+      "title": "赤ちゃんの姓名判断・名前の画数診断【無料】",
+      "description": "姓と名を入力するだけで五格を無料診断。計算方法と結果の見方も確認できます。",
       "type": "website",
       "image": "/assets/images/og-image.png"
     }
   },
-  "jsonLd": {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "姓名判断 — 赤ちゃん名前診断",
-    "description": "姓と名を入力するだけで五格を瞬時に診断する無料ツール",
-    "applicationCategory": "LifestyleApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "JPY"
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "赤ちゃんの姓名判断・名前の画数診断",
+      "url": "https://namae-studio.com/shindan",
+      "description": "姓と名を入力して五格を確認できる無料の姓名判断ツール",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "ja",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://namae-studio.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "姓名判断"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "姓名判断の結果は無料で確認できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "はい。会員登録なしで、天格・人格・地格・外格・総格の結果を無料で確認できます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "同じ名前でもサイトによって画数が違うのはなぜですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "旧字体・新字体の扱いや一文字姓・一文字名の仮数など、流派ごとに数え方が異なるためです。本ツールは収録している画数データと五格計算ルールに基づいて診断します。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "凶や大凶がある名前は避けるべきですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "姓名判断は伝統的な占いの一つです。一つの格だけで決めず、名前の意味・響き・呼びやすさなどと合わせて参考情報としてご利用ください。"
+          }
+        }
+      ]
     }
-  }
+  ]
 }

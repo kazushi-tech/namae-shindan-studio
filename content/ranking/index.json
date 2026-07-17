@@ -1,16 +1,17 @@
 {
   "page": "ranking-index",
-  "path": "/ranking/",
+  "path": "/ranking",
+  "outputPath": "ranking/index.html",
   "templatePath": "ranking/index.hbs",
   "bodyClass": "ranking-bg",
-  "navActive": "/ranking/",
+  "navActive": "/ranking",
   "pageCss": "ranking",
   "meta": {
-    "title": "名前ランキング — 赤ちゃん名前診断",
-    "description": "2026年 男の子・女の子の人気名前ランキング。当サイト独自集計で画数・運勢とともにご紹介します。",
+    "title": "2026年 赤ちゃんの名前候補30選｜男女別・読み・画数 — 赤ちゃん名前診断",
+    "description": "2026年の名付け候補として注目したい男の子・女の子の名前を各30件紹介。読みと画数を見ながら、気になる名前を姓名判断できます。",
     "og": {
-      "title": "名前ランキング — 赤ちゃん名前診断",
-      "description": "2026年 男の子・女の子の人気名前ランキング。画数・運勢とともに。",
+      "title": "2026年 赤ちゃんの名前候補30選 — 赤ちゃん名前診断",
+      "description": "男の子・女の子の名前候補を、読み・画数とともに各30件紹介します。",
       "type": "website",
       "image": "/assets/images/og-image.png"
     }
@@ -18,8 +19,8 @@
   "jsonLd": {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "名前ランキング",
-    "description": "2026年 赤ちゃん人気名前ランキング — 男女別・画数・運勢つき",
+    "name": "2026年 赤ちゃんの名前候補30選",
+    "description": "2026年の名付け候補として紹介する、男女別の名前編集リスト",
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
@@ -32,8 +33,8 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "名前ランキング",
-          "item": "https://namae-studio.com/ranking/"
+          "name": "名前候補30選",
+          "item": "https://namae-studio.com/ranking"
         }
       ]
     }

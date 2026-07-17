@@ -30,12 +30,12 @@ if ( ! defined( 'ABSPATH' ) ) {
       <ul class="site-footer__nav">
         <li><a class="site-footer__nav-link" href="<?php echo esc_url( home_url( '/' ) ); ?>">ホーム</a></li>
         <li><a class="site-footer__nav-link" href="https://namae-studio.com/">本体サイト</a></li>
-        <li><a class="site-footer__nav-link" href="https://namae-studio.com/privacy-policy.html">プライバシーポリシー</a></li>
+        <li><a class="site-footer__nav-link" href="https://namae-studio.com/privacy-policy">プライバシーポリシー</a></li>
       </ul>
     <?php endif; ?>
 
     <div class="site-footer__cta">
-      <a class="btn btn--outline" href="https://namae-studio.com/">
+      <a class="btn btn--outline" href="https://namae-studio.com/shindan">
         本体サイトで姓名判断を試す <span class="btn__arrow" aria-hidden="true">→</span>
       </a>
     </div>

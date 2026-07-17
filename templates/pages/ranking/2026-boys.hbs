@@ -3,20 +3,46 @@
       <nav class="breadcrumb" aria-label="パンくずリスト">
         <ol class="breadcrumb__list">
           <li class="breadcrumb__item"><a href="/" class="breadcrumb__link">ホーム</a></li>
-          <li class="breadcrumb__item"><a href="/ranking/" class="breadcrumb__link">名前ランキング</a></li>
-          <li class="breadcrumb__item"><span class="breadcrumb__current">2026年 男の子</span></li>
+          <li class="breadcrumb__item"><a href="/ranking" class="breadcrumb__link">名前候補30選</a></li>
+          <li class="breadcrumb__item"><span class="breadcrumb__current">2026年 男の子 名前候補30選</span></li>
         </ol>
       </nav>
 
-      <div class="ranking-hero">
+      <div class="ranking-hero" data-ranking-page data-ranking-gender="{{rankingData.gender}}" data-ranking-count="{{rankingData.entries.length}}">
         <img src="/assets/images/ranking-tile-boys.png" alt="" class="ranking-hero__illust" width="512" height="512" loading="eager" decoding="async">
-        <span class="ranking-badge">当サイト独自集計</span>
-        <h1 class="page-title" id="ranking-title">2026年 男の子 人気名前ランキング</h1>
-        <p class="page-subtitle">今年最も注目されている男の子の名前を画数と運勢とともにご紹介します。</p>
-        <p class="ranking-badge" id="ranking-updated" style="margin-top: var(--space-3)"></p>
+        <span class="ranking-badge">{{rankingData.source}}</span>
+        <h1 class="page-title" id="ranking-title">{{rankingData.title}}</h1>
+        <p class="page-subtitle">男の子の名前候補を、読み・画数とともにご紹介します。</p>
+        <p class="ranking-badge" id="ranking-updated" style="margin-top: var(--space-3)">
+          最終更新: <time datetime="{{rankingData.updatedAt}}">{{rankingData.updatedAt}}</time>
+        </p>
       </div>
 
-      <section id="ranking-top3" class="top3" aria-label="TOP3"></section>
+      <section id="ranking-top3" class="top3" aria-label="名前候補の最初の3件">
+        {{#each top3}}
+        <article class="top3__card top3__card--{{medalClass}} animate-slide-up" style="animation-delay: {{animationDelay}}" data-ranking-entry data-ranking-position="{{rank}}">
+          <a class="ranking-fav-btn ranking-fav-btn--top3"
+             href="{{favoriteUrl}}"
+             data-ranking-cta="favorite"
+             data-ranking-name="{{name}}"
+             aria-label="「{{name}}」をお気に入りに追加（診断後に自動保存）"
+             title="姓を入力して診断すると、自動でお気に入り登録されます">
+            <span aria-hidden="true">☆</span>
+          </a>
+          <div class="top3__rank-badge top3__rank-badge--{{medalClass}}" aria-label="掲載順 {{rank}}">{{rank}}</div>
+          <h2 class="top3__name">{{name}}</h2>
+          <p class="top3__reading">{{reading}}</p>
+          <div class="top3__meta">
+            <span class="top3__meta-item">{{strokes}}画</span>
+            <span class="top3__meta-item">{{fortune}}</span>
+          </div>
+          <a class="btn btn--{{buttonClass}} btn--sm"
+             href="{{shindanUrl}}"
+             data-ranking-cta="diagnose"
+             data-ranking-name="{{name}}">{{buttonLabel}}</a>
+        </article>
+        {{/each}}
+      </section>
 
       <aside class="ad-slot ad-slot--rect" data-ns-ad="ranking_top3_rect" aria-label="広告" hidden>
         <span class="ad-slot__label">広告</span>
@@ -26,21 +52,48 @@
       <section class="ranking-list" aria-labelledby="ranking-list-heading">
         <div class="ranking-list__header">
           <span aria-hidden="true">🏆</span>
-          <h2 class="ranking-list__header-title" id="ranking-list-heading">4位 〜 30位</h2>
+          <h2 class="ranking-list__header-title" id="ranking-list-heading">4件目 〜 30件目</h2>
         </div>
-        <div id="ranking-list"></div>
+        <div id="ranking-list">
+          {{#each remainingEntries}}
+          <div class="ranking-list__row" data-ranking-entry data-ranking-position="{{rank}}">
+            <span class="ranking-list__rank" aria-label="掲載順 {{rank}}">{{rank}}</span>
+            <a class="ranking-list__name-wrap"
+               href="{{shindanUrl}}"
+               data-ranking-cta="diagnose"
+               data-ranking-name="{{name}}"
+               style="text-decoration: none; color: inherit">
+              <span class="ranking-list__name">{{name}}</span>
+              <span class="ranking-list__reading">{{reading}}</span>
+              <span class="ranking-list__meta">
+                <span class="ranking-list__strokes">{{strokes}}画</span>
+                <span class="ranking-list__fortune ranking-list__fortune--{{fortuneClass}}">{{fortune}}</span>
+              </span>
+            </a>
+            <a class="ranking-fav-btn ranking-fav-btn--row"
+               href="{{favoriteUrl}}"
+               data-ranking-cta="favorite"
+               data-ranking-name="{{name}}"
+               aria-label="「{{name}}」をお気に入りに追加（診断後に自動保存）"
+               title="姓を入力して診断すると、自動でお気に入り登録されます">
+              <span aria-hidden="true">☆</span>
+            </a>
+            <a class="ranking-list__action"
+               href="{{shindanUrl}}"
+               data-ranking-cta="diagnose"
+               data-ranking-name="{{name}}"
+               style="text-decoration: none">診断</a>
+          </div>
+          {{/each}}
+        </div>
       </section>
-
-      <div id="ranking-error" class="alert alert--warning" hidden style="margin-top: var(--space-6)">
-        ランキングデータの読み込みに失敗しました。時間をおいてお試しください。
-      </div>
 
       <div class="section-cta" style="margin-top: var(--space-10)">
         <a href="/shindan" class="btn btn--primary btn--lg">自分の名前で姓名判断</a>
-        <a href="/ranking/2026-girls" class="btn btn--outline" style="margin-left: var(--space-3)">👧 女の子ランキングを見る</a>
+        <a href="/ranking/2026-girls" class="btn btn--outline" style="margin-left: var(--space-3)">👧 女の子の30選を見る</a>
       </div>
 
       <p class="disclaimer-text" style="text-align:center; margin-top: var(--space-8); font-size: var(--text-xs); color: var(--color-muted)">
-        ※ 本ランキングは公開統計（各生保・育児メディア）を参考に当サイトが独自に集計したものです。画数・運勢は代表的な字体に基づいており、使用する漢字によって異なる場合があります。
+        ※ {{rankingData.methodology}} 画数・運勢は代表的な字体に基づいており、使用する漢字によって異なる場合があります。
       </p>
     </div>

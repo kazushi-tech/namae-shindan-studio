@@ -1,8 +1,9 @@
 {
   "page": "guide-index",
-  "path": "/guide/",
+  "path": "/guide",
+  "outputPath": "guide/index.html",
   "templatePath": "guide/index.hbs",
-  "navActive": "/guide/",
+  "navActive": "/guide",
   "pageCss": "guide",
   "meta": {
     "title": "名付けお役立ちガイド | 赤ちゃん名前診断",
@@ -32,7 +33,7 @@
           "@type": "ListItem",
           "position": 2,
           "name": "ガイド",
-          "item": "https://namae-studio.com/guide/"
+          "item": "https://namae-studio.com/guide"
         }
       ]
     }

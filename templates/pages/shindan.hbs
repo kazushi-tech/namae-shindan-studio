@@ -1,10 +1,17 @@
 <div class="container">
 
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item"><a href="/" class="breadcrumb__link">ホーム</a></li>
+          <li class="breadcrumb__item"><span class="breadcrumb__current">姓名判断</span></li>
+        </ol>
+      </nav>
+
       <!-- Page Header -->
       <div class="page-header" data-reveal="fade">
         <img src="/assets/images/shindan-header.png" alt="" class="page-header__illustration" loading="lazy" width="300" height="150">
-        <h1 class="page-title">姓名判断</h1>
-        <p class="page-subtitle">姓と名を入力して五格の運勢を診断しましょう</p>
+        <h1 class="page-title">赤ちゃんの姓名判断・名前の画数診断</h1>
+        <p class="page-subtitle">姓と名を入力すると、五格の画数と伝統的な運勢の見方を無料で確認できます</p>
       </div>
 
       <!-- Shindan Form -->
@@ -130,26 +137,83 @@
         </div>
       </section>
 
+      <section class="shindan-guide" aria-labelledby="shindan-guide-heading" data-reveal="fade">
+        <div class="shindan-guide__intro">
+          <p class="shindan-guide__eyebrow">診断する前に知っておきたいこと</p>
+          <h2 class="shindan-guide__title" id="shindan-guide-heading">赤ちゃんの姓名判断で確認できる5つの画数</h2>
+          <p class="shindan-guide__lead">
+            この無料ツールでは、姓と名の画数から天格・人格・地格・外格・総格を計算します。
+            結果は名付けを決める唯一の基準ではなく、意味や響き、呼びやすさと合わせて考えるための参考情報です。
+          </p>
+        </div>
+
+        <div class="shindan-guide__grid">
+          <article class="shindan-guide__card">
+            <h3 class="shindan-guide__card-title">五格の計算方法</h3>
+            <dl class="shindan-guide__definitions">
+              <div><dt>天格</dt><dd>姓の画数の合計</dd></div>
+              <div><dt>人格</dt><dd>姓の最後と名の最初の画数</dd></div>
+              <div><dt>地格</dt><dd>名の画数の合計</dd></div>
+              <div><dt>外格</dt><dd>総格から人格を引いた数を基本に算出</dd></div>
+              <div><dt>総格</dt><dd>姓と名すべての画数の合計</dd></div>
+            </dl>
+            <a href="/about" class="shindan-guide__link">五格の詳しい計算例を見る</a>
+          </article>
+
+          <article class="shindan-guide__card">
+            <h3 class="shindan-guide__card-title">画数が他サイトと違う場合</h3>
+            <p>
+              旧字体・新字体の扱いや、一文字姓・一文字名に加える仮数などは流派によって異なります。
+              本ツールは収録している画数データと五格計算ルールを使用しています。
+            </p>
+            <p>
+              字体の違いが気になる場合は、使いたい漢字の意味や読みも確認し、複数の情報を比較してください。
+            </p>
+            <a href="/kanji" class="shindan-guide__link">名前に使う漢字の意味・画数を見る</a>
+          </article>
+        </div>
+
+        <div class="shindan-faq" aria-labelledby="shindan-faq-heading">
+          <h2 class="shindan-faq__title" id="shindan-faq-heading">姓名判断についてよくある質問</h2>
+          <details class="shindan-faq__item">
+            <summary>姓名判断の結果は無料で確認できますか？</summary>
+            <p>はい。会員登録なしで、天格・人格・地格・外格・総格の結果を無料で確認できます。</p>
+          </details>
+          <details class="shindan-faq__item">
+            <summary>同じ名前でもサイトによって画数が違うのはなぜですか？</summary>
+            <p>旧字体・新字体の扱いや一文字姓・一文字名の仮数など、流派ごとに数え方が異なるためです。本ツールは収録している画数データと五格計算ルールに基づいて診断します。</p>
+          </details>
+          <details class="shindan-faq__item">
+            <summary>凶や大凶がある名前は避けるべきですか？</summary>
+            <p>姓名判断は伝統的な占いの一つです。一つの格だけで決めず、名前の意味・響き・呼びやすさと合わせて参考にしてください。</p>
+          </details>
+          <div class="shindan-faq__cta">
+            <p>画数を確認したあとは、条件に合う別の名前候補も比較できます。</p>
+            <a href="/suggestion" class="btn btn--outline">条件から名前候補を探す</a>
+          </div>
+        </div>
+      </section>
+
       <!-- Related Pages — 「もっと詳しく知る」(診断前は汎用リンク、診断後は UIController が上書き) -->
       <section class="related-pages" aria-labelledby="related-pages-heading" data-reveal="fade" data-reveal-delay="160">
         <h2 class="related-pages__heading" id="related-pages-heading">📚 もっと詳しく知る</h2>
         <ul class="related-pages__link-list" id="related-pages-links">
           <li>
-            <a class="related-pages__row" href="/kanji/">
+            <a class="related-pages__row" href="/kanji">
               <span class="related-pages__row-icon" aria-hidden="true">📖</span>
               <span class="related-pages__row-text">漢字辞典 — 名前に使える漢字の画数・意味</span>
               <span class="related-pages__row-arrow" aria-hidden="true">›</span>
             </a>
           </li>
           <li>
-            <a class="related-pages__row" href="/ranking/">
+            <a class="related-pages__row" href="/ranking">
               <span class="related-pages__row-icon" aria-hidden="true">🏆</span>
               <span class="related-pages__row-text">2026年 赤ちゃんの名前ランキング</span>
               <span class="related-pages__row-arrow" aria-hidden="true">›</span>
             </a>
           </li>
           <li>
-            <a class="related-pages__row" href="/guide/">
+            <a class="related-pages__row" href="/guide">
               <span class="related-pages__row-icon" aria-hidden="true">📚</span>
               <span class="related-pages__row-text">名付けお役立ちガイド</span>
               <span class="related-pages__row-arrow" aria-hidden="true">›</span>

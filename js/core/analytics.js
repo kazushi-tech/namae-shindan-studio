@@ -1,7 +1,9 @@
 /**
  * js/core/analytics.js — GA4 ラッパー
  *
- * - site.config.json の analytics.ga4MeasurementId が null の場合、全メソッドは no-op
+ * - GTM が有効な場合は dataLayer にイベントを送信（gtag.js は重複ロードしない）
+ * - GTM が無効で GA4 測定 ID がある場合は gtag.js を利用
+ * - init('G-...') の従来形式にも対応
  * - イベント名・パラメータは統一スキーマ（50サイトで同一）
  *
  * 共通イベントスキーマ:
@@ -18,19 +20,39 @@ const Analytics = (() => {
   'use strict';
 
   let _measurementId = null;
+  let _mode = null;
   let _enabled = false;
   let _queue = [];
 
-  function init(measurementId) {
-    if (!measurementId || typeof measurementId !== 'string' || !measurementId.startsWith('G-')) {
+  function init(config) {
+    const analyticsConfig = typeof config === 'string'
+      ? { ga4MeasurementId: config }
+      : (config || {});
+    const gtm = analyticsConfig.gtm || {};
+    const gtmEnabled = gtm.enabled === true
+      && typeof gtm.containerId === 'string'
+      && /^GTM-[A-Z0-9]+$/.test(gtm.containerId);
+    const measurementId = analyticsConfig.ga4MeasurementId;
+    const ga4Enabled = typeof measurementId === 'string'
+      && measurementId.startsWith('G-');
+
+    if (!gtmEnabled && !ga4Enabled) {
+      _measurementId = null;
+      _mode = null;
       _enabled = false;
       return;
     }
-    _measurementId = measurementId;
+
+    _measurementId = ga4Enabled ? measurementId : null;
+    _mode = gtmEnabled ? 'gtm' : 'gtag';
     _enabled = true;
 
-    // gtag.js を動的ロード
-    if (!window.gtag) {
+    if (_mode === 'gtm') {
+      // GTM のコンテナスニペットが同じ dataLayer を監視する。
+      // ここでは gtag.js / GTM 自体を重複ロードしない。
+      window.dataLayer = window.dataLayer || [];
+    } else if (!window.gtag) {
+      // GTM を使わない GA4 単独構成のみ gtag.js を動的ロードする。
       const script = document.createElement('script');
       script.async = true;
       script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
@@ -53,12 +75,20 @@ const Analytics = (() => {
   }
 
   function _send(name, params) {
-    if (!_enabled || !window.gtag) {
+    if (!_enabled) {
       _queue.push([name, params]);
       return;
     }
+
     try {
-      window.gtag('event', name, params || {});
+      if (_mode === 'gtm') {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: name, ...(params || {}) });
+      } else if (_mode === 'gtag' && window.gtag) {
+        window.gtag('event', name, params || {});
+      } else {
+        _queue.push([name, params]);
+      }
     } catch (e) { /* swallow */ }
   }
 
@@ -87,7 +117,7 @@ const Analytics = (() => {
   }
   function abVariantAssigned(experimentId, variant) {
     _send('ab_variant_assigned', { experiment_id: experimentId, variant });
-    if (_enabled && window.gtag) {
+    if (_enabled && _mode === 'gtag' && window.gtag) {
       window.gtag('set', 'user_properties', { [`exp_${experimentId}`]: variant });
     }
   }

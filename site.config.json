@@ -6,7 +6,7 @@
     "name": "赤ちゃん名前診断",
     "shortName": "名前診断",
     "tagline": "大切なお子さまに最高の名前を",
-    "description": "無料の姓名判断サービス。赤ちゃんの名前の画数から五格を診断します。",
+    "description": "姓名判断・名前候補検索・漢字辞典で、赤ちゃんの名付けを支援する無料サービスです。",
     "emoji": "🌸"
   },
   "domain": {
@@ -37,7 +37,7 @@
     "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap"
   },
   "analytics": {
-    "ga4MeasurementId": null,
+    "ga4MeasurementId": "G-R0ZRWMFC73",
     "searchConsoleVerifyId": null,
     "gtm": {
       "containerId": "GTM-TKF64R7Q",
@@ -59,9 +59,9 @@
     { "label": "ホーム", "href": "/", "match": ["/", "/index.html"] },
     { "label": "姓名判断", "href": "/shindan", "match": ["/shindan", "/shindan.html"] },
     { "label": "名前候補", "href": "/suggestion", "match": ["/suggestion", "/suggestion.html"] },
-    { "label": "ランキング", "href": "/ranking/", "match": ["/ranking/", "/ranking"] },
-    { "label": "漢字辞典", "href": "/kanji/", "match": ["/kanji/", "/kanji"] },
-    { "label": "ガイド", "href": "/guide/", "match": ["/guide/", "/guide"] },
+    { "label": "名前30選", "href": "/ranking", "match": ["/ranking/", "/ranking"] },
+    { "label": "漢字辞典", "href": "/kanji", "match": ["/kanji/", "/kanji"] },
+    { "label": "ガイド", "href": "/guide", "match": ["/guide/", "/guide"] },
     { "label": "五格", "href": "/about", "match": ["/about", "/about.html"] },
     { "label": "⭐お気に入り", "href": "/favorites", "match": ["/favorites", "/favorites.html"] },
     { "label": "コラム", "href": "https://column.namae-studio.com/", "external": true }

@@ -26,9 +26,9 @@
         if (!cfg) return;
         window.__NS_CONFIG__ = cfg;
 
-        // Analytics (GA4)
-        if (window.Analytics && cfg.analytics && cfg.analytics.ga4MeasurementId) {
-          try { window.Analytics.init(cfg.analytics.ga4MeasurementId); } catch (e) { /* swallow */ }
+        // Analytics (GTM / GA4)
+        if (window.Analytics && cfg.analytics) {
+          try { window.Analytics.init(cfg.analytics); } catch (e) { /* swallow */ }
         }
 
         // AdSense（有効時のみ）

@@ -58,6 +58,7 @@
   <meta name="theme-color" content="{{site.colors.themeColor}}">
 
   {{#if site.analytics.ga4MeasurementId}}
+  {{#unless site.analytics.gtm.enabled}}
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={{site.analytics.ga4MeasurementId}}"></script>
   <script>
@@ -66,6 +67,7 @@
     gtag('js', new Date());
     gtag('config', '{{site.analytics.ga4MeasurementId}}', { anonymize_ip: true });
   </script>
+  {{/unless}}
   {{/if}}
 
   {{#if site.analytics.adsense.enabled}}
