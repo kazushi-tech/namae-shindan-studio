@@ -13,7 +13,9 @@ get_header();
 
 global $wp_query;
 $total         = isset( $wp_query->found_posts ) ? (int) $wp_query->found_posts : 0;
-$archive_title = is_category() ? single_cat_title( '', false ) : get_the_archive_title();
+$archive_title = is_category()
+    ? single_cat_title( '', false )
+    : wp_strip_all_tags( get_the_archive_title(), true );
 ?>
 
 <main class="site-main" id="site-main" role="main">

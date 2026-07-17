@@ -164,6 +164,71 @@ function affinger4_child_meta_description_is_managed() {
 }
 
 /**
+ * 外部実装が構造化データを管理しているか判定する。
+ *
+ * @return bool
+ */
+function affinger4_child_structured_data_is_managed() {
+    return affinger4_child_known_seo_plugin_is_active()
+        || (bool) apply_filters( 'affinger4_child_structured_data_managed', false );
+}
+
+/**
+ * AFFINGER4 のカテゴリ固有タイトル設定を PHP 8 系でも安全な形へ正規化する。
+ *
+ * 親テーマ st-title.php は未設定カテゴリで get_option() が false を返した場合も
+ * `['st_cattitle']` を直接参照する。該当カテゴリの option/default_option フィルター
+ * だけを補い、親テーマ本体やデータベースは書き換えない。
+ *
+ * @param mixed $value カテゴリ設定値
+ * @return array<string, mixed>
+ */
+function affinger4_child_normalize_category_title_option( $value ) {
+    if ( ! is_array( $value ) ) {
+        $value = array();
+    }
+
+    if ( ! array_key_exists( 'st_cattitle', $value ) ) {
+        $value['st_cattitle'] = '';
+    }
+
+    return $value;
+}
+
+/**
+ * カテゴリアーカイブを独立した検索流入ページとして扱えるか判定する。
+ *
+ * 記事が3件未満の薄いカテゴリは noindex とし、記事が増えれば自動で index 対象へ戻す。
+ *
+ * @param WP_Term|null $term カテゴリ
+ * @return bool
+ */
+function affinger4_child_category_is_indexable( $term = null ) {
+    if ( null === $term ) {
+        $term = get_queried_object();
+    }
+
+    return $term instanceof WP_Term
+        && 'category' === $term->taxonomy
+        && (int) $term->count >= 3;
+}
+
+add_action( 'wp', function () {
+    if ( ! is_category() ) {
+        return;
+    }
+
+    $category_id = (int) get_queried_object_id();
+    if ( $category_id <= 0 ) {
+        return;
+    }
+
+    $option_name = 'cat_' . $category_id;
+    add_filter( 'option_' . $option_name, 'affinger4_child_normalize_category_title_option', 99 );
+    add_filter( 'default_option_' . $option_name, 'affinger4_child_normalize_category_title_option', 99 );
+}, 1 );
+
+/**
  * 投稿一覧をフロントページにしている場合だけ自己 canonical を補完する。
  *
  * 固定ページをフロントにしている場合は WordPress コアの rel_canonical() が
@@ -179,6 +244,38 @@ add_action( 'wp_head', function () {
     }
 
     echo '<link rel="canonical" href="' . esc_url( home_url( '/' ) ) . '">' . "\n";
+}, 5 );
+
+/**
+ * 記事があるカテゴリの先頭ページへ自己 canonical を補完する。
+ *
+ * 記事が3件未満のカテゴリと2ページ目以降は noindex 対象のため canonical を出さない。
+ */
+add_action( 'wp_head', function () {
+    if ( ! is_category() || is_paged() || affinger4_child_front_page_canonical_is_managed() ) {
+        return;
+    }
+
+    global $wp_query;
+    if ( ! $wp_query || (int) $wp_query->post_count <= 0 ) {
+        return;
+    }
+
+    $term = get_queried_object();
+    if ( ! $term instanceof WP_Term ) {
+        return;
+    }
+
+    if ( ! affinger4_child_category_is_indexable( $term ) ) {
+        return;
+    }
+
+    $canonical = get_term_link( $term );
+    if ( is_wp_error( $canonical ) ) {
+        return;
+    }
+
+    echo '<link rel="canonical" href="' . esc_url( $canonical ) . '">' . "\n";
 }, 5 );
 
 /**
@@ -205,7 +302,7 @@ add_action( 'wp_head', function () {
             }
         }
     } elseif ( is_front_page() ) {
-        $description = get_bloginfo( 'description', 'display' );
+        $description = '赤ちゃんの名付け・姓名判断を中心に、妊娠・出産準備、育児、子どもの成長やママの暮らしに役立つ情報を、根拠とともにわかりやすく届けるコラムです。';
     } elseif ( is_category() || is_tag() || is_tax() ) {
         $description = term_description();
     }
@@ -226,10 +323,107 @@ add_action( 'wp_head', function () {
 }, 6 );
 
 /**
- * 2ページ目以降の一覧は検索インデックスへ含めず、記事リンクの巡回は許可する。
+ * SEO プラグイン未導入時に WebSite / BlogPosting 構造化データを補完する。
+ */
+add_action( 'wp_head', function () {
+    if ( affinger4_child_structured_data_is_managed() ) {
+        return;
+    }
+
+    $schema = array();
+
+    if ( is_front_page() && ! is_paged() ) {
+        $schema = array(
+            '@context'    => 'https://schema.org',
+            '@type'       => 'WebSite',
+            '@id'         => home_url( '/#website' ),
+            'url'         => home_url( '/' ),
+            'name'        => get_bloginfo( 'name', 'display' ),
+            'description' => '赤ちゃんの名付け・姓名判断を中心に、妊娠・出産準備、育児、子どもの成長やママの暮らしに役立つ情報を届けるコラムです。',
+            'inLanguage'  => str_replace( '_', '-', get_locale() ),
+        );
+    } elseif ( is_singular( 'post' ) ) {
+        $post = get_queried_object();
+        if ( ! $post instanceof WP_Post ) {
+            return;
+        }
+
+        $description = get_the_excerpt( $post );
+        if ( ! $description ) {
+            $description = strip_shortcodes( $post->post_content );
+        }
+        $description = preg_replace(
+            '/\s+/u',
+            ' ',
+            trim( wp_strip_all_tags( html_entity_decode( (string) $description, ENT_QUOTES, get_bloginfo( 'charset' ) ), true ) )
+        );
+
+        $schema = array(
+            '@context'         => 'https://schema.org',
+            '@type'            => 'BlogPosting',
+            '@id'              => get_permalink( $post ) . '#article',
+            'mainEntityOfPage' => array(
+                '@type' => 'WebPage',
+                '@id'   => get_permalink( $post ),
+            ),
+            'isPartOf'          => array(
+                '@id' => home_url( '/#website' ),
+            ),
+            'headline'          => wp_html_excerpt( wp_strip_all_tags( get_the_title( $post ), true ), 110, '…' ),
+            'description'       => wp_html_excerpt( $description, 180, '…' ),
+            'datePublished'     => get_post_time( DATE_W3C, true, $post ),
+            'dateModified'      => gmdate( DATE_W3C, affinger4_child_post_lastmod_timestamp( $post ) ),
+            'author'            => array(
+                '@type' => 'Person',
+                'name'  => get_the_author_meta( 'display_name', $post->post_author ),
+            ),
+            'publisher'         => array(
+                '@type' => 'Organization',
+                'name'  => get_bloginfo( 'name', 'display' ),
+                'url'   => home_url( '/' ),
+            ),
+            'inLanguage'        => str_replace( '_', '-', get_locale() ),
+        );
+
+        $image_url = get_the_post_thumbnail_url( $post, 'full' );
+        if ( $image_url ) {
+            $schema['image'] = array( esc_url_raw( $image_url ) );
+        }
+
+        $sections = wp_get_post_categories( $post->ID, array( 'fields' => 'names' ) );
+        if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) {
+            $schema['articleSection'] = array_values( array_map( 'sanitize_text_field', $sections ) );
+        }
+    }
+
+    if ( empty( $schema ) ) {
+        return;
+    }
+
+    echo '<script type="application/ld+json" id="affinger4-child-structured-data">';
+    echo wp_json_encode(
+        $schema,
+        JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+    );
+    echo '</script>' . "\n";
+}, 7 );
+
+/**
+ * 薄い一覧を検索インデックスへ含めず、記事リンクの巡回は許可する。
+ *
+ * 対象: 2ページ目以降、タグ、著者、日付、検索結果、記事が3件未満のカテゴリ。
  */
 add_filter( 'wp_robots', function ( $robots ) {
-    if ( ! is_paged() || ( ! is_home() && ! is_archive() ) ) {
+    $is_paged_listing = is_paged() && ( is_home() || is_archive() );
+    $is_thin_category = is_category() && ! affinger4_child_category_is_indexable();
+    $should_noindex = $is_paged_listing
+        || $is_thin_category
+        || is_tag()
+        || is_author()
+        || is_date()
+        || is_search();
+
+    if ( ! $should_noindex ) {
         return $robots;
     }
 
@@ -239,6 +433,25 @@ add_filter( 'wp_robots', function ( $robots ) {
 
     return $robots;
 }, 99 );
+
+/**
+ * XMLサイトマップへ掲載するカテゴリも index 対象（3記事以上）だけに絞る。
+ *
+ * @param int[] $term_ids 除外するターム ID
+ * @return int[]
+ */
+add_filter( 'sm_exclude_from_sitemap_by_term_ids', function ( $term_ids ) {
+    $term_ids   = array_map( 'intval', (array) $term_ids );
+    $categories = get_categories( array( 'hide_empty' => false ) );
+
+    foreach ( $categories as $category ) {
+        if ( ! affinger4_child_category_is_indexable( $category ) ) {
+            $term_ids[] = (int) $category->term_id;
+        }
+    }
+
+    return array_values( array_unique( $term_ids ) );
+} );
 
 /**
  * robots_txt フィルター内の Sitemap 宣言は検索エンジン向け XML だけに絞る。
@@ -258,12 +471,194 @@ add_filter( 'robots_txt', function ( $output ) {
 }, 999 );
 
 /**
- * 完全重複している旧スラッグを正規 URL へ恒久転送する。
+ * 公開日時と更新日時のうち、検索エンジンへ伝えるべき新しい方を返す。
  *
+ * 予約投稿は記事の保存・更新日時より公開日時が後になるため、更新日時だけを使う
+ * サイトマップ実装では公開直後から古い lastmod が出る。その差を子テーマ側で補う。
+ *
+ * @param int|WP_Post $post 投稿
+ * @return int Unix timestamp
+ */
+function affinger4_child_post_lastmod_timestamp( $post ) {
+    $post = get_post( $post );
+    if ( ! $post instanceof WP_Post ) {
+        return 0;
+    }
+
+    $published_gmt = '0000-00-00 00:00:00' !== $post->post_date_gmt
+        ? $post->post_date_gmt
+        : get_gmt_from_date( $post->post_date );
+    $modified_gmt  = '0000-00-00 00:00:00' !== $post->post_modified_gmt
+        ? $post->post_modified_gmt
+        : get_gmt_from_date( $post->post_modified );
+
+    $published = strtotime( $published_gmt . ' UTC' );
+    $modified  = strtotime( $modified_gmt . ' UTC' );
+
+    return max( (int) $published, (int) $modified );
+}
+
+/**
+ * カテゴリ内の公開済み記事だけから、最新の公開・更新日時を返す。
+ *
+ * Google XML Sitemaps は予約投稿をカテゴリの lastmod 計算へ含めるため、
+ * 未来日の lastmod が出ないよう子テーマ側で公開済み記事に限定する。
+ *
+ * @param int $category_id カテゴリ ID
+ * @return int Unix timestamp
+ */
+function affinger4_child_category_lastmod_timestamp( $category_id ) {
+    $query_base = array(
+        'post_type'           => 'post',
+        'post_status'         => 'publish',
+        'category__in'        => array( (int) $category_id ),
+        'posts_per_page'      => 1,
+        'ignore_sticky_posts' => true,
+        'no_found_rows'       => true,
+    );
+
+    $latest_by_date = get_posts(
+        array_merge(
+            $query_base,
+            array(
+                'orderby' => 'date',
+                'order'   => 'DESC',
+            )
+        )
+    );
+    $latest_by_modified = get_posts(
+        array_merge(
+            $query_base,
+            array(
+                'orderby' => 'modified',
+                'order'   => 'DESC',
+            )
+        )
+    );
+
+    $lastmod = 0;
+    foreach ( array_merge( $latest_by_date, $latest_by_modified ) as $post ) {
+        $lastmod = max( $lastmod, affinger4_child_post_lastmod_timestamp( $post ) );
+    }
+
+    return $lastmod;
+}
+
+/**
+ * Google XML Sitemaps の各投稿 URL に正しい lastmod を設定する。
+ *
+ * プラグイン本体を改変せず、公開 API の sm_addurl アクションを利用する。
+ *
+ * @param object $page GoogleSitemapGeneratorPage
+ */
+add_action( 'sm_addurl', function ( $page ) {
+    if (
+        ! is_object( $page )
+        || ! method_exists( $page, 'get_post_id' )
+        || ! method_exists( $page, 'get_last_mod' )
+        || ! method_exists( $page, 'set_last_mod' )
+    ) {
+        return;
+    }
+
+    $post_id = (int) $page->get_post_id();
+    if ( $post_id > 0 ) {
+        $lastmod = affinger4_child_post_lastmod_timestamp( $post_id );
+        if ( $lastmod > (int) $page->get_last_mod() ) {
+            $page->set_last_mod( $lastmod );
+        }
+
+        return;
+    }
+
+    if ( ! method_exists( $page, 'get_url' ) ) {
+        return;
+    }
+
+    $page_url   = untrailingslashit( (string) $page->get_url() );
+    $categories = get_categories( array( 'hide_empty' => false ) );
+
+    foreach ( $categories as $category ) {
+        if ( ! affinger4_child_category_is_indexable( $category ) ) {
+            continue;
+        }
+
+        $category_url = get_category_link( $category->term_id );
+        if ( is_wp_error( $category_url ) || untrailingslashit( $category_url ) !== $page_url ) {
+            continue;
+        }
+
+        $lastmod = affinger4_child_category_lastmod_timestamp( $category->term_id );
+        if ( $lastmod > 0 ) {
+            $page->set_last_mod( $lastmod );
+        }
+
+        break;
+    }
+}, 10, 1 );
+
+/**
+ * 投稿サイトマップを含む索引にも、最新の公開・更新日時を反映する。
+ *
+ * @param object $sitemap GoogleSitemapGeneratorSitemapEntry
+ */
+add_action( 'sm_addsitemap', function ( $sitemap ) {
+    if (
+        ! is_object( $sitemap )
+        || ! method_exists( $sitemap, 'get_url' )
+        || ! method_exists( $sitemap, 'get_last_mod' )
+        || ! method_exists( $sitemap, 'set_last_mod' )
+    ) {
+        return;
+    }
+
+    $url = (string) $sitemap->get_url();
+    if ( false === strpos( $url, 'post-sitemap' ) ) {
+        return;
+    }
+
+    $latest_by_date = get_posts(
+        array(
+            'post_type'           => 'post',
+            'post_status'         => 'publish',
+            'posts_per_page'      => 1,
+            'orderby'             => 'date',
+            'order'               => 'DESC',
+            'ignore_sticky_posts' => true,
+            'no_found_rows'       => true,
+        )
+    );
+    $latest_by_modified = get_posts(
+        array(
+            'post_type'           => 'post',
+            'post_status'         => 'publish',
+            'posts_per_page'      => 1,
+            'orderby'             => 'modified',
+            'order'               => 'DESC',
+            'ignore_sticky_posts' => true,
+            'no_found_rows'       => true,
+        )
+    );
+
+    $lastmod = 0;
+    foreach ( array_merge( $latest_by_date, $latest_by_modified ) as $post ) {
+        $lastmod = max( $lastmod, affinger4_child_post_lastmod_timestamp( $post ) );
+    }
+
+    if ( $lastmod > (int) $sitemap->get_last_mod() ) {
+        $sitemap->set_last_mod( $lastmod );
+    }
+}, 10, 1 );
+
+/**
+ * 旧スラッグと不要なサイトマップ面を正規 URL へ恒久転送する。
+ *
+ * XML サイトマッププラグインが parse_request より後でレスポンスを確定する前に
+ * /wp-sitemap.xml を捕捉するため、init の最優先で実行する。
  * 管理画面、Ajax、プレビュー、GET/HEAD 以外には干渉しない。
  */
-add_action( 'template_redirect', function () {
-    if ( is_admin() || is_preview() ) {
+add_action( 'init', function () {
+    if ( is_admin() ) {
         return;
     }
 
@@ -288,14 +683,21 @@ add_action( 'template_redirect', function () {
         $request_path = substr( $request_path, strlen( $home_path ) + 1 );
     }
 
-    if ( 'akachan-yobousesshu-schedule-2' !== $request_path ) {
+    $redirects = array(
+        'akachan-yobousesshu-schedule-2'         => '/akachan-yobousesshu-schedule/',
+        'kodomo-teashikuchibyo-shojo-taisho-2'  => '/kodomo-jikokouteikan-sodatekata/',
+        'sitemap.html'                           => '/sitemap.xml',
+        'wp-sitemap.xml'                         => '/sitemap.xml',
+    );
+
+    if ( ! isset( $redirects[ $request_path ] ) ) {
         return;
     }
 
     wp_safe_redirect(
-        home_url( '/akachan-yobousesshu-schedule/' ),
+        home_url( $redirects[ $request_path ] ),
         301,
-        'AFFINGER4 Child duplicate slug redirect'
+        'AFFINGER4 Child canonical redirect'
     );
     exit;
 }, 1 );
@@ -454,34 +856,94 @@ add_filter( 'nav_menu_link_attributes', function ( $atts, $item, $args ) {
 }, 10, 3 );
 
 /**
- * カスタムパンくず出力ヘルパ
+ * カスタムパンくずの表示項目を返す。
  *
- * 親テーマの breadcrumb が不揃いなので、子テーマ側で BEM 化した版を使う。
+ * @return array<int, array{name: string, url: string}>
  */
-function affinger4_child_breadcrumb() {
-    echo '<nav class="breadcrumb" aria-label="パンくずリスト"><ol class="breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">';
-    echo '<li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
-    echo '<a class="breadcrumb__link" href="' . esc_url( home_url( '/' ) ) . '" itemprop="item"><span itemprop="name">ホーム</span></a>';
-    echo '<meta itemprop="position" content="1" /></li>';
+function affinger4_child_breadcrumb_items() {
+    $items = array(
+        array(
+            'name' => 'ホーム',
+            'url'  => home_url( '/' ),
+        ),
+    );
 
     if ( is_singular( 'post' ) ) {
         $categories = get_the_category();
         if ( ! empty( $categories ) ) {
             $cat = $categories[0];
-            echo '<li class="breadcrumb__item"><span class="breadcrumb__sep" aria-hidden="true">›</span>';
-            echo '<a class="breadcrumb__link" href="' . esc_url( get_category_link( $cat->term_id ) ) . '">' . esc_html( $cat->name ) . '</a></li>';
+            $items[] = array(
+                'name' => $cat->name,
+                'url'  => get_category_link( $cat->term_id ),
+            );
         }
-        echo '<li class="breadcrumb__item"><span class="breadcrumb__sep" aria-hidden="true">›</span>';
-        echo '<span class="breadcrumb__current" aria-current="page">' . esc_html( get_the_title() ) . '</span></li>';
+        $items[] = array(
+            'name' => get_the_title(),
+            'url'  => get_permalink(),
+        );
     } elseif ( is_category() ) {
-        echo '<li class="breadcrumb__item"><span class="breadcrumb__sep" aria-hidden="true">›</span>';
-        echo '<span class="breadcrumb__current" aria-current="page">' . esc_html( single_cat_title( '', false ) ) . '</span></li>';
+        $items[] = array(
+            'name' => single_cat_title( '', false ),
+            'url'  => get_category_link( get_queried_object_id() ),
+        );
+    } elseif ( is_tag() ) {
+        $items[] = array(
+            'name' => single_tag_title( '', false ),
+            'url'  => get_tag_link( get_queried_object_id() ),
+        );
     } elseif ( is_search() ) {
-        echo '<li class="breadcrumb__item"><span class="breadcrumb__sep" aria-hidden="true">›</span>';
-        echo '<span class="breadcrumb__current" aria-current="page">検索結果</span></li>';
+        $items[] = array(
+            'name' => '検索結果',
+            'url'  => get_search_link(),
+        );
     } elseif ( is_page() ) {
-        echo '<li class="breadcrumb__item"><span class="breadcrumb__sep" aria-hidden="true">›</span>';
-        echo '<span class="breadcrumb__current" aria-current="page">' . esc_html( get_the_title() ) . '</span></li>';
+        $items[] = array(
+            'name' => get_the_title(),
+            'url'  => get_permalink(),
+        );
+    } elseif ( is_archive() ) {
+        $items[] = array(
+            'name' => wp_strip_all_tags( get_the_archive_title(), true ),
+            'url'  => get_pagenum_link(),
+        );
+    }
+
+    return $items;
+}
+
+/**
+ * カスタムパンくず出力ヘルパ
+ *
+ * 親テーマの breadcrumb が不揃いなので、子テーマ側で BEM 化した版を使う。
+ * 全項目を BreadcrumbList/ListItem として構造化する。
+ */
+function affinger4_child_breadcrumb() {
+    $items = affinger4_child_breadcrumb_items();
+    if ( empty( $items ) ) {
+        return;
+    }
+
+    echo '<nav class="breadcrumb" aria-label="パンくずリスト"><ol class="breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">';
+
+    $last_position = count( $items );
+    foreach ( $items as $index => $item ) {
+        $position = $index + 1;
+        $is_last  = $position === $last_position;
+
+        echo '<li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+        if ( $position > 1 ) {
+            echo '<span class="breadcrumb__sep" aria-hidden="true">›</span>';
+        }
+
+        if ( ! $is_last || 1 === $last_position ) {
+            echo '<a class="breadcrumb__link" href="' . esc_url( $item['url'] ) . '" itemprop="item">';
+            echo '<span itemprop="name">' . esc_html( $item['name'] ) . '</span></a>';
+        } else {
+            echo '<span class="breadcrumb__current" aria-current="page" itemprop="name">' . esc_html( $item['name'] ) . '</span>';
+            echo '<meta itemprop="item" content="' . esc_url( $item['url'] ) . '" />';
+        }
+
+        echo '<meta itemprop="position" content="' . esc_attr( $position ) . '" /></li>';
     }
 
     echo '</ol></nav>';
@@ -499,28 +961,95 @@ add_filter( 'excerpt_length', function () {
 } );
 
 /**
- * 関連記事（同カテゴリ 3 件）を取得
+ * 関連記事（同カテゴリの前後記事）を取得
+ *
+ * 1記事だけのカテゴリでは、同じタグを持つ公開記事で補完し、
+ * 小カテゴリの記事が関連記事・内部リンクとも0件になるのを防ぐ。
  *
  * @param int $post_id 現在の投稿 ID
  * @param int $count   取得件数
  * @return WP_Post[]
  */
 function affinger4_child_related_posts( $post_id, $count = 3 ) {
+    $post_id = (int) $post_id;
+    $count   = max( 1, (int) $count );
+
     $categories = wp_get_post_categories( $post_id );
     if ( empty( $categories ) ) {
         return array();
     }
 
-    $args = array(
-        'category__in'   => $categories,
-        'post__not_in'   => array( $post_id ),
-        'posts_per_page' => $count,
-        'orderby'        => 'date',
-        'order'          => 'DESC',
-        'no_found_rows'  => true,
+    $category_post_ids = get_posts(
+        array(
+            'category__in'        => $categories,
+            'post_status'         => 'publish',
+            'posts_per_page'      => -1,
+            'fields'              => 'ids',
+            'orderby'             => 'date',
+            'order'               => 'DESC',
+            'ignore_sticky_posts' => true,
+            'no_found_rows'       => true,
+        )
     );
 
-    return get_posts( $args );
+    $category_post_ids = array_values( array_unique( array_map( 'intval', $category_post_ids ) ) );
+    $total             = count( $category_post_ids );
+    $current_index     = array_search( $post_id, $category_post_ids, true );
+
+    $selected_ids = array();
+    if ( $total > 1 && false !== $current_index ) {
+        for ( $distance = 1; $distance < $total && count( $selected_ids ) < $count; $distance++ ) {
+            foreach ( array( 1, -1 ) as $direction ) {
+                $candidate_index = ( $current_index + ( $distance * $direction ) + $total ) % $total;
+                $candidate_id    = $category_post_ids[ $candidate_index ];
+
+                if ( $candidate_id !== $post_id && ! in_array( $candidate_id, $selected_ids, true ) ) {
+                    $selected_ids[] = $candidate_id;
+                }
+
+                if ( count( $selected_ids ) >= $count ) {
+                    break;
+                }
+            }
+        }
+    }
+
+    if ( empty( $selected_ids ) ) {
+        $tag_ids = wp_get_post_tags( $post_id, array( 'fields' => 'ids' ) );
+        if ( ! empty( $tag_ids ) && ! is_wp_error( $tag_ids ) ) {
+            $selected_ids = get_posts(
+                array(
+                    'post_type'           => 'post',
+                    'post_status'         => 'publish',
+                    'post__not_in'        => array( $post_id ),
+                    'tag__in'             => array_map( 'intval', $tag_ids ),
+                    'posts_per_page'      => $count,
+                    'fields'              => 'ids',
+                    'orderby'             => 'date',
+                    'order'               => 'DESC',
+                    'ignore_sticky_posts' => true,
+                    'no_found_rows'       => true,
+                )
+            );
+            $selected_ids = array_values( array_unique( array_map( 'intval', $selected_ids ) ) );
+        }
+    }
+
+    if ( empty( $selected_ids ) ) {
+        return array();
+    }
+
+    return get_posts(
+        array(
+            'post_type'           => 'post',
+            'post_status'         => 'publish',
+            'post__in'            => $selected_ids,
+            'posts_per_page'      => count( $selected_ids ),
+            'orderby'             => 'post__in',
+            'ignore_sticky_posts' => true,
+            'no_found_rows'       => true,
+        )
+    );
 }
 
 /**

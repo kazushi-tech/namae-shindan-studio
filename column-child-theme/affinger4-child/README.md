@@ -90,14 +90,20 @@ affinger4-child/
 - `/akachan-yobousesshu-schedule-2/` は公開 GET/HEAD のみ正規記事へ 301 転送する。管理画面・プレビューには干渉しない。
 - フロントページが投稿一覧の場合だけ自己 canonical を補完する。主要 SEO プラグイン稼働時と固定フロントページでは子テーマから出力しない。
 - 主要 SEO プラグイン未導入時は、投稿の抜粋または本文冒頭から meta description を補完する。
-- 投稿一覧の2ページ目以降は `noindex,follow` とし、記事リンクの巡回だけを許可する。
+- 投稿一覧の2ページ目以降、タグ・著者・日付・検索結果、記事が3件未満のカテゴリは `noindex,follow` とし、記事リンクの巡回だけを許可する。カテゴリの記事が3件以上になれば自動で index 対象へ戻る。
+- 記事が3件以上あるカテゴリの先頭ページには自己 canonical を出力する。
+- SEOプラグイン未導入時は、トップに `WebSite`、記事に `BlogPosting` の JSON-LD を補完する。
+- パンくずは表示中の全項目を `BreadcrumbList` / `ListItem` として構造化する。
 - Google XML Sitemaps の「HTML 形式のサイトマップを含める」を無効にし、`robots.txt` の Sitemap 宣言を XML 版だけに絞る。子テーマのフィルターは、`robots_txt` フィルター内に残る HTML 版の行も補助的に除去する。
+- Google XML Sitemaps でカテゴリを有効にする場合も、サイトマップへは3記事以上のカテゴリだけを掲載する。
+- 旧 `/sitemap.html/` と空の `/wp-sitemap.xml` は、正規の `/sitemap.xml` へ301転送する。
 - 記事 hero に WordPress の実在著者・公開日・更新日を表示する。医療監修者など、投稿データに存在しない肩書きは表示しない。
 - 記事末尾の導線は `affinger4_child_article_contextual_cta()` のスラッグ別配列へ追加できる。さらに `affinger4_child_article_contextual_cta` フィルタで投稿 ID ごとに上書き可能。
 - CTA リンクには `data-column-cta` が付くため、GTM のクリックトリガーで遷移先別に計測できる。
 
 ## 変更履歴
 
+- `1.5.4`: AFFINGER4 の未設定カテゴリで発生する PHP 8 警告を子テーマ側で回避。3記事未満カテゴリ等の noindex、有効カテゴリ canonical、WebSite/BlogPosting 構造化データ、完全なパンくず、サイトマップ正規化・lastmod、タグ見出し、関連記事リンクの分散を改善。
 - `1.5.3`: ページ送りを `noindex,follow` 化し、SEOプラグイン未導入時の meta description と XML-only の Sitemap 宣言を補完。Google XML Sitemaps の HTML 形式出力は管理画面で無効化する。
 - `1.5.2`: クリーン URL、重複記事 301、フロント canonical、著者・公開/更新日、記事末尾の文脈 CTA を追加。親テーマ互換の `#footer` を復元し、公開日以前の更新日は表示しない。
 
