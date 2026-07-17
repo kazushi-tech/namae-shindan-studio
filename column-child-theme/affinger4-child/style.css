@@ -2427,3 +2427,25 @@ button {
     scroll-behavior: auto;
   }
 }
+
+/* Keep legacy Search blocks inside the sidebar even when WP saved an inline width. */
+.content-layout__aside .wp-block-search,
+.content-layout__aside .wp-block-search__inside-wrapper {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+.content-layout__aside .wp-block-search__inside-wrapper {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.content-layout__aside .wp-block-search__input {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+}
+
+.content-layout__aside .wp-block-search__button {
+  flex: 0 0 auto;
+}

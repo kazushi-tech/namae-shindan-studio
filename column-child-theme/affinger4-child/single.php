@@ -24,6 +24,9 @@ get_header();
     $primary_cat = ! empty( $categories ) ? $categories[0] : null;
     $hero_url    = get_the_post_thumbnail_url( get_the_ID(), 'full' );
     $author_name = get_the_author();
+    $published_timestamp = (int) get_the_time( 'U' );
+    $modified_timestamp  = (int) get_the_modified_time( 'U' );
+    $show_modified_date  = $modified_timestamp > $published_timestamp;
     ?>
 
     <header class="article-hero">
@@ -49,9 +52,11 @@ get_header();
             <time class="article-hero__date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
               <span class="article-hero__meta-label">公開：</span><?php echo esc_html( get_the_date( 'Y.m.d' ) ); ?>
             </time>
-            <time class="article-hero__date" datetime="<?php echo esc_attr( get_the_modified_date( 'c' ) ); ?>">
-              <span class="article-hero__meta-label">更新：</span><?php echo esc_html( get_the_modified_date( 'Y.m.d' ) ); ?>
-            </time>
+            <?php if ( $show_modified_date ) : ?>
+              <time class="article-hero__date" datetime="<?php echo esc_attr( get_the_modified_date( 'c' ) ); ?>">
+                <span class="article-hero__meta-label">更新：</span><?php echo esc_html( get_the_modified_date( 'Y.m.d' ) ); ?>
+              </time>
+            <?php endif; ?>
           </div>
           <h1 class="article-hero__title"><?php the_title(); ?></h1>
         </div>

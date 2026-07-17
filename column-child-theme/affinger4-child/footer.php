@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 ?>
-<footer class="site-footer" role="contentinfo">
+<footer class="site-footer" id="footer" role="contentinfo">
   <div class="site-footer__inner">
     <p class="site-footer__brand"><?php bloginfo( 'name' ); ?></p>
     <p class="site-footer__tagline">赤ちゃんの名付けを楽しく学ぶコラム</p>
