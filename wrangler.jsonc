@@ -9,5 +9,7 @@
     "directory": "./dist",
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page"
-  }
+  },
+  // www は cloudflare/www-redirect の Worker が本体へ転送する
+  "routes": [{ "pattern": "namae-studio.com", "custom_domain": true }]
 }
