@@ -8,7 +8,9 @@
     "build:verify": "node scripts/build-verify.js",
     "build:diff": "node scripts/build-diff.js",
     "test": "node scripts/test-analytics.mjs",
-    "generate-images": "node scripts/generate-images.js"
+    "generate-images": "node scripts/generate-images.js",
+    "build:cloudflare": "npm run build && npm run build:verify && cp cloudflare/_headers dist/_headers",
+    "deploy:cloudflare": "npm run build:cloudflare && wrangler deploy"
   },
   "dependencies": {
     "@google/genai": "^1.45.0",
@@ -19,6 +21,7 @@
     "fast-glob": "^3.3.3",
     "fs-extra": "^11.3.4",
     "gray-matter": "^4.0.3",
-    "handlebars": "^4.7.9"
+    "handlebars": "^4.7.9",
+    "wrangler": "4.151.3"
   }
 }

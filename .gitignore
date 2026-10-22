@@ -27,3 +27,5 @@ build/
 *.log
 npm-debug.log*
 .vercel
+
+.wrangler/
